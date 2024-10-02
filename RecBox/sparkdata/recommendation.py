@@ -6,6 +6,7 @@ from pyspark.ml.recommendation import ALS
 from pyspark.sql.functions import col, pow
 import mlflow
 import mlflow.spark
+import psycopg2
 
 # Set the tracking URI (change this to your server URL)
 mlflow.set_tracking_uri("http://mlflow:5000")  # Change to your MLflow tracking server URL
@@ -76,7 +77,6 @@ num_iterations = 10
 ranks = [6, 8, 10, 12]
 reg_params = [0.05, 0.1, 0.2, 0.4, 0.8]
 
-
 # Start MLflow run to log parameters and metrics
 with mlflow.start_run():
     start_time = time.time()
@@ -103,8 +103,25 @@ with mlflow.start_run():
     
     print('The testing RMSE is ' + str(test_rmse))
 
-
 # Save the model in the required format
 final_model.save("/sparkdata/models/als_model")
 mlflow.spark.log_model(final_model, "/sparkdata/models/als_model")
 
+
+# Generate Top 5 Recommendations for each user
+user_recs = final_model.recommendForAllUsers(5)
+user_recs.show(truncate=False)
+
+# Convert recommendations into a more readable format
+recommendations = user_recs.withColumn("recommendations", col("recommendations.movieId"))
+
+# Set up PostgreSQL connection and write recommendations to DB
+recommendations.write \
+    .format("jdbc") \
+    .option("url", "jdbc:postgresql://postgres:5432/airflow") \
+    .option("dbtable", "recommendations") \
+    .option("user", "airflow") \
+    .option("password", "airflow") \
+    .option("driver", "org.postgresql.Driver") \
+    .mode("overwrite") \
+    .save()

@@ -3,23 +3,37 @@ from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 from subprocess import call
 
+# Define default arguments for the DAG
 default_args = {
     'owner': 'airflow',
-    'depends_on_past': False,
-    'start_date': datetime(2024, 1, 1),
-    'email_on_failure': False,
-    'email_on_retry': False,
-    'retries': 1,
-    'retry_delay': timedelta(minutes=2),
+    'depends_on_past': False,  # Do not depend on past executions
+    'start_date': datetime(2024, 1, 1),  # Start date of the DAG
+    'email_on_failure': False,  # No email on failure
+    'email_on_retry': False,  # No email on retry
+    'retries': 1,  # Retry once in case of failure
+    'retry_delay': timedelta(minutes=2),  # Delay between retries
 }
 
-def run_spark_job():
-    call(["spark-submit", "/sparkdata/recommendation.py"])
+# Define the function to run the Spark job
+def run_spark_job(execution_date):
+    # Convert execution_date to a datetime object
+    execution_datetime = datetime.strptime(execution_date, '%Y-%m-%dT%H:%M:%S.%fZ')  # Adjust the format if necessary
+    # Use the execution date as the job ID
+    job_id = execution_datetime.strftime('%Y-%m-%d_%H-%M-%S')
+    print(f"Running Spark job with ID: {job_id}")
+    call(["spark-submit", "/sparkdata/recommendation.py", "--job-id", job_id])  # Pass the job_id as argument
 
-dag = DAG('recommendation_dag', default_args=default_args, schedule_interval='*/2 * * * *')
+# Create a new DAG with a 24-hour interval
+dag = DAG(
+    'recommendation_dag',
+    default_args=default_args,
+    schedule_interval='@daily',  # Run the DAG every 24 hours
+)
 
+# Define the PythonOperator task to run the Spark job
 run_spark = PythonOperator(
     task_id='run_recommendation_system',
     python_callable=run_spark_job,
-    dag=dag
+    op_kwargs={'execution_date': '{{ execution_date }}'},  # Pass the execution date to the function
+    dag=dag,
 )

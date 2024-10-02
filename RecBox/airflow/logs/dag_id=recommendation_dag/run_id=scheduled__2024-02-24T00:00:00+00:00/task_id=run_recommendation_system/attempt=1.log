@@ -1,0 +1,32 @@
+[2024-10-02T20:43:22.822+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: recommendation_dag.run_recommendation_system scheduled__2024-02-24T00:00:00+00:00 [queued]>
+[2024-10-02T20:43:22.831+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: recommendation_dag.run_recommendation_system scheduled__2024-02-24T00:00:00+00:00 [queued]>
+[2024-10-02T20:43:22.831+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2024-10-02T20:43:22.840+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): run_recommendation_system> on 2024-02-24 00:00:00+00:00
+[2024-10-02T20:43:22.842+0000] {standard_task_runner.py:57} INFO - Started process 99 to run task
+[2024-10-02T20:43:22.845+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'recommendation_dag', 'run_recommendation_system', 'scheduled__2024-02-24T00:00:00+00:00', '--job-id', '366', '--raw', '--subdir', 'DAGS_FOLDER/recommendation_dag.py', '--cfg-path', '/tmp/tmpnada8b6m']
+[2024-10-02T20:43:22.846+0000] {standard_task_runner.py:85} INFO - Job 366: Subtask run_recommendation_system
+[2024-10-02T20:43:22.857+0000] {warnings.py:109} WARNING - /home/***/.local/lib/python3.8/site-packages/***/settings.py:193: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2024-10-02T20:43:22.889+0000] {task_command.py:416} INFO - Running <TaskInstance: recommendation_dag.run_recommendation_system scheduled__2024-02-24T00:00:00+00:00 [running]> on host 6db14147d297
+[2024-10-02T20:43:22.920+0000] {warnings.py:109} WARNING - /home/***/.local/lib/python3.8/site-packages/***/utils/context.py:206: AirflowContextDeprecationWarning: Accessing 'execution_date' from the template is deprecated and will be removed in a future version. Please use 'data_interval_start' or 'logical_date' instead.
+  warnings.warn(_create_deprecation_warning(key, self._deprecation_replacements[key]))
+
+[2024-10-02T20:43:22.958+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='recommendation_dag' AIRFLOW_CTX_TASK_ID='run_recommendation_system' AIRFLOW_CTX_EXECUTION_DATE='2024-02-24T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-02-24T00:00:00+00:00'
+[2024-10-02T20:43:22.965+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/recommendation_dag.py", line 20, in run_spark_job
+    execution_datetime = datetime.strptime(execution_date, '%Y-%m-%dT%H:%M:%S.%fZ')  # Adjust the format if necessary
+  File "/usr/local/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/local/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2024-02-24T00:00:00+00:00' does not match format '%Y-%m-%dT%H:%M:%S.%fZ'
+[2024-10-02T20:43:22.984+0000] {taskinstance.py:1400} INFO - Marking task as UP_FOR_RETRY. dag_id=recommendation_dag, task_id=run_recommendation_system, execution_date=20240224T000000, start_date=20241002T204322, end_date=20241002T204322
+[2024-10-02T20:43:23.000+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 366 for task run_recommendation_system (time data '2024-02-24T00:00:00+00:00' does not match format '%Y-%m-%dT%H:%M:%S.%fZ'; 99)
+[2024-10-02T20:43:23.025+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2024-10-02T20:43:23.113+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

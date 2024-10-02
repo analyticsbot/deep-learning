@@ -23,6 +23,7 @@ services:
       POSTGRES_DB: airflow
     volumes:
       - postgres_db_volume:/var/lib/postgresql/data
+      - ./path/to/sql-scripts:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s
@@ -45,6 +46,8 @@ services:
       retries: 50
       start_period: 30s
     restart: always
+    networks:
+      - mlflow_network
 
   airflow:
     image: apache/airflow:2.7.2  # Updated to a single version for consistency
@@ -55,11 +58,15 @@ services:
       - AIRFLOW__WEBSERVER__RBAC=True
       - AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0
       - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow
-      - AIRFLOW__WEBSERVER__SECRET_KEY=your-secret-key-here  # Added secret key
+      - AIRFLOW__WEBSERVER__SECRET_KEY=cb2b1bfc05ea3c6f033c4dec6a74e83a55145bd27632e964aae8d3720bd39ef5  # Added secret key
+      - _AIRFLOW_WWW_USER_CREATE=True
+      - _AIRFLOW_WWW_USER_USERNAME=admin
+      - _AIRFLOW_WWW_USER_PASSWORD=airflow
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs  # Added logs volume for consistency
       - ./airflow/plugins:/opt/airflow/plugins  # Added plugins volume for consistency
+      - ./dags/entrypoint.sh:/entrypoint.sh
     ports:
       - "8081:8080"
     depends_on:
@@ -67,7 +74,9 @@ services:
       - redis
     networks:
       - mlflow_network
-    command: bash -c "airflow db init && airflow webserver"  # Changed to init for the first run
+    # command: bash -c "airflow db init && airflow webserver"  # Changed to init for the first run
+    # entrypoint: ["/bin/bash", "/entrypoint.sh", "airflow", "db", "init", "&&", "airflow", "webserver"]  # Modify the entrypoint
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]
 
   airflow-scheduler:
     image: apache/airflow:2.7.2  # Updated to a single version for consistency
@@ -85,6 +94,8 @@ services:
       - redis
     restart: always
     command: scheduler
+    networks:
+      - mlflow_network
 
   airflow-worker:
     image: apache/airflow:2.7.2  # Updated to a single version for consistency
@@ -102,6 +113,8 @@ services:
       - redis
     restart: always
     command: celery worker 
+    networks:
+      - mlflow_network
 
   airflow-init:
     image: apache/airflow:2.7.2  # Updated to a single version for consistency
@@ -119,6 +132,8 @@ services:
     depends_on:
       - postgres
       - redis
+    networks:
+      - mlflow_network
 
   mlflow:
     image: ubuntu/mlflow:2.1.1_1.0-22.04

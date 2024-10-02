@@ -86,3 +86,72 @@ Before running the project, ensure you have the following installed:
 
 7. License
 This project is licensed under the MIT License.
+
+## Project Learnings
+#### How to remove all containers and start from scratch?
+
+Step 1: Stop and Remove Containers
+If you have running containers, stop them first:
+> docker-compose down
+This command will stop and remove all containers defined in your docker-compose.yml.
+
+Step 2: Remove Docker Images
+To remove all images (including the ones you've built), use the following command:
+> docker rmi $(docker images -q) --force
+If you get an error that image is being used by another container, please use
+> docker stop $(docker ps -a -q)
+
+Check for container images
+> docker ps
+> docker rm $(docker ps -a -q)
+
+Step 3: Remove All Volumes
+If you want to remove all volumes (be cautious, as this will delete any data stored in volumes), use:
+
+> docker volume prune -f
+
+Step 4: Clear Build Cache
+You can also clear the Docker build cache by running:
+
+> docker builder prune -a -f
+
+Step 5: Start from Scratch
+Now, you can rebuild your Docker images using Docker Compose:
+
+> docker-compose up --build
+
+
+#### Dockerfile vs docker-compose:
+1. https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Dockerfile-vs-docker-compose-Whats-the-difference#:~:text=The%20key%20difference%20between%20the,used%20to%20run%20Docker%20containers.
+2. https://stackoverflow.com/questions/29480099/whats-the-difference-between-docker-compose-vs-dockerfile
+
+#### Docker workshop
+
+This 45-minute workshop contains step-by-step instructions on how to get started with Docker. This workshop shows you how to:
+
+- Build and run an image as a container.
+- Share images using Docker Hub.
+- Deploy Docker applications using multiple containers with a database.
+- Run applications using Docker Compose.
+
+https://docs.docker.com/get-started/workshop/
+
+#### Bridge network in docker
+
+A bridge network in Docker is a default network type that allows containers to communicate with each other while being isolated from external networks. It acts as a private internal network for the containers.
+
+How it helps:
+- Container-to-container communication: Containers can easily communicate via their container names, without needing to expose ports to the host.
+- Isolation: Containers are isolated from the host machine and other networks, providing better security.
+- Custom control: You can create custom bridge networks to define which containers should be able to communicate.
+
+Issue with putting everything on the same network:
+- Security risk: All services can communicate with each other, which may expose services unnecessarily to potential attacks.
+- Resource contention: Containers might compete for resources like bandwidth, affecting performance.
+- Complexity: Troubleshooting network issues becomes harder as the network grows with more services.
+
+Best practices:
+- Use multiple networks: Isolate services that don’t need to communicate (e.g., frontend and backend).
+- Leverage network modes: Use bridge for inter-container communication and host for direct network access when needed.
+- Apply network policies: Use firewall rules or Docker network security policies to limit communication.
+- Use depends_on cautiously: It handles service startup order but doesn’t wait for dependencies to be fully ready.
