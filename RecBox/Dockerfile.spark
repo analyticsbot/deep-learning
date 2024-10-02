@@ -1,0 +1,5 @@
+FROM bitnami/spark
+USER root
+RUN install_packages curl git
+USER 1001
+RUN pip install numpy mlflow

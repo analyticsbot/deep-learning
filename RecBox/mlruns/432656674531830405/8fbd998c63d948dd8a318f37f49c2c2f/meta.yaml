@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/432656674531830405/8fbd998c63d948dd8a318f37f49c2c2f/artifacts
+end_time: 1727823306928
+entry_point_name: ''
+experiment_id: '432656674531830405'
+lifecycle_stage: active
+run_id: 8fbd998c63d948dd8a318f37f49c2c2f
+run_name: able-hog-454
+run_uuid: 8fbd998c63d948dd8a318f37f49c2c2f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727823263393
+status: 3
+tags: []
+user_id: spark

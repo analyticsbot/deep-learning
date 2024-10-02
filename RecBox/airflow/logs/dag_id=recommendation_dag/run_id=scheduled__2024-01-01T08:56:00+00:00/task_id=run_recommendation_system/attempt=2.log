@@ -1,0 +1,31 @@
+[2024-10-01T22:58:57.867+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: recommendation_dag.run_recommendation_system scheduled__2024-01-01T08:56:00+00:00 [queued]>
+[2024-10-01T22:58:57.922+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: recommendation_dag.run_recommendation_system scheduled__2024-01-01T08:56:00+00:00 [queued]>
+[2024-10-01T22:58:57.923+0000] {taskinstance.py:1361} INFO - Starting attempt 2 of 2
+[2024-10-01T22:58:57.983+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): run_recommendation_system> on 2024-01-01 08:56:00+00:00
+[2024-10-01T22:58:58.006+0000] {standard_task_runner.py:57} INFO - Started process 722 to run task
+[2024-10-01T22:58:58.020+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'recommendation_dag', 'run_recommendation_system', 'scheduled__2024-01-01T08:56:00+00:00', '--job-id', '631', '--raw', '--subdir', 'DAGS_FOLDER/recommendation_dag.py', '--cfg-path', '/tmp/tmp26kblex1']
+[2024-10-01T22:58:58.023+0000] {standard_task_runner.py:85} INFO - Job 631: Subtask run_recommendation_system
+[2024-10-01T22:58:58.049+0000] {warnings.py:109} WARNING - /home/***/.local/lib/python3.8/site-packages/***/settings.py:193: DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+  SQL_ALCHEMY_CONN = conf.get("database", "SQL_ALCHEMY_CONN")
+
+[2024-10-01T22:58:58.121+0000] {task_command.py:416} INFO - Running <TaskInstance: recommendation_dag.run_recommendation_system scheduled__2024-01-01T08:56:00+00:00 [running]> on host c1d510772263
+[2024-10-01T22:58:58.207+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='recommendation_dag' AIRFLOW_CTX_TASK_ID='run_recommendation_system' AIRFLOW_CTX_EXECUTION_DATE='2024-01-01T08:56:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-01-01T08:56:00+00:00'
+[2024-10-01T22:58:58.221+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/recommendation_dag.py", line 17, in run_spark_job
+    call(["spark-submit", "/sparkdata/recommendation.py"])
+  File "/usr/local/lib/python3.8/subprocess.py", line 340, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "/usr/local/lib/python3.8/subprocess.py", line 858, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/local/lib/python3.8/subprocess.py", line 1720, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+PermissionError: [Errno 13] Permission denied: 'spark-submit'
+[2024-10-01T22:58:58.239+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=recommendation_dag, task_id=run_recommendation_system, execution_date=20240101T085600, start_date=20241001T225857, end_date=20241001T225858
+[2024-10-01T22:58:58.265+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 631 for task run_recommendation_system ([Errno 13] Permission denied: 'spark-submit'; 722)
+[2024-10-01T22:58:58.284+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2024-10-01T22:58:58.324+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

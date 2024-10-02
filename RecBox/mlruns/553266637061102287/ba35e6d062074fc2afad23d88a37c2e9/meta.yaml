@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/553266637061102287/ba35e6d062074fc2afad23d88a37c2e9/artifacts
+end_time: 1727823129419
+entry_point_name: ''
+experiment_id: '553266637061102287'
+lifecycle_stage: active
+run_id: ba35e6d062074fc2afad23d88a37c2e9
+run_name: bald-rat-181
+run_uuid: ba35e6d062074fc2afad23d88a37c2e9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727823129378
+status: 3
+tags: []
+user_id: unknown

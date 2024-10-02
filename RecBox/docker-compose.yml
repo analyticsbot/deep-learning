@@ -1,0 +1,151 @@
+version: '3'
+services:
+  spark:
+    build:
+      context: ./
+      dockerfile: Dockerfile.spark
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    environment:
+      - SPARK_MODE=master
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - /Users/rshankar/Downloads/Projects/movie_recommenders/thinkml/sparkdata:/sparkdata
+    networks:
+      - mlflow_network
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_db_volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - mlflow_network
+
+  redis:
+    image: redis:7.2-bookworm
+    expose:
+      - 6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 30s
+      retries: 50
+      start_period: 30s
+    restart: always
+
+  airflow:
+    image: apache/airflow:2.7.2  # Updated to a single version for consistency
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__RBAC=True
+      - AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0
+      - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow
+      - AIRFLOW__WEBSERVER__SECRET_KEY=your-secret-key-here  # Added secret key
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs  # Added logs volume for consistency
+      - ./airflow/plugins:/opt/airflow/plugins  # Added plugins volume for consistency
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - mlflow_network
+    command: bash -c "airflow db init && airflow webserver"  # Changed to init for the first run
+
+  airflow-scheduler:
+    image: apache/airflow:2.7.2  # Updated to a single version for consistency
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0
+      - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs  # Added logs volume for consistency
+      - ./airflow/plugins:/opt/airflow/plugins  # Added plugins volume for consistency
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+    command: scheduler
+
+  airflow-worker:
+    image: apache/airflow:2.7.2  # Updated to a single version for consistency
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0
+      - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs  # Added logs volume for consistency
+      - ./airflow/plugins:/opt/airflow/plugins  # Added plugins volume for consistency
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+    command: celery worker 
+
+  airflow-init:
+    image: apache/airflow:2.7.2  # Updated to a single version for consistency
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0
+      - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs  # Added logs volume for consistency
+      - ./airflow/plugins:/opt/airflow/plugins  # Added plugins volume for consistency
+    entrypoint: ["airflow", "db", "init"]  # Ensure the DB is initialized first
+    restart: on-failure
+    depends_on:
+      - postgres
+      - redis
+
+  mlflow:
+    image: ubuntu/mlflow:2.1.1_1.0-22.04
+    environment:
+      - BACKEND_STORE_URI=postgresql://airflow:airflow@postgres/mlflow
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./mlruns:/mlruns
+    networks:
+      - mlflow_network
+    command: ["mlflow", "ui", "--host", "0.0.0.0", "--port", "5000"]
+
+  streamlit:
+    build:
+      context: ./
+      dockerfile: Dockerfile.streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./streamlit_app:/app
+    networks:
+      - mlflow_network
+
+volumes:
+  postgres_db_volume:
+
+networks:
+  mlflow_network:
+    driver: bridge

@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/432656674531830405
+creation_time: 1727823263350
+experiment_id: '432656674531830405'
+last_update_time: 1727823263350
+lifecycle_stage: active
+name: Spark_Training

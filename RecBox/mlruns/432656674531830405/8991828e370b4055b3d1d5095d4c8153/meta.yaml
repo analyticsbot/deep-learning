@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/432656674531830405/8991828e370b4055b3d1d5095d4c8153/artifacts
+end_time: 1727824683294
+entry_point_name: ''
+experiment_id: '432656674531830405'
+lifecycle_stage: active
+run_id: 8991828e370b4055b3d1d5095d4c8153
+run_name: enthused-sponge-705
+run_uuid: 8991828e370b4055b3d1d5095d4c8153
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727824642268
+status: 3
+tags: []
+user_id: spark
