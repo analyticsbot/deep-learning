@@ -17,7 +17,8 @@ default_args = {
 # Define the function to run the Spark job
 def run_spark_job(execution_date):
     # Convert execution_date to a datetime object
-    execution_datetime = datetime.strptime(execution_date, '%Y-%m-%dT%H:%M:%S.%fZ')  # Adjust the format if necessary
+    # Updated format string to handle the timezone part
+    execution_datetime = datetime.strptime(execution_date, '%Y-%m-%dT%H:%M:%S.%f%z')  # Adjust the format to include timezone
     # Use the execution date as the job ID
     job_id = execution_datetime.strftime('%Y-%m-%d_%H-%M-%S')
     print(f"Running Spark job with ID: {job_id}")

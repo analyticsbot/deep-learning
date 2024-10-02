@@ -454,3 +454,132 @@
 [2024-10-02T20:46:03.083+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
 [2024-10-02T20:46:03.113+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:46:03.112+0000] {dag.py:2941} INFO - Sync 1 DAGs
 [2024-10-02T20:46:03.171+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.132 seconds
+[2024-10-02T20:46:33.399+0000] {processor.py:157} INFO - Started process (PID=74) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:46:33.401+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T20:46:33.407+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:46:33.406+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:46:33.438+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:46:33.473+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:46:33.472+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T20:46:33.515+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.122 seconds
+[2024-10-02T20:47:03.819+0000] {processor.py:157} INFO - Started process (PID=75) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:47:03.821+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T20:47:03.825+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:47:03.825+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:47:03.851+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:47:03.930+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:47:03.930+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T20:47:03.963+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.168 seconds
+[2024-10-02T20:57:09.491+0000] {processor.py:157} INFO - Started process (PID=35) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:09.493+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T20:57:09.497+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:09.497+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:09.526+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:09.544+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:09.544+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T20:57:09.624+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:09.624+0000] {dag.py:3722} INFO - Setting next_dagrun for recommendation_dag to 2024-03-22T00:00:00+00:00, run_after=2024-03-23T00:00:00+00:00
+[2024-10-02T20:57:09.651+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.165 seconds
+[2024-10-02T20:57:19.594+0000] {processor.py:157} INFO - Started process (PID=36) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:19.596+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T20:57:19.600+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:19.599+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:19.633+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:19.652+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:19.652+0000] {taskinstance.py:1939} ERROR - {'DAG Id': 'recommendation_dag', 'Task Id': 'run_recommendation_system', 'Run Id': 'scheduled__2024-03-18T00:00:00+00:00', 'Hostname': '6db14147d297', 'External Executor Id': '2e5ca562-0840-4bcd-94c3-2792284a36ea'}
+[2024-10-02T20:57:19.662+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:19.662+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=recommendation_dag, task_id=run_recommendation_system, execution_date=20240318T000000, start_date=20241002T204730, end_date=20241002T205719
+[2024-10-02T20:57:19.667+0000] {processor.py:790} INFO - Executed failure callback for <TaskInstance: recommendation_dag.run_recommendation_system scheduled__2024-03-18T00:00:00+00:00 [failed]> in state failed
+[2024-10-02T20:57:19.669+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:19.669+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T20:57:19.685+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.094 seconds
+[2024-10-02T20:57:29.718+0000] {processor.py:157} INFO - Started process (PID=37) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:29.720+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T20:57:29.724+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:29.723+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:29.746+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:29.779+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:29.779+0000] {taskinstance.py:1939} ERROR - {'DAG Id': 'recommendation_dag', 'Task Id': 'run_recommendation_system', 'Run Id': 'scheduled__2024-03-12T00:00:00+00:00', 'Hostname': '6db14147d297', 'External Executor Id': '9003feef-55b9-415b-90c1-c27ab260b2dc'}
+[2024-10-02T20:57:29.803+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:29.803+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=recommendation_dag, task_id=run_recommendation_system, execution_date=20240312T000000, start_date=20241002T204729, end_date=20241002T205729
+[2024-10-02T20:57:29.825+0000] {processor.py:790} INFO - Executed failure callback for <TaskInstance: recommendation_dag.run_recommendation_system scheduled__2024-03-12T00:00:00+00:00 [failed]> in state failed
+[2024-10-02T20:57:29.827+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:29.827+0000] {taskinstance.py:1939} ERROR - {'DAG Id': 'recommendation_dag', 'Task Id': 'run_recommendation_system', 'Run Id': 'scheduled__2024-03-12T00:00:00+00:00', 'Hostname': '6db14147d297', 'External Executor Id': '9003feef-55b9-415b-90c1-c27ab260b2dc'}
+[2024-10-02T20:57:29.831+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:29.831+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=recommendation_dag, task_id=run_recommendation_system, execution_date=20240312T000000, start_date=20241002T204729, end_date=20241002T205729
+[2024-10-02T20:57:29.832+0000] {processor.py:790} INFO - Executed failure callback for <TaskInstance: recommendation_dag.run_recommendation_system scheduled__2024-03-12T00:00:00+00:00 [failed]> in state failed
+[2024-10-02T20:57:29.836+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:29.836+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T20:57:29.854+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:29.853+0000] {dag.py:3722} INFO - Setting next_dagrun for recommendation_dag to 2024-04-04T00:00:00+00:00, run_after=2024-04-05T00:00:00+00:00
+[2024-10-02T20:57:29.867+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.157 seconds
+[2024-10-02T20:57:59.980+0000] {processor.py:157} INFO - Started process (PID=38) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:59.980+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T20:57:59.983+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:57:59.982+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:57:59.998+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:58:00.052+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:58:00.051+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T20:58:00.075+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.100 seconds
+[2024-10-02T20:58:30.276+0000] {processor.py:157} INFO - Started process (PID=39) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:58:30.278+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T20:58:30.282+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:58:30.281+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:58:30.299+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:58:30.356+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:58:30.355+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T20:58:30.391+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.121 seconds
+[2024-10-02T20:59:00.606+0000] {processor.py:157} INFO - Started process (PID=40) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:59:00.609+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T20:59:00.622+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:59:00.621+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:59:00.653+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:59:00.682+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:59:00.682+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T20:59:00.718+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.117 seconds
+[2024-10-02T20:59:30.896+0000] {processor.py:157} INFO - Started process (PID=52) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:59:30.898+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T20:59:30.901+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:59:30.901+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:59:30.917+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T20:59:30.943+0000] {logging_mixin.py:151} INFO - [2024-10-02T20:59:30.943+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T20:59:30.970+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.077 seconds
+[2024-10-02T21:00:01.132+0000] {processor.py:157} INFO - Started process (PID=53) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:00:01.133+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:00:01.135+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:00:01.135+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:00:01.147+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:00:01.170+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:00:01.170+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:00:01.217+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:00:01.216+0000] {dag.py:3722} INFO - Setting next_dagrun for recommendation_dag to 2024-04-20T00:00:00+00:00, run_after=2024-04-21T00:00:00+00:00
+[2024-10-02T21:00:01.226+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.097 seconds
+[2024-10-02T21:00:31.577+0000] {processor.py:157} INFO - Started process (PID=54) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:00:31.580+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:00:31.584+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:00:31.583+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:00:31.606+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:00:31.657+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:00:31.657+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:00:31.702+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.132 seconds
+[2024-10-02T21:01:01.940+0000] {processor.py:157} INFO - Started process (PID=55) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:01:01.942+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:01:01.945+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:01:01.945+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:01:01.973+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:01:02.042+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:01:02.042+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:01:02.161+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.231 seconds
+[2024-10-02T21:01:32.439+0000] {processor.py:157} INFO - Started process (PID=72) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:01:32.440+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:01:32.444+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:01:32.443+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:01:32.460+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:01:32.501+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:01:32.501+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:01:32.519+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:01:32.519+0000] {dag.py:3722} INFO - Setting next_dagrun for recommendation_dag to 2024-04-21T00:00:00+00:00, run_after=2024-04-22T00:00:00+00:00
+[2024-10-02T21:01:32.529+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.094 seconds
+[2024-10-02T21:02:02.731+0000] {processor.py:157} INFO - Started process (PID=73) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:02:02.733+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:02:02.737+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:02:02.736+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:02:02.766+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:02:02.804+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:02:02.804+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:02:02.822+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:02:02.822+0000] {dag.py:3722} INFO - Setting next_dagrun for recommendation_dag to 2024-05-05T00:00:00+00:00, run_after=2024-05-06T00:00:00+00:00
+[2024-10-02T21:02:02.837+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.111 seconds
+[2024-10-02T21:02:33.088+0000] {processor.py:157} INFO - Started process (PID=78) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:02:33.090+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:02:33.096+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:02:33.096+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:02:33.130+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:02:33.168+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:02:33.167+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:02:33.214+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.137 seconds
+[2024-10-02T21:03:03.615+0000] {processor.py:157} INFO - Started process (PID=79) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:03:03.622+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:03:03.629+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:03:03.628+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:03:03.666+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:03:03.819+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:03:03.817+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:03:03.943+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.337 seconds
+[2024-10-02T21:03:34.198+0000] {processor.py:157} INFO - Started process (PID=80) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:03:34.207+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:03:34.213+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:03:34.212+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:03:34.244+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:03:34.301+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:03:34.301+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:03:34.346+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.159 seconds
+[2024-10-02T21:04:04.495+0000] {processor.py:157} INFO - Started process (PID=99) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:04:04.503+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:04:04.517+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:04:04.516+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:04:04.545+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:04:04.595+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:04:04.594+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:04:04.638+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.153 seconds
+[2024-10-02T21:04:34.929+0000] {processor.py:157} INFO - Started process (PID=100) to work on /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:04:34.932+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/recommendation_dag.py for tasks to queue
+[2024-10-02T21:04:34.936+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:04:34.935+0000] {dagbag.py:536} INFO - Filling up the DagBag from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:04:34.961+0000] {processor.py:839} INFO - DAG(s) dict_keys(['recommendation_dag']) retrieved from /opt/airflow/dags/recommendation_dag.py
+[2024-10-02T21:04:35.026+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:04:35.026+0000] {dag.py:2941} INFO - Sync 1 DAGs
+[2024-10-02T21:04:35.052+0000] {logging_mixin.py:151} INFO - [2024-10-02T21:04:35.052+0000] {dag.py:3722} INFO - Setting next_dagrun for recommendation_dag to 2024-05-22T00:00:00+00:00, run_after=2024-05-23T00:00:00+00:00
+[2024-10-02T21:04:35.068+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/recommendation_dag.py took 0.143 seconds
