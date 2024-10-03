@@ -104,7 +104,7 @@ with mlflow.start_run():
     print('The testing RMSE is ' + str(test_rmse))
 
 # Save the model in the required format
-final_model.save("/sparkdata/models/als_model")
+final_model.write().overwrite().save("/sparkdata/models/als_model")
 mlflow.spark.log_model(final_model, "/sparkdata/models/als_model")
 
 

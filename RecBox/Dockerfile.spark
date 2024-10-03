@@ -1,5 +1,21 @@
 FROM bitnami/spark
+
 USER root
-RUN install_packages curl git
-USER 1001
+
+# Create the directory and set permissions for Spark tmp and conf
+RUN chmod -R 777 /opt/bitnami/spark/conf
+RUN mkdir -p /opt/bitnami/spark/tmp && chmod -R 777 /opt/bitnami/spark/tmp
+
+# Create an airflow user and group
+RUN groupadd -r airflow && useradd -r -g airflow airflow
+
+# Ensure the /.local/lib directory exists and give ownership to airflow user
+RUN mkdir -p /.local/lib && chown -R airflow:airflow /.local/lib
+
+# Set permissions for spark-submit to be executable by the airflow user
+RUN chown airflow:airflow $(which spark-submit) && chmod u+x $(which spark-submit)
+
+# Switch to airflow user to run the container
+# Optionally, if you need to install packages via pip
 RUN pip install numpy mlflow
+USER airflow

@@ -7,8 +7,8 @@ airflow db init
 airflow webserver
 
 # Fix permissions for Airflow user
-chown -R airflow:airflow $(which spark-submit)
-chmod u+x $(which spark-submit)
+# chown -R airflow:airflow $(which spark-submit)
+# chmod u+x $(which spark-submit)
 
 # Run the original entrypoint
 exec "$@"

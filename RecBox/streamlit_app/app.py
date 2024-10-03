@@ -12,7 +12,7 @@ def get_db_connection():
     return psycopg2.connect(
         host="postgres",         # e.g., "localhost" or your PostgreSQL container name
         database="recommendations",  # Your database name
-        user="admin",     # Your PostgreSQL username
+        user="airflow",     # Your PostgreSQL username
         password="airflow"  # Your PostgreSQL password
     )
 

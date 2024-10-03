@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/432656674531830405/2828d8bf474544beab9f5334e96def11/artifacts
+end_time: 1727939634824
+entry_point_name: ''
+experiment_id: '432656674531830405'
+lifecycle_stage: active
+run_id: 2828d8bf474544beab9f5334e96def11
+run_name: invincible-mare-63
+run_uuid: 2828d8bf474544beab9f5334e96def11
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727939598929
+status: 3
+tags: []
+user_id: spark
