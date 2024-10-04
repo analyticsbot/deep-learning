@@ -7,6 +7,7 @@ services:
     ports:
       - "8080:8080"
       - "7077:7077"
+      - "22:22"
     environment:
       - SPARK_MODE=master
       - ALLOW_PLAINTEXT_LISTENER=yes
@@ -23,7 +24,7 @@ services:
       POSTGRES_DB: airflow
     volumes:
       - postgres_db_volume:/var/lib/postgresql/data
-      - ./path/to/sql-scripts:/docker-entrypoint-initdb.d
+      - /Users/rshankar/Downloads/Projects/deep-learning/RecBox/config/:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s

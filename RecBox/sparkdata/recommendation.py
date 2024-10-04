@@ -3,7 +3,7 @@ import time
 import pyspark  
 from pyspark.sql import SparkSession  
 from pyspark.ml.recommendation import ALS
-from pyspark.sql.functions import col, pow
+from pyspark.sql.functions import col, pow, explode, lit
 import mlflow
 import mlflow.spark
 import psycopg2
@@ -104,16 +104,25 @@ with mlflow.start_run():
     print('The testing RMSE is ' + str(test_rmse))
 
 # Save the model in the required format
-final_model.write().overwrite().save("/sparkdata/models/als_model")
+# final_model.write().overwrite().save("/sparkdata/models/als_model")
 mlflow.spark.log_model(final_model, "/sparkdata/models/als_model")
 
 
 # Generate Top 5 Recommendations for each user
 user_recs = final_model.recommendForAllUsers(5)
-user_recs.show(truncate=False)
 
 # Convert recommendations into a more readable format
-recommendations = user_recs.withColumn("recommendations", col("recommendations.movieId"))
+# Explode the array of movieIds and create a row for each movie recommendation
+recommendations = user_recs.select("userId", explode("recommendations").alias("recommendation"))
+
+# Extract the movieId and rating from the recommendation struct
+recommendations = recommendations.select("userId", col("recommendation.movieId"), col("recommendation.rating"))
+
+# Join with movies dataset to get the movie titles
+recommendations = recommendations.join(movies, on="movieId").select("userId", "movieId", "title", "rating")
+
+# Join with links dataset to get imdbId and tmdbId
+recommendations = recommendations.join(links, on="movieId").select("userId", "movieId", "imdbId", "tmdbId", "title", "rating")
 
 # Set up PostgreSQL connection and write recommendations to DB
 recommendations.write \

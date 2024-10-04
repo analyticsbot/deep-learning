@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/432656674531830405/0559b8652038416a8bc767fe5efb5de3/artifacts
+end_time: 1727974799709
+entry_point_name: ''
+experiment_id: '432656674531830405'
+lifecycle_stage: active
+run_id: 0559b8652038416a8bc767fe5efb5de3
+run_name: dashing-zebra-142
+run_uuid: 0559b8652038416a8bc767fe5efb5de3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727974757422
+status: 3
+tags: []
+user_id: spark

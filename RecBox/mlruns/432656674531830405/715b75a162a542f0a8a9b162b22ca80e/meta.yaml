@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/432656674531830405/715b75a162a542f0a8a9b162b22ca80e/artifacts
+end_time: 1728006060535
+entry_point_name: ''
+experiment_id: '432656674531830405'
+lifecycle_stage: active
+run_id: 715b75a162a542f0a8a9b162b22ca80e
+run_name: illustrious-toad-410
+run_uuid: 715b75a162a542f0a8a9b162b22ca80e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728006022479
+status: 3
+tags: []
+user_id: spark
