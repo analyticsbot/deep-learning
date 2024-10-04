@@ -61,13 +61,14 @@ services:
       - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow
       - AIRFLOW__WEBSERVER__SECRET_KEY=cb2b1bfc05ea3c6f033c4dec6a74e83a55145bd27632e964aae8d3720bd39ef5  # Added secret key
       - _AIRFLOW_WWW_USER_CREATE=True
-      - _AIRFLOW_WWW_USER_USERNAME=admin
+      - _AIRFLOW_WWW_USER_USERNAME=airflow
       - _AIRFLOW_WWW_USER_PASSWORD=airflow
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs  # Added logs volume for consistency
       - ./airflow/plugins:/opt/airflow/plugins  # Added plugins volume for consistency
       - ./dags/entrypoint.sh:/entrypoint.sh
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8081:8080"
     depends_on:
@@ -78,6 +79,7 @@ services:
     # command: bash -c "airflow db init && airflow webserver"  # Changed to init for the first run
     # entrypoint: ["/bin/bash", "/entrypoint.sh", "airflow", "db", "init", "&&", "airflow", "webserver"]  # Modify the entrypoint
     entrypoint: ["/bin/bash", "/entrypoint.sh"]
+    
 
   airflow-scheduler:
     image: apache/airflow:2.7.2  # Updated to a single version for consistency

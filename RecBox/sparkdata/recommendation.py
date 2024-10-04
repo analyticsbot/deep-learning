@@ -1,19 +1,21 @@
 # import the required libraries
 import time  
-import pyspark  
 from pyspark.sql import SparkSession  
 from pyspark.ml.recommendation import ALS
 from pyspark.sql.functions import col, pow, explode, lit
 import mlflow
 import mlflow.spark
-import psycopg2
 
 # Set the tracking URI (change this to your server URL)
 mlflow.set_tracking_uri("http://mlflow:5000")  # Change to your MLflow tracking server URL
 mlflow.set_experiment("Spark_Training")  
 
 # create spark session
-spark = SparkSession.builder.appName('recommendation').getOrCreate()
+# spark = SparkSession.builder.appName('recommendation').config("spark.jars", "/sparkdata/postgresql-42.2.5.jar").getOrCreate()
+spark = SparkSession.builder \
+    .appName("recommendation") \
+    .config("spark.jars", "/sparkdata/postgresql-42.7.4.jar") \
+    .getOrCreate()
 
 # load the datasets using pyspark
 movies = spark.read.load("/sparkdata/ml-latest-small/movies.csv", format='csv', header=True)
@@ -105,7 +107,7 @@ with mlflow.start_run():
 
 # Save the model in the required format
 # final_model.write().overwrite().save("/sparkdata/models/als_model")
-mlflow.spark.log_model(final_model, "/sparkdata/models/als_model")
+# mlflow.spark.log_model(final_model, "/sparkdata/models/als_model")
 
 
 # Generate Top 5 Recommendations for each user
@@ -124,13 +126,39 @@ recommendations = recommendations.join(movies, on="movieId").select("userId", "m
 # Join with links dataset to get imdbId and tmdbId
 recommendations = recommendations.join(links, on="movieId").select("userId", "movieId", "imdbId", "tmdbId", "title", "rating")
 
-# Set up PostgreSQL connection and write recommendations to DB
+# Specify the path where you want to write the CSV file
+output_path = "/sparkdata/recommendations.csv"
+
+# Write the DataFrame to CSV
 recommendations.write \
-    .format("jdbc") \
-    .option("url", "jdbc:postgresql://postgres:5432/airflow") \
-    .option("dbtable", "recommendations") \
-    .option("user", "airflow") \
-    .option("password", "airflow") \
-    .option("driver", "org.postgresql.Driver") \
+    .format("csv") \
+    .option("header", "true") \
     .mode("overwrite") \
-    .save()
+    .save(output_path)
+
+# Set up PostgreSQL connection and write recommendations to DB
+# recommendations.write \
+#     .format("jdbc") \
+#     .option("url", "jdbc:postgresql://postgres:5432/airflow") \
+#     .option("dbtable", "recommendations") \
+#     .option("user", "airflow") \
+#     .option("password", "airflow") \
+#     .option("driver", "org.postgresql.Driver") \
+#     .mode("overwrite") \
+#     .save()
+
+# Define PostgreSQL connection properties
+jdbc_url = "jdbc:postgresql://postgres:5432/airflow"  # Change as per your PostgreSQL server details
+properties = {
+    "user": "airflow",
+    "password": "airflow",
+    "driver": "org.postgresql.Driver"
+}
+
+# Write DataFrame to PostgreSQL table
+recommendations.write \
+    .jdbc(url=jdbc_url, table="recommendations", mode="overwrite", properties=properties)
+
+# Stop the Spark session
+spark.stop()
+

@@ -120,6 +120,13 @@ Now, you can rebuild your Docker images using Docker Compose:
 
 > docker-compose up --build
 
+- copy file from local to container
+> docker cp /path/to/local/file <container_name>:/path/in/container/
+
+- execute commands inside docker container
+> docker exec -it recbox-airflow-1 /bin/bash
+
+
 
 #### Dockerfile vs docker-compose:
 1. https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Dockerfile-vs-docker-compose-Whats-the-difference#:~:text=The%20key%20difference%20between%20the,used%20to%20run%20Docker%20containers.

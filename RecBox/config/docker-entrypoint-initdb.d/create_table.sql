@@ -32,4 +32,12 @@ RETURNING *;
 
 
 
-select * from public.recommendations;
+-- select * from public.recommendations;
+
+-- SELECT DISTINCT r.user_id, r.movie_id, r.title, r.rating
+--                 FROM (
+--                     SELECT r.user_id, r.movie_id, r.title, r.rating
+--                     FROM recommendations r
+--                     ORDER BY r.user_id, RANDOM()
+--                     LIMIT 5
+--                 ) AS r;
