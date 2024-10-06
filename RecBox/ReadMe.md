@@ -11,14 +11,7 @@ This project consists of the following components:
 - **Spark**: Processes data and generates basic recommendations.
 - **Streamlit**: Frontend app to display the recommendations in real-time.
 
-The application is fully containerized using Docker, allowing easy deployment and management.
-
-## Architecture
-
-- **Airflow**: Container responsible for orchestrating and scheduling recommendation tasks.
-- **MLflow**: Container to manage experiment tracking, storing models and their versions.
-- **Spark**: Container used for processing data and generating basic recommendations.
-- **Streamlit**: Container for the user interface, which displays the generated recommendations.
+All components are containerized using Docker for seamless deployment and scaling.
 
 ## Project Structure
 
@@ -28,7 +21,7 @@ The application is fully containerized using Docker, allowing easy deployment an
 ├── spark/                   # Spark application files for generating recommendations
 ├── streamlit/               # Streamlit app for displaying recommendations
 ├── docker-compose.yml       # Docker Compose file to orchestrate all services
-└── README.md                # This file
+└── README.md                # Project documentation
 ```
 
 ## Prerequisites
@@ -60,21 +53,21 @@ Before running the project, ensure you have the following installed:
 5. Project Components
     1. Airflow
     Purpose: To schedule jobs for data processing and model training.
-    How to Use:
-    Start Airflow using Docker Compose.
+    How to Use:  Start Airflow using Docker Compose.
     Define DAGs for scheduling your ML jobs and recommendation tasks.
 
     2. MLflow
     Purpose: To track and store machine learning experiments, models, and metrics.
-    How to Use:
-    MLflow is automatically started in the MLflow container.
-    Access MLflow UI at http://localhost:5000 to track models.
+    How to Use: MLflow is automatically started in the MLflow container.
+    Access MLflow UI at http://localhost:5001 (port can be changed) to track models.
 
+    3. Spark:
+    Purpose: Data processing and recommendation generation.
+    How to Use:: Managed through Airflow DAGs for scheduled runs.
 
     4. Streamlit
     Purpose: Display recommendations to end users.
-    How to Use:
-    Once all services are running, open the Streamlit app on http://localhost:8501 to see the recommendations.
+    How to Use:  Once all services are running, open the Streamlit app on http://localhost:8501  (port can be changed) to see the recommendations.
 
 6. To-Do
 - Implement additional recommendation algorithms.
@@ -125,6 +118,9 @@ Now, you can rebuild your Docker images using Docker Compose:
 
 - execute commands inside docker container
 > docker exec -it recbox-airflow-1 /bin/bash
+
+- To get the host (IP address) of the container, run this command:
+> docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_name>
 
 
 

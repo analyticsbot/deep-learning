@@ -1,10 +1,6 @@
 #!/bin/bash
 
-# Create the docker group (ignore if it exists)
-groupadd docker 2>/dev/null
 
-# Add the airflow user to the docker group
-usermod -aG docker airflow
 
 # Initialize the Airflow DB
 airflow db init
@@ -14,10 +10,17 @@ airflow db init
 # chmod u+x $(which spark-submit)
 
 # Start the webserver in the background
-airflow webserver &
+airflow webserver
+
+
+# Create the docker group (ignore if it exists)
+groupadd docker 2>/dev/null
+
+# Add the airflow user to the docker group
+usermod -aG docker airflow
 
 # Wait for the webserver to start (optional, depends on your needs)
-sleep 10  # Adjust time based on your environment
+#sleep 10  # Adjust time based on your environment
 
 # Run the original entrypoint (this should be the last command)
 exec "$@"

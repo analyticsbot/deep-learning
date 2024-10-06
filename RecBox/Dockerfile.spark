@@ -8,12 +8,44 @@ RUN mkdir -p /opt/bitnami/spark/tmp && chmod -R 777 /opt/bitnami/spark/tmp
 
 # Create an airflow user and group
 RUN groupadd -r airflow && useradd -r -g airflow airflow
+RUN groupadd -r docker && usermod -aG docker airflow
+
+# Set the password for the airflow user
+RUN echo "airflow:airflow" | chpasswd
 
 # Ensure the /.local/lib directory exists and give ownership to airflow user
 RUN mkdir -p /.local/lib && chown -R airflow:airflow /.local/lib
 
 # Set permissions for spark-submit to be executable by the airflow user
 RUN chown airflow:airflow $(which spark-submit) && chmod u+x $(which spark-submit)
+
+ENV JAVA_HOME=/opt/bitnami/java
+ENV PATH="$JAVA_HOME/bin:$PATH"
+
+# Install OpenSSH server
+RUN apt-get update && \
+    apt-get install -y openssh-server && \
+    mkdir /var/run/sshd
+
+# Create SSH key directory for airflow user
+RUN mkdir -p /home/airflow/.ssh && \
+    chown -R airflow:airflow /home/airflow/.ssh
+
+# Set permissions for SSH directory
+RUN chmod 700 /home/airflow/.ssh
+
+# Expose SSH port
+EXPOSE 22
+
+# Enable SSH service to run in the foreground
+# RUN service ssh start
+
+# Add a script to start the SSH service and keep the container running
+COPY sparkdata/start_services.sh /start_services.sh
+RUN chmod +x /start_services.sh
+
+# Use the script as the entrypoint to start SSH service and Spark
+CMD ["/start_services.sh"]
 
 # Switch to airflow user to run the container
 # Optionally, if you need to install packages via pip

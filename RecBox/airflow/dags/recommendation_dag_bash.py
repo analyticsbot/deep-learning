@@ -1,6 +1,6 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
-from datetime import datetime, timedelta
+from datetime import datetime
 
 default_args = {
     'owner': 'airflow',
@@ -9,21 +9,17 @@ default_args = {
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,
-    'retry_delay': timedelta(minutes=2),
 }
 
 dag = DAG(
-    'recommendation_dag',
+    'recommendation_dag_bashOP',
     default_args=default_args,
-    schedule_interval='*/3 * * * *',  # Run every 2 minutes
+    schedule_interval=None,  # Set to None for manual triggering
 )
 
-
+# Use BashOperator to execute the Spark job
 run_spark = BashOperator(
     task_id='run_spark_job',
     bash_command="docker exec recbox-spark-1 /opt/bitnami/spark/bin/spark-submit --jars /sparkdata/postgresql-42.7.4.jar /sparkdata/recommendation.py",
-    dag=dag
+    dag=dag,
 )
-
-# run_spark.execute(context={})
-# && docker exec recbox-spark-1 /opt/bitnami/spark/bin/spark-submit --jars /sparkdata/postgresql-42.7.4.jar /sparkdata/recommendation.py
