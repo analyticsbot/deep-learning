@@ -29421,3 +29421,1175 @@ File Path                                       PID    Runtime      # DAGs    # 
 /opt/airflow/dags/recommendation_dag_python.py                           1           0  0.08s           2024-10-06T07:03:00
 /opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.10s           2024-10-06T07:03:00
 ================================================================================
+[2024-10-06T07:03:56.129+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:03:30
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.14s           2024-10-06T07:03:31
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.18s           2024-10-06T07:03:30
+================================================================================
+[2024-10-06T07:04:26.563+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:04:01
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:04:01
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:04:01
+================================================================================
+[2024-10-06T07:04:56.991+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:04:31
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:04:31
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:04:31
+================================================================================
+[2024-10-06T07:05:27.380+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:05:02
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:05:02
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:05:02
+================================================================================
+[2024-10-06T07:05:57.744+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:05:32
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:05:32
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:05:32
+================================================================================
+[2024-10-06T07:06:28.119+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:06:02
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:06:02
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:06:02
+================================================================================
+[2024-10-06T07:06:58.613+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:06:33
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.13s           2024-10-06T07:06:33
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.18s           2024-10-06T07:06:33
+================================================================================
+[2024-10-06T07:07:29.051+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:07:03
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:07:03
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.09s           2024-10-06T07:07:03
+================================================================================
+[2024-10-06T07:07:59.468+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:07:34
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:07:34
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:07:34
+================================================================================
+[2024-10-06T07:08:00.475+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:08:00.486+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:08:29.889+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:08:04
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:08:04
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:08:04
+================================================================================
+[2024-10-06T07:09:00.256+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:08:35
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.05s           2024-10-06T07:08:35
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:08:35
+================================================================================
+[2024-10-06T07:09:30.619+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:09:05
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:09:05
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:09:05
+================================================================================
+[2024-10-06T07:10:01.080+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.16s           2024-10-06T07:09:35
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.15s           2024-10-06T07:09:36
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:09:35
+================================================================================
+[2024-10-06T07:10:31.402+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:10:06
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:10:06
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:10:06
+================================================================================
+[2024-10-06T07:11:01.752+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:10:36
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:10:36
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:10:36
+================================================================================
+[2024-10-06T07:11:32.159+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:11:06
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.05s           2024-10-06T07:11:06
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.09s           2024-10-06T07:11:06
+================================================================================
+[2024-10-06T07:12:02.578+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:11:37
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.05s           2024-10-06T07:11:37
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.09s           2024-10-06T07:11:37
+================================================================================
+[2024-10-06T07:12:33.118+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.23s           2024-10-06T07:12:07
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.13s           2024-10-06T07:12:08
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.23s           2024-10-06T07:12:07
+================================================================================
+[2024-10-06T07:13:00.475+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:13:00.482+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:13:03.518+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:12:38
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.05s           2024-10-06T07:12:38
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:12:38
+================================================================================
+[2024-10-06T07:13:33.913+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:13:08
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:13:08
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:13:08
+================================================================================
+[2024-10-06T07:14:04.264+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:13:39
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.05s           2024-10-06T07:13:39
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:13:39
+================================================================================
+[2024-10-06T07:14:34.676+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:14:09
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.05s           2024-10-06T07:14:09
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:14:09
+================================================================================
+[2024-10-06T07:15:05.088+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.09s           2024-10-06T07:14:39
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:14:39
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.10s           2024-10-06T07:14:39
+================================================================================
+[2024-10-06T07:15:35.572+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.18s           2024-10-06T07:15:10
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.14s           2024-10-06T07:15:10
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.19s           2024-10-06T07:15:10
+================================================================================
+[2024-10-06T07:16:05.974+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:15:40
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.05s           2024-10-06T07:15:40
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:15:40
+================================================================================
+[2024-10-06T07:16:36.354+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:16:11
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.05s           2024-10-06T07:16:11
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:16:11
+================================================================================
+[2024-10-06T07:17:06.756+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:16:41
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:16:41
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:16:41
+================================================================================
+[2024-10-06T07:17:37.118+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:17:11
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.04s           2024-10-06T07:17:11
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.09s           2024-10-06T07:17:11
+================================================================================
+[2024-10-06T07:18:00.691+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:18:00.695+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:18:07.413+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:17:42
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:17:42
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.05s           2024-10-06T07:18:01
+================================================================================
+[2024-10-06T07:18:37.786+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.25s           2024-10-06T07:18:12
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.24s           2024-10-06T07:18:12
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:18:31
+================================================================================
+[2024-10-06T07:19:08.162+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:18:42
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:18:42
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:19:02
+================================================================================
+[2024-10-06T07:19:38.558+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.09s           2024-10-06T07:19:13
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.08s           2024-10-06T07:19:13
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:19:32
+================================================================================
+[2024-10-06T07:20:08.926+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:19:43
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:19:43
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:20:02
+================================================================================
+[2024-10-06T07:20:39.294+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:20:14
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:20:14
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.15s           2024-10-06T07:20:33
+================================================================================
+[2024-10-06T07:21:09.800+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T07:20:44
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.19s           2024-10-06T07:20:44
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:21:03
+================================================================================
+[2024-10-06T07:21:40.251+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.18s           2024-10-06T07:21:15
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:21:14
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:21:34
+================================================================================
+[2024-10-06T07:22:10.655+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:21:45
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:21:45
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.05s           2024-10-06T07:22:04
+================================================================================
+[2024-10-06T07:22:41.047+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:22:15
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:22:15
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:22:35
+================================================================================
+[2024-10-06T07:23:01.323+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:23:01.331+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:23:11.482+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_ssh.py                              0           1  0.03s           2024-10-06T07:23:10
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:22:46
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:22:46
+================================================================================
+[2024-10-06T07:23:41.875+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_ssh.py                              0           1  0.06s           2024-10-06T07:23:23
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:23:16
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:23:16
+================================================================================
+[2024-10-06T07:24:12.275+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_ssh.py                              0           1  0.04s           2024-10-06T07:23:54
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.22s           2024-10-06T07:23:47
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.21s           2024-10-06T07:23:47
+================================================================================
+[2024-10-06T07:24:42.701+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_ssh.py                              0           1  0.05s           2024-10-06T07:24:24
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:24:17
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:24:17
+================================================================================
+[2024-10-06T07:25:13.120+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:24:47
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:24:47
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:25:05
+================================================================================
+[2024-10-06T07:25:43.523+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:25:18
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:25:18
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:25:35
+================================================================================
+[2024-10-06T07:26:13.848+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:25:48
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:25:48
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:26:05
+================================================================================
+[2024-10-06T07:26:44.070+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.32s           2024-10-06T07:26:19
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.31s           2024-10-06T07:26:19
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:26:36
+================================================================================
+[2024-10-06T07:27:14.648+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T07:26:49
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.19s           2024-10-06T07:26:49
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:27:06
+================================================================================
+[2024-10-06T07:27:45.004+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:27:19
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:27:19
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:27:36
+================================================================================
+[2024-10-06T07:28:02.240+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:28:02.247+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:28:15.410+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:27:50
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:27:50
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:28:07
+================================================================================
+[2024-10-06T07:28:45.978+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.05s           2024-10-06T07:28:20
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:28:20
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:28:43
+================================================================================
+[2024-10-06T07:29:16.395+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.09s           2024-10-06T07:28:51
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:28:51
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:29:14
+================================================================================
+[2024-10-06T07:29:46.926+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.18s           2024-10-06T07:29:21
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.18s           2024-10-06T07:29:21
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:29:45
+================================================================================
+[2024-10-06T07:30:17.295+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:29:52
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:29:52
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:30:15
+================================================================================
+[2024-10-06T07:30:47.644+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:30:22
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:30:22
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:30:45
+================================================================================
+[2024-10-06T07:31:18.044+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:30:52
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:30:52
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.05s           2024-10-06T07:31:16
+================================================================================
+[2024-10-06T07:31:48.458+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:31:23
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:31:23
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.19s           2024-10-06T07:31:46
+================================================================================
+[2024-10-06T07:32:18.985+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.20s           2024-10-06T07:31:53
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.19s           2024-10-06T07:31:53
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:32:17
+================================================================================
+[2024-10-06T07:32:49.484+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T07:32:24
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.18s           2024-10-06T07:32:24
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:32:47
+================================================================================
+[2024-10-06T07:33:02.679+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:33:02.685+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:33:19.897+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:32:54
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:32:54
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:33:17
+================================================================================
+[2024-10-06T07:33:50.311+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:33:25
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:33:25
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:33:48
+================================================================================
+[2024-10-06T07:34:20.713+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:33:55
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:33:55
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:34:18
+================================================================================
+[2024-10-06T07:34:51.111+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:34:25
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:34:25
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:34:49
+================================================================================
+[2024-10-06T07:35:21.658+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.21s           2024-10-06T07:34:56
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.22s           2024-10-06T07:34:56
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.18s           2024-10-06T07:35:19
+================================================================================
+[2024-10-06T07:35:52.186+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:35:26
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.16s           2024-10-06T07:35:26
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:35:50
+================================================================================
+[2024-10-06T07:36:22.605+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:35:57
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:35:57
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:36:01
+================================================================================
+[2024-10-06T07:36:53.017+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:36:27
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:36:27
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:36:31
+================================================================================
+[2024-10-06T07:37:23.420+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:36:58
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:36:58
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:37:02
+================================================================================
+[2024-10-06T07:37:53.890+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.29s           2024-10-06T07:37:28
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.31s           2024-10-06T07:37:28
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.27s           2024-10-06T07:37:33
+================================================================================
+[2024-10-06T07:38:02.953+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:38:02.965+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:38:24.356+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T07:37:59
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.20s           2024-10-06T07:37:59
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.15s           2024-10-06T07:38:03
+================================================================================
+[2024-10-06T07:38:54.680+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.09s           2024-10-06T07:38:29
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.08s           2024-10-06T07:38:29
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:38:33
+================================================================================
+[2024-10-06T07:39:25.064+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:38:59
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:38:59
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:39:03
+================================================================================
+[2024-10-06T07:39:55.444+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:39:30
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:39:30
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:39:34
+================================================================================
+[2024-10-06T07:40:25.893+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:40:00
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:40:00
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:40:04
+================================================================================
+[2024-10-06T07:40:56.320+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T07:40:31
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.18s           2024-10-06T07:40:31
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:40:30
+================================================================================
+[2024-10-06T07:41:26.802+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:41:01
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.17s           2024-10-06T07:41:01
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:41:00
+================================================================================
+[2024-10-06T07:41:57.186+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:41:31
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:41:31
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:41:30
+================================================================================
+[2024-10-06T07:42:27.592+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:42:02
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:42:02
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T07:42:01
+================================================================================
+[2024-10-06T07:42:58.010+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.09s           2024-10-06T07:42:32
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.08s           2024-10-06T07:42:32
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.09s           2024-10-06T07:42:31
+================================================================================
+[2024-10-06T07:43:03.065+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:43:03.079+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:43:28.561+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:43:03
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.17s           2024-10-06T07:43:03
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:43:02
+================================================================================
+[2024-10-06T07:43:59.040+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T07:43:33
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.18s           2024-10-06T07:43:33
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:43:32
+================================================================================
+[2024-10-06T07:44:29.552+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.20s           2024-10-06T07:44:04
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.19s           2024-10-06T07:44:04
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.14s           2024-10-06T07:44:03
+================================================================================
+[2024-10-06T07:44:59.980+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:44:34
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.08s           2024-10-06T07:44:34
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:44:33
+================================================================================
+[2024-10-06T07:45:30.364+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:45:05
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:45:05
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.05s           2024-10-06T07:45:04
+================================================================================
+[2024-10-06T07:46:00.770+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.06s           2024-10-06T07:45:35
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:45:35
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:45:47
+================================================================================
+[2024-10-06T07:46:31.088+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:46:05
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.16s           2024-10-06T07:46:05
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.20s           2024-10-06T07:46:18
+================================================================================
+[2024-10-06T07:47:01.669+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.25s           2024-10-06T07:46:36
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.24s           2024-10-06T07:46:36
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:46:48
+================================================================================
+[2024-10-06T07:47:32.072+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:47:06
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:47:06
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:47:18
+================================================================================
+[2024-10-06T07:48:02.410+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:47:37
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.08s           2024-10-06T07:47:37
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:47:49
+================================================================================
+[2024-10-06T07:48:03.421+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:48:03.430+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:48:32.769+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:48:07
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:48:07
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:48:19
+================================================================================
+[2024-10-06T07:49:03.065+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T07:48:38
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.18s           2024-10-06T07:48:38
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:48:50
+================================================================================
+[2024-10-06T07:49:33.292+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:49:08
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.17s           2024-10-06T07:49:08
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:49:20
+================================================================================
+[2024-10-06T07:50:03.682+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.21s           2024-10-06T07:49:38
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.20s           2024-10-06T07:49:38
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.21s           2024-10-06T07:49:50
+================================================================================
+[2024-10-06T07:50:34.129+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:50:08
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:50:08
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:50:21
+================================================================================
+[2024-10-06T07:51:04.385+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:50:39
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:50:39
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.11s           2024-10-06T07:50:51
+================================================================================
+[2024-10-06T07:51:34.732+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.09s           2024-10-06T07:51:09
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.08s           2024-10-06T07:51:09
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:51:21
+================================================================================
+[2024-10-06T07:52:05.126+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.25s           2024-10-06T07:51:40
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.25s           2024-10-06T07:51:40
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:51:52
+================================================================================
+[2024-10-06T07:52:35.671+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.20s           2024-10-06T07:52:10
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.19s           2024-10-06T07:52:10
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:52:22
+================================================================================
+[2024-10-06T07:53:04.178+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:53:04.192+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:53:06.221+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.20s           2024-10-06T07:52:40
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.19s           2024-10-06T07:52:40
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:52:53
+================================================================================
+[2024-10-06T07:53:36.574+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:53:11
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:53:11
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:53:23
+================================================================================
+[2024-10-06T07:54:07.016+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:53:41
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:53:41
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:53:53
+================================================================================
+[2024-10-06T07:54:37.571+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.18s           2024-10-06T07:54:12
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.18s           2024-10-06T07:54:12
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:54:24
+================================================================================
+[2024-10-06T07:55:08.130+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T07:54:42
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.18s           2024-10-06T07:54:42
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:54:55
+================================================================================
+[2024-10-06T07:55:38.532+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:55:13
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.16s           2024-10-06T07:55:13
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:55:25
+================================================================================
+[2024-10-06T07:56:09.053+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:55:43
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.16s           2024-10-06T07:55:43
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.09s           2024-10-06T07:55:55
+================================================================================
+[2024-10-06T07:56:39.479+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:56:14
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:56:14
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.05s           2024-10-06T07:56:26
+================================================================================
+[2024-10-06T07:57:09.932+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:56:44
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:56:44
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:56:56
+================================================================================
+[2024-10-06T07:57:40.427+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.20s           2024-10-06T07:57:15
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.19s           2024-10-06T07:57:15
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:57:27
+================================================================================
+[2024-10-06T07:58:04.810+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2024-10-06T07:58:04.817+0000] {manager.py:758} INFO - There are 3 files in /opt/airflow/dags
+[2024-10-06T07:58:10.877+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T07:57:45
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.17s           2024-10-06T07:57:45
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:57:57
+================================================================================
+[2024-10-06T07:58:41.349+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.17s           2024-10-06T07:58:16
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.16s           2024-10-06T07:58:16
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.16s           2024-10-06T07:58:28
+================================================================================
+[2024-10-06T07:59:11.735+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:58:46
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:58:46
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.06s           2024-10-06T07:58:58
+================================================================================
+[2024-10-06T07:59:41.931+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.07s           2024-10-06T07:59:16
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.06s           2024-10-06T07:59:16
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.07s           2024-10-06T07:59:28
+================================================================================
+[2024-10-06T08:00:12.341+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.08s           2024-10-06T07:59:47
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.07s           2024-10-06T07:59:47
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T07:59:59
+================================================================================
+[2024-10-06T08:00:42.828+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.18s           2024-10-06T08:00:17
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.17s           2024-10-06T08:00:17
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.17s           2024-10-06T08:00:29
+================================================================================
+[2024-10-06T08:01:13.286+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.19s           2024-10-06T08:00:48
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.18s           2024-10-06T08:00:48
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.15s           2024-10-06T08:01:00
+================================================================================
+[2024-10-06T08:01:43.804+0000] {manager.py:887} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                       PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/recommendation_dag_bash.py                             1           0  0.21s           2024-10-06T08:01:18
+/opt/airflow/dags/recommendation_dag_python.py                           1           0  0.19s           2024-10-06T08:01:18
+/opt/airflow/dags/recommendation_dag_ssh.py                              1           0  0.08s           2024-10-06T08:01:30
+================================================================================

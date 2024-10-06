@@ -21,6 +21,6 @@ dag = DAG(
 run_spark_job = SSHOperator(
     task_id='run_spark_job',
     ssh_conn_id='spark_ssh_connection',  # Connection ID created earlier
-    command='export JAVA_HOME=/opt/bitnami/java && /opt/bitnami/spark/bin/spark-submit --jars /sparkdata/postgresql-42.7.4.jar /sparkdata/recommendation.py',
+    command='export JAVA_HOME=/opt/bitnami/java && export PYSPARK_PYTHON=/opt/bitnami/python/bin/python3 && /opt/bitnami/spark/bin/spark-submit --jars /sparkdata/postgresql-42.7.4.jar /sparkdata/recommendation.py',
     dag=dag,
-)
+    retries=3)
