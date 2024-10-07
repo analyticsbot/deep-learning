@@ -1,0 +1,35 @@
+# Use an official Python runtime as the base image
+FROM python:3.8-slim
+
+# Install dependencies required for Spark and JupyterLab
+RUN apt-get update && \
+    apt-get install -y openjdk-11-jre wget && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Spark
+ENV SPARK_VERSION 3.3.1
+ENV HADOOP_VERSION 3.2
+ENV SPARK_HOME /opt/spark
+ENV PATH $SPARK_HOME/bin:$PATH
+
+RUN wget https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz -P /opt/ && \
+    tar xzf /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz -C /opt/ && \
+    mv /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION /opt/spark && \
+    rm /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz
+
+# Install JupyterLab and necessary Python libraries
+RUN pip install --upgrade pip && \
+    pip install jupyterlab pyspark findspark pandas
+
+# Expose necessary ports for JupyterLab and Spark
+EXPOSE 8888
+
+# Configure Spark settings
+ENV PYSPARK_DRIVER_PYTHON jupyter
+ENV PYSPARK_DRIVER_PYTHON_OPTS "lab"
+ENV PYSPARK_PYTHON python3
+ENV SPARK_MASTER local[*]
+
+# Start JupyterLab when the container starts
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
