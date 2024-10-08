@@ -123,7 +123,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ### Build the Docker Image
 ```bash
 docker build -t recommendation-system .
-
+```
 ### # Recommendation System Project
 
 This project implements several recommendation algorithms using PySpark and PyTorch, including Collaborative Filtering, Content-Based Filtering, Matrix Factorization, and Association Rule Mining.
@@ -249,10 +249,11 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ### Build the Docker Image
 ```bash
 docker build -t recommendation-system .
-
+```
 ### Run the Docker Container
+```bash
 docker run -p 8888:8888 recommendation-system
-
+```
 ### Access JupyterLab
 Open your browser and go to http://localhost:8888. You will have access to JupyterLab with the code loaded inside it.
 
