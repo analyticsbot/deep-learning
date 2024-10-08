@@ -1,129 +1,3 @@
-# Recommendation System Project
-
-This project implements several recommendation algorithms using PySpark and PyTorch, including Collaborative Filtering, Content-Based Filtering, Matrix Factorization, and Association Rule Mining.
-
-We use the **MovieLens** dataset to demonstrate the recommendation models, and the project is containerized using Docker for reproducibility.
-
-## Table of Contents
-- [Project Overview](#project-overview)
-- [Setup Instructions](#setup-instructions)
-- [Running the Project](#running-the-project)
-- [Recommendation Models Implemented](#recommendation-models-implemented)
-- [Technologies Used](#technologies-used)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
-- [Docker Build & Run Instructions](#docker-build--run-instructions)
-- [Possible Extensions in the JupyterLab Notebook](#possible-extensions-in-the-jupyterlab-notebook)
-- [Possible Additions and Improvements](#possible-additions-and-improvements)
-- [FPGrowth: A Brief Overview](#fpgrowth-a-brief-overview)
-
----
-
-## Project Overview
-
-This project demonstrates various recommendation algorithms for building a movie recommendation system using the **MovieLens dataset**. The dataset is loaded and processed using **PySpark** for scalability, and different recommendation models such as Collaborative Filtering, Matrix Factorization, and Content-Based Filtering are implemented using **PyTorch**.
-
-### Models Implemented:
-- **Collaborative Filtering (User- and Item-based)**: Recommends items based on user-item interactions.
-- **Content-Based Filtering**: Recommends items based on item features and user interests.
-- **Matrix Factorization**: Decomposes the user-item interaction matrix to discover latent factors.
-- **Association Rule Mining (FPGrowth)**: Uses frequent pattern mining to recommend items based on transaction relationships.
-
----
-
-## Setup Instructions
-
-### Prerequisites
-- Docker installed on your machine.
-- Docker Compose (optional but recommended).
-
-### Steps:
-1. Clone the repository:
-    ```bash
-    git clone https://your-repo-link
-    cd recommendation-system
-    ```
-
-2. Build the Docker image:
-    ```bash
-    docker build -t recommendation-system .
-    ```
-
-3. (Optional) If you're using Docker Compose:
-    ```bash
-    docker-compose up --build
-    ```
-
-This will create a Docker container with the following tools:
-- **Spark** for distributed processing.
-- **JupyterLab** for code development and execution.
-
-### Configuration:
-The dataset (`ml-latest-small.zip`) is automatically downloaded from MovieLens and used to generate recommendations.
-
----
-
-## Running the Project
-
-Once the Docker container is up and running, navigate to JupyterLab:
-
-1. Start JupyterLab:
-    ```bash
-    docker run -p 8888:8888 recommendation-system
-    ```
-
-2. Access the JupyterLab interface by opening your browser and navigating to `http://localhost:8888`.
-
-3. Open the notebook files to explore and run each recommendation model. Each model is implemented in a separate Jupyter notebook.
-
----
-
-## Recommendation Models Implemented
-
-1. **Collaborative Filtering (User-based and Item-based)**
-   - **User-Based Filtering**: Recommends items by finding similar users.
-   - **Item-Based Filtering**: Recommends items based on similarities to previously liked items.
-
-2. **Content-Based Filtering**
-   - Recommends items based on item features and user preferences (e.g., genre, keywords).
-
-3. **Matrix Factorization**
-   - Techniques such as Singular Value Decomposition (SVD) and Non-negative Matrix Factorization (NMF) decompose the user-item interaction matrix to identify latent factors.
-
-4. **Association Rule Mining**
-   - The FPGrowth algorithm is used to mine frequent patterns and recommend items based on the relationships between them.
-
----
-
-## Technologies Used
-
-- **PySpark**: For distributed data processing.
-- **PyTorch**: For deep learning models such as Neural Collaborative Filtering.
-- **Docker**: For creating a reproducible environment with JupyterLab and Spark.
-- **MovieLens Dataset**: Dataset used for training and testing models.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
----
-
-## Acknowledgments
-
-- **MovieLens Dataset**: Provided by GroupLens Research (https://grouplens.org/datasets/movielens/).
-- **PySpark**: For distributed data processing.
-- **PyTorch**: For building neural network models.
-
----
-
-## Docker Build & Run Instructions
-
-### Build the Docker Image
-```bash
-docker build -t recommendation-system .
-```
 ### # Recommendation System Project
 
 This project implements several recommendation algorithms using PySpark and PyTorch, including Collaborative Filtering, Content-Based Filtering, Matrix Factorization, and Association Rule Mining.
@@ -166,18 +40,18 @@ This project demonstrates various recommendation algorithms for building a movie
 ### Steps:
 1. Clone the repository:
     ```bash
-    git clone https://your-repo-link
-    cd recommendation-system
+    git clone https://github.com/analyticsbot/deep-learning.git
+    cd RecSystems
     ```
 
-2. Build the Docker image:
+2. Build the Docker image for non-spark based models:
     ```bash
-    docker build -t recommendation-system .
+    docker build -t RecSystems -f Dockerfile.RecSystems
     ```
 
-3. (Optional) If you're using Docker Compose:
+2. Build the Docker image for spark based models:
     ```bash
-    docker-compose up --build
+    docker build -t RecSystems -f Dockerfile.spark
     ```
 
 This will create a Docker container with the following tools:
@@ -195,7 +69,7 @@ Once the Docker container is up and running, navigate to JupyterLab:
 
 1. Start JupyterLab:
     ```bash
-    docker run -p 8888:8888 recommendation-system
+    docker run -p 8888:8888 RecSystems
     ```
 
 2. Access the JupyterLab interface by opening your browser and navigating to `http://localhost:8888`.
@@ -219,28 +93,8 @@ Once the Docker container is up and running, navigate to JupyterLab:
 4. **Association Rule Mining**
    - The FPGrowth algorithm is used to mine frequent patterns and recommend items based on the relationships between them.
 
----
-
-## Technologies Used
-
-- **PySpark**: For distributed data processing.
-- **PyTorch**: For deep learning models such as Neural Collaborative Filtering.
-- **Docker**: For creating a reproducible environment with JupyterLab and Spark.
-- **MovieLens Dataset**: Dataset used for training and testing models.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
----
-
-## Acknowledgments
-
-- **MovieLens Dataset**: Provided by GroupLens Research (https://grouplens.org/datasets/movielens/).
-- **PySpark**: For distributed data processing.
-- **PyTorch**: For building neural network models.
+5. ** Two Tower Model**
+   - The Two-Tower Model is a deep learning architecture commonly used in recommendation systems. It consists of two separate neural networks (or "towers")—one for user data and one for item data—that learn embeddings independently. The outputs (embeddings) from each tower are then combined, often using dot product or cosine similarity, to predict user-item interactions, like clicks or purchases. This model helps efficiently handle large-scale recommendations by focusing on capturing relevant features from both users and items.
 
 ---
 
