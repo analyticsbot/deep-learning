@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  streamlit:
+    build: ./streamlit  # Path to your Streamlit Dockerfile
+    container_name: streamlit_app
+    ports:
+      - "8501:8501"  # Expose Streamlit app on port 8501
+    depends_on:
+      - postgres  # Ensure PostgreSQL starts before Streamlit
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=movies
+      - POSTGRES_USER=your_user
+      - POSTGRES_PASSWORD=your_password
+    networks:
+      - app_network
+
+  postgres:
+    image: postgres:13  # Official PostgreSQL image
+    container_name: postgres_db
+    environment:
+      - POSTGRES_DB=movies  # Database name
+      - POSTGRES_USER=your_user  # User for connecting to the database
+      - POSTGRES_PASSWORD=your_password  # Password for user
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Add this line
+    ports:
+      - "5432:5432"  # Expose PostgreSQL on port 5432
+    networks:
+      - app_network
+
+# Define a named volume to persist PostgreSQL data
+volumes:
+  postgres_data:
+
+# Define a network to allow inter-container communication
+networks:
+  app_network:
+    driver: bridge

@@ -1,0 +1,4 @@
+streamlit
+psycopg2-binary  # PostgreSQL adapter for Python
+sqlalchemy  # ORM for easy database interaction
+pandas  # (Optional) For data handling

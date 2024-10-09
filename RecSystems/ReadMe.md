@@ -93,8 +93,11 @@ Once the Docker container is up and running, navigate to JupyterLab:
 4. **Association Rule Mining**
    - The FPGrowth algorithm is used to mine frequent patterns and recommend items based on the relationships between them.
 
-5. ** Two Tower Model**
+5. **Two Tower Model**
    - The Two-Tower Model is a deep learning architecture commonly used in recommendation systems. It consists of two separate neural networks (or "towers")—one for user data and one for item data—that learn embeddings independently. The outputs (embeddings) from each tower are then combined, often using dot product or cosine similarity, to predict user-item interactions, like clicks or purchases. This model helps efficiently handle large-scale recommendations by focusing on capturing relevant features from both users and items.
+
+6. **Neural Collaborative Filtering**
+   - Neural Collaborative Filtering (NCF) is a deep learning approach used in recommendation systems, combining neural networks with collaborative filtering techniques. It replaces traditional matrix factorization by using neural networks to model complex, non-linear relationships between users and items, capturing more intricate patterns. NCF generates personalized recommendations by learning user-item interactions through embedding layers and fully connected neural networks, offering improved performance in large-scale, personalized content recommendation tasks.
 
 ---
 

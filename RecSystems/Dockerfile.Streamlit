@@ -1,0 +1,17 @@
+# Use official Python base image
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy the Streamlit app code to the container
+COPY . .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the port that Streamlit will run on
+EXPOSE 8501
+
+# Command to run Streamlit app
+CMD ["streamlit", "run", "app.py"]
