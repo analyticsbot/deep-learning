@@ -45,3 +45,43 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+*.log
+*.csv
+
+# Airflow logs
+/airflow/logs/
+/airflow/scheduler/
+/airflow/worker/
+/airflow/plugins/
+/airflow/dags/__pycache__/
+airflow/.airflow.sqlite  # If you use SQLite locally (not for prod)
+
+# Airflow secrets
+/secrets/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+# MLflow
+*/mlruns/*
+/mlflow_logs/
+/mlflow_model_data/
+*.sqlite
+
+
+# Spark
+/sparkdata/
+/spark-logs/
+*.out
+*.log
+*.pid
+*.temp
+*.jar
+*.zip
+__pycache__/
+
+/mlruns/
+*/logs/*
