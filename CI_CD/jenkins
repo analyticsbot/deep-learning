@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/your-username/your-repo.git', branch: 'main'
+            }
+        }
+
+        stage('Train Model') {
+            steps {
+                script {
+                    // Trigger Airflow DAG via API
+                    sh 'curl -X POST http://localhost:8080/api/v1/dags/train_cat_vs_dog_model/dagRuns'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def app = docker.build("your-dockerhub-username/ml-model:${env.BUILD_ID}")
+                }
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    sh 'docker run -d -p 5000:5000 your-dockerhub-username/ml-model:${env.BUILD_ID}'
+                }
+            }
+        }
+    }
+}
