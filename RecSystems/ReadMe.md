@@ -23,19 +23,13 @@ We use the **MovieLens** dataset to demonstrate the recommendation models, and t
 
 This project demonstrates various recommendation algorithms for building a movie recommendation system using the **MovieLens dataset**. The dataset is loaded and processed using **PySpark** for scalability, and different recommendation models such as Collaborative Filtering, Matrix Factorization, and Content-Based Filtering are implemented using **PyTorch**.
 
-### Models Implemented:
-- **Collaborative Filtering (User- and Item-based)**: Recommends items based on user-item interactions.
-- **Content-Based Filtering**: Recommends items based on item features and user interests.
-- **Matrix Factorization**: Decomposes the user-item interaction matrix to discover latent factors.
-- **Association Rule Mining (FPGrowth)**: Uses frequent pattern mining to recommend items based on transaction relationships.
-
 ---
 
 ## Setup Instructions
 
 ### Prerequisites
 - Docker installed on your machine.
-- Docker Compose (optional but recommended).
+- Docker Compose.
 
 ### Steps:
 1. Clone the repository:
@@ -60,6 +54,7 @@ This will create a Docker container with the following tools:
 
 ### Configuration:
 The dataset (`ml-latest-small.zip`) is automatically downloaded from MovieLens and used to generate recommendations.
+https://grouplens.org/datasets/movielens/latest/
 
 ---
 
