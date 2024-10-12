@@ -10,6 +10,8 @@ services:
       - WEAVIATE_HOST=weaviate
     networks:
       - vector-network
+    volumes:
+      - weaviate-data:/var/lib/weaviate  # Persist Weaviate data
 
   streamlit:
     build: ./streamlit
@@ -41,3 +43,8 @@ services:
 networks:
   vector-network:
     driver: bridge
+
+
+volumes:
+  weaviate-data:  
+  # Define the volume for Weaviate
