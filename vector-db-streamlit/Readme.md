@@ -3,6 +3,7 @@
 This project sets up a vector database using Weaviate and a Streamlit web UI for inserting and querying questions. The application allows users to input questions and retrieves similar questions based on embeddings.
 
 ## Project Structure
+```
 vector-db-streamlit/
 │
 ├── docker-compose.yml      # Docker Compose file to set up services
@@ -11,7 +12,7 @@ vector-db-streamlit/
 │   ├── Dockerfile           # Dockerfile for the Streamlit application
 │   └── requirements.txt     # Python dependencies for the Streamlit app
 └── .env                     # Environment variables for Weaviate connection
-
+```
 ## Prerequisites
 
 - [Docker](https://www.docker.com/get-started) installed on your machine
