@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  streamlit:
+    build:
+      context: ./streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./db:/app/db  # Persist the SQLite database
+    networks:
+      - vector-net
+
+networks:
+  vector-net:
