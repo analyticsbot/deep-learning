@@ -1,5 +1,5 @@
 # Use an official JupyterLab base image
-FROM bitnami/jupyter-base-notebook:latest
+FROM jupyter/base-notebook:latest
 
 # Install required packages as root
 USER root  
@@ -11,7 +11,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Switch back to the jovyan user
-USER 1001
+USER jovyan
 COPY requirements.txt .
 # Install Python packages
 RUN pip install --upgrade pip setuptools wheel
