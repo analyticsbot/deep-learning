@@ -22,7 +22,21 @@ services:
     networks:
       - vector-network
     volumes:
-      - ./streamlit:/app  # Mount the local directory to the /app directory in the container
+      - ./streamlit:/app
+
+  jupyterlab:
+    build: ./jupyterlab
+    ports:
+      - "8888:8888"
+    environment:
+      - WEAVIATE_URL=http://weaviate:8080
+    depends_on:
+      - weaviate
+    networks:
+      - vector-network
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - ./jupyterlab:/app
 
 networks:
   vector-network:

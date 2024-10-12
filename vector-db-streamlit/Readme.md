@@ -4,13 +4,19 @@ This project sets up a vector database using Weaviate and a Streamlit web UI for
 
 ## Project Structure
 ```
-vector-db-streamlit/
+project-root/
 │
-├── docker-compose.yml      # Docker Compose file to set up services
-├── streamlit/
-│   ├── app.py              # Streamlit application code
-│   ├── Dockerfile           # Dockerfile for the Streamlit application
-│   └── requirements.txt     # Python dependencies for the Streamlit app
+├── docker-compose.yaml
+│
+├── streamlit/                # Folder for Streamlit code
+│   ├── Dockerfile
+│   └── app.py
+│
+├── jupyterlab/               # Folder for JupyterLab code
+│   ├── Dockerfile
+│
+└── notebooks/                # Folder for Jupyter Notebooks
+|   └── your_notebook.ipynb   # Example notebook to connect to Weaviate
 └── .env                     # Environment variables for Weaviate connection
 ```
 ## Prerequisites
@@ -35,9 +41,11 @@ Follow these steps to set up and run the application locally.
 docker-compose up --build
 ```
 
-3. **Access the Streamlit UI**
+3. **Streamlit UI & Jupyterlab**
 
-Open your web browser and navigate to http://localhost:8501 to access the Streamlit UI.
+You’ll be able to access:
+- Streamlit at http://localhost:8501
+- JupyterLab at http://localhost:8888 (No token required)
 
 4. **Usage**
 - In the input field, enter your question.

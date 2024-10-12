@@ -1,6 +1,4 @@
-
 import ssl
-
 # Bypass SSL verification
 ssl._create_default_https_context = ssl._create_unverified_context
 import os
