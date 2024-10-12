@@ -1,15 +1,29 @@
 version: '3.8'
 
 services:
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - WEAVIATE_AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true
+      - WEAVIATE_HOST=weaviate
+    networks:
+      - vector-network
+
   streamlit:
-    build:
-      context: ./streamlit
+    build: ./streamlit
     ports:
       - "8501:8501"
-    volumes:
-      - ./db:/app/db  # Persist the SQLite database
+    environment:
+      - WEAVIATE_URL=http://weaviate:8080
+    depends_on:
+      - weaviate
     networks:
-      - vector-net
+      - vector-network
+    volumes:
+      - ./streamlit:/app  # Mount the local directory to the /app directory in the container
 
 networks:
-  vector-net:
+  vector-network:
+    driver: bridge

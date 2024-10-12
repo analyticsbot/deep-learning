@@ -1,2 +1,5 @@
 streamlit
-requests
+weaviate-client
+sentence-transformers
+numpy
+requests==2.27.1

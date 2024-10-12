@@ -1,67 +1,121 @@
-import streamlit as st
-import sqlite3
+
+import ssl
+
+# Bypass SSL verification
+ssl._create_default_https_context = ssl._create_unverified_context
 import os
+os.environ['CURL_CA_BUNDLE'] = ''
 
-# Function to connect to SQLite database
-def get_db_connection():
-    conn = sqlite3.connect('./db/questions.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+import streamlit as st
+from weaviate import Client
+import weaviate
+from sentence_transformers import SentenceTransformer
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 
-# Initialize the database
-def init_db():
-    conn = get_db_connection()
-    with conn:
-        conn.execute('''
-            CREATE TABLE IF NOT EXISTS questions (
-                id INTEGER PRIMARY KEY,
-                question TEXT UNIQUE NOT NULL
-            )
-        ''')
-    conn.close()
+# Initialize Weaviate client
+client = Client("http://weaviate:8080")  # Replace with your actual Weaviate URL
 
-# Function to insert a question into the database
-def insert_question(question):
-    conn = get_db_connection()
-    with conn:
-        try:
-            conn.execute('INSERT INTO questions (question) VALUES (?)', (question,))
-        except sqlite3.IntegrityError:
-            pass  # Ignore if the question already exists
-    conn.close()
+# Initialize Sentence Transformer
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
-# Function to find same questions
-def find_same_questions(question):
-    conn = get_db_connection()
-    same_questions = []
-    query = 'SELECT question FROM questions WHERE question = ?'
-    cursor = conn.execute(query, (question,))
-    for row in cursor.fetchall():
-        same_questions.append(row['question'])
-    conn.close()
-    return same_questions
+# Function to create schema
+def create_schema(client):
+    class_obj = {
+        "class": "Question",
+        "properties": [
+            {
+                "name": "text",
+                "dataType": ["text"]
+            },
+            {
+                "name": "embedding",
+                "dataType": ["number[]"]
+            }
+        ]
+    }
+    
+    # Check if the schema already exists
+    existing_classes = client.schema.get()["classes"]
+    class_names = [cls["class"] for cls in existing_classes]
+    
+    if "Question" not in class_names:
+        client.schema.create_class(class_obj)
 
-# Initialize the database on app start
-init_db()
 
-st.title("Question Similarity Checker")
+# Function to fetch similar questions based on embeddings
+def fetch_similar_questions(question_input, threshold=0.8):
+    # Encode the input question to embedding
+    input_embedding = model.encode([question_input])
+    
+    # Fetch all existing questions
+    query = client.query.get("Question", ["text", "embedding"]).do()
+    questions = query['data']['Get']['Question']
+    
+    similar_questions = []
+    
+    for question in questions:
+        question_embedding = np.array(question['embedding']).reshape(1, -1)
+        similarity = cosine_similarity(input_embedding, question_embedding)[0][0]
+        if similarity >= threshold:
+            similar_questions.append(question['text'])
+    
+    return similar_questions
 
-# Input box for the user to insert a question
-user_question = st.text_input("Insert a question:")
 
-if st.button("Submit"):
-    if user_question:
-        # Check for same questions
-        same_questions = find_same_questions(user_question)
+# Function to insert new question
+def insert_question(question_input):
+    embedding = model.encode([question_input]).tolist()[0]
+    question_object = {
+        "text": question_input,
+        "embedding": embedding
+    }
+    client.data_object.create(question_object, "Question")
 
-        # If no same questions found, add the new question to the database
-        if not same_questions:
-            insert_question(user_question)
-            st.success("Question added successfully!")
-            same_questions.append(user_question)  # Include the submitted question as well
 
-        st.write("Questions that are the same:")
-        for question in same_questions:
-            st.write(f"- {question}")
-    else:
-        st.error("Please enter a question.")
+# Function to fetch all questions
+def fetch_all_questions():
+    query = client.query.get("Question", ["text"]).do()
+    questions = query['data']['Get']['Question']
+    return [q['text'] for q in questions]
+
+
+# Initialize Weaviate schema
+create_schema(client)
+
+# Streamlit Tabs for UI
+tab1, tab2 = st.tabs(["Insert Question", "View Questions"])
+
+# Tab for Inserting Questions
+with tab1:
+    st.header("Insert Question")
+
+    question_input = st.text_input("Enter a question")
+
+    if st.button("Check Similar Questions"):
+        if question_input:
+            similar_questions = fetch_similar_questions(question_input)
+            if similar_questions:
+                st.write("Similar Questions found:")
+                for q in similar_questions:
+                    st.write(f"- {q}")
+            else:
+                st.write("No similar questions found.")
+    
+    if st.button("Insert Question"):
+        similar_questions = fetch_similar_questions(question_input)
+        if not similar_questions:
+            insert_question(question_input)
+            st.write("Question inserted successfully!")
+        else:
+            st.write("Question is too similar to existing ones, not inserted.")
+
+# Tab for Viewing All Questions
+with tab2:
+    st.header("View All Questions")
+    
+    if st.button("Refresh"):
+        all_questions = fetch_all_questions()
+        st.write("All Inserted Questions:")
+        for q in all_questions:
+            st.write(f"- {q}")

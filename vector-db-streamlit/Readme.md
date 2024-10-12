@@ -1,19 +1,16 @@
-# Vector Database with Streamlit UI
+# Vector Database with Streamlit UI and Weaviate
 
-This project sets up a vector database and a Streamlit web UI for inserting and querying questions. The application allows users to input questions and retrieves the same questions (even if phrased differently) from the database.
+This project sets up a vector database using Weaviate and a Streamlit web UI for inserting and querying questions. The application allows users to input questions and retrieves similar questions based on embeddings.
 
 ## Project Structure
 vector-db-streamlit/
 │
-├── docker-compose.yml      # Ensure this file has the correct content
+├── docker-compose.yml      # Docker Compose file to set up services
 ├── streamlit/
-│   ├── app.py
-│   ├── Dockerfile
-│   └── requirements.txt
-└── db/
-    └── questions.db
-
-
+│   ├── app.py              # Streamlit application code
+│   ├── Dockerfile           # Dockerfile for the Streamlit application
+│   └── requirements.txt     # Python dependencies for the Streamlit app
+└── .env                     # Environment variables for Weaviate connection
 
 ## Prerequisites
 
@@ -46,11 +43,12 @@ Open your web browser and navigate to http://localhost:8501 to access the Stream
 - The application will display questions that are the same but may be phrased differently.
 
 5. **Project Details**
-- Vector Database: The application uses an SQLite database to store questions persistently.
+- Vector Database: The application uses Weaviate to store and retrieve questions based on embeddings.
 - Streamlit UI: A simple and interactive web interface for users to interact with the vector database.
 
 6. **Technologies Used**
 - Python
 - Streamlit
 - Docker
-- SQLite
+- Weaviate
+- Sentence Transformers
