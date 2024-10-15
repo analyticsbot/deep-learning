@@ -18,18 +18,22 @@ This project is a solution to measure the performance of various vector database
 
 ## Project Structure
 ```
-vector-db-performance-tester/
+compare_vector_dbs/
 │
 ├── Dockerfile.lancedb          # Custom Dockerfile for LanceDB
+├── Dockerfile.streamlit          # Custom Dockerfile for Streamlit
 ├── docker-compose.yml          # Docker Compose to manage both LanceDB and Qdrant
-├── start_lancedb.py           # Script to start the LanceDB service
-├── app.py                      # Streamlit app to handle the UI
+├── streamlit_app
+│   ├── app.py                      # Streamlit app to handle the UI
+│   ├── requirements.txt
 ├── databases/                  # Folder for insert and query scripts
 │   ├── lancedb_insert.py
 │   ├── lancedb_query.py
 │   ├── qdrant_insert.py
 │   ├── qdrant_query.py
-└── lancedb_data/              # Persisted data directory
+│   ├── start_lancedb.py
+├── stored_db_info.json   
+└── ReadMe.md           
 ```
 
 ## Getting Started
