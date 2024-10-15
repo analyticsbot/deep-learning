@@ -17,7 +17,7 @@ This project is a solution to measure the performance of various vector database
 - Docker Compose
 
 ## Project Structure
-
+```
 vector-db-performance-tester/
 │
 ├── Dockerfile.lancedb          # Custom Dockerfile for LanceDB
@@ -30,8 +30,7 @@ vector-db-performance-tester/
 │   ├── qdrant_insert.py
 │   ├── qdrant_query.py
 └── lancedb_data/              # Persisted data directory
-
-## Getting Started
+```
 
 ## Getting Started
 
