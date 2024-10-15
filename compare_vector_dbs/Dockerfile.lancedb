@@ -1,0 +1,23 @@
+# Base image
+FROM python:3.9
+
+# Install LanceDB and other dependencies
+RUN pip install lancedb
+
+# Create a directory for LanceDB data (if needed)
+RUN mkdir /lancedb_data
+
+# Set the working directory
+WORKDIR /app
+
+# Copy your scripts into the container
+COPY databases /app/databases
+
+# Expose a port for the LanceDB server (this port can be changed as necessary)
+EXPOSE 8081
+
+# Copy the script to run LanceDB as an entry point
+COPY databases/start_lancedb.py /app/start_lancedb.py
+
+# Run the LanceDB server when the container starts
+CMD ["python3", "/app/start_lancedb.py"]

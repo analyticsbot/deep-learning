@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  lancedb:
+    build:
+      context: .
+      dockerfile: Dockerfile.lancedb
+    volumes:
+      - lancedb_data:/app/lancedb_data
+    networks:
+      - vector-db-network
+
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6333:6333"  # Qdrant's default port
+    networks:
+      - vector-db-network
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit  # Create this Dockerfile for Streamlit
+    ports:
+      - "8501:8501"  # Default port for Streamlit
+    networks:
+      - vector-db-network
+    depends_on:
+      - lancedb
+      - qdrant
+
+volumes:
+  lancedb_data:
+
+networks:
+  vector-db-network:
