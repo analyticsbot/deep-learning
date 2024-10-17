@@ -1,4 +1,4 @@
-# Vector Database Performance Tester
+# Compare Vector Database Performance
 
 This project is a solution to measure the performance of various vector databases, including LanceDB and Qdrant. It provides a user-friendly interface for testing the insertion and querying functionalities of different databases.
 
@@ -17,6 +17,7 @@ This project is a solution to measure the performance of various vector database
 - Docker Compose
 
 ## Project Structure
+
 ```
 compare_vector_dbs/
 │
