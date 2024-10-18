@@ -479,3 +479,173 @@ Given a learner with skills in *Big Data*, *Database*, and *Data Analysis*, Link
 #### Final Skill Mapping
 Combine profile-based and cohort-based mappings using a weighted combination. For instance, if SQL has a higher weight in the cohort mapping, it will influence the final score accordingly.
 
+
+### Regression Loss Functions
+
+#### 1. Mean Square Error (MSE)
+#### Description:
+MSE calculates the average of the squared differences between the predicted and actual values.
+
+#### Advantage:
+- Penalizes larger errors more than smaller ones due to the square term.
+- Smooth and differentiable, making it useful for gradient-based optimization.
+
+#### Disadvantage:
+- Sensitive to outliers since errors are squared, making large errors dominate the loss.
+
+#### Best Suited For:
+- Data without extreme outliers or when you want to penalize larger errors more.
+
+#### Example:
+```python
+# Example data
+y_true = [2, 3, 4]
+y_pred = [2.5, 3.5, 3]
+
+mse = np.mean((np.array(y_true) - np.array(y_pred))**2)
+```
+
+#### 2. Mean Absolute Error (MAE)
+#### Description:
+MAE calculates the average of the absolute differences between predicted and actual values.
+
+#### Advantage:
+Less sensitive to outliers compared to MSE.
+Directly represents the average error in the same units as the output.
+
+#### Disadvantage:
+The loss is not differentiable at zero, making it less suitable for some optimization algorithms.
+
+#### Best Suited For:
+Data with outliers or where you want errors to contribute linearly.
+
+#### Example:
+```
+python
+mae = np.mean(np.abs(np.array(y_true) - np.array(y_pred)))
+```
+
+#### 3. Huber Loss
+#### Description:
+Huber loss is a combination of MSE and MAE. It behaves like MAE for large errors and MSE for smaller errors.
+
+#### Advantage:
+Robust to outliers while still penalizing small errors like MSE.
+
+#### Disadvantage:
+Requires tuning a hyperparameter (δ) to switch between MSE and MAE behavior.
+
+#### Best Suited For:
+Data with some outliers, but where smaller errors still need to be penalized effectively.
+
+#### Example:
+```
+python
+delta = 1.0
+huber_loss = np.mean(np.where(np.abs(y_true - y_pred) <= delta, 
+                              0.5 * (y_true - y_pred)**2, 
+                              delta * (np.abs(y_true - y_pred) - 0.5 * delta)))
+```
+
+#### 4. Quantile Loss
+
+#### Description:
+Quantile loss minimizes over- or under-estimation based on a quantile (τ). The loss penalizes differently based on whether the prediction is above or below the true value.
+
+#### Advantage:
+Useful for predicting conditional quantiles instead of the mean.
+
+#### Disadvantage:
+Requires setting a quantile τ, which needs domain knowledge or experimentation.
+
+#### Best Suited For:
+Asymmetric prediction intervals or for use in probabilistic forecasting.
+
+#### Example:
+```
+python
+tau = 0.9
+quantile_loss = np.mean(np.maximum(tau * (y_true - y_pred), (tau - 1) * (y_true - y_pred)))
+```
+
+#### 5. Mean Absolute Percentage Error (MAPE)
+#### Description:
+MAPE calculates the average percentage error between predicted and true values.
+
+#### Advantage:
+Scale-independent, making it useful for comparing across datasets with different ranges.
+
+#### Disadvantage:
+Sensitive to small values in the true labels, which can inflate the error.
+Best Suited For:
+Data where you care more about percentage errors than absolute differences.
+
+#### Example:
+```
+python
+mape = np.mean(np.abs((y_true - y_pred) / y_true)) * 100
+```
+
+#### 6. Symmetric Absolute Percentage Error (sMAPE)
+#### Description:
+sMAPE adjusts MAPE to be symmetric, considering both over- and under- predictions equally.
+
+#### Advantage:
+More balanced compared to MAPE, especially for large over- or under-predictions.
+
+#### Disadvantage:
+Still sensitive to small values in the denominator.
+
+#### Best Suited For:
+Forecasting data, especially time-series, where you want a balanced error metric.
+
+#### Example:
+```
+python
+smape = 100 * np.mean(2 * np.abs(y_true - y_pred) / (np.abs(y_true) + np.abs(y_pred)))
+```
+
+#### 7. Focal Loss
+#### Description:
+Focal loss is designed to down-weight easy examples and focus on learning from hard, misclassified examples.
+
+#### Advantage:
+Useful in imbalanced datasets by focusing on harder-to-classify examples.
+
+#### Disadvantage:
+Requires tuning a focusing parameter (γ), which adds complexity.
+Best Suited For:
+Imbalanced regression or classification tasks where you want to focus on hard examples.
+
+####  Example:
+
+```
+python
+gamma = 2.0
+focal_loss = np.mean(((1 - np.abs(y_true - y_pred))**gamma) * (y_true - y_pred)**2)
+```
+
+#### 8. Hinge Loss
+#### Description:
+Hinge loss is commonly used for "maximum-margin" classification, such as in support vector machines. It penalizes predictions that are on the wrong side of the margin.
+
+#### Advantage:
+Ensures that not just the correct label, but the margin is optimized.
+
+#### Disadvantage:
+Not suitable for regression tasks directly.
+
+#### Best Suited For:
+Classification tasks where margin-based optimization is important, such as support vector machines (SVMs).
+
+#### Example:
+```
+python
+hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
+```
+
+
+
+
+
+
