@@ -275,3 +275,207 @@ The output represents the context-target pairs used in sequence embedding traini
 #### Explanation of the Code
 Sessions: Each session is a sequence of users, where User A might see photos from User B, then User C.
 Training data: We generate context-target pairs for training embeddings, where each user has surrounding users in the session as context.
+
+
+### Recommendation System Design
+
+#### Overview
+
+This project focuses on building a recommendation system that efficiently suggests items to users based on their preferences. One of the key design choices is the use of the **Hadamard product** over more common functions like **cosine similarity**. This choice allows the model to learn its own distance function while reducing latency in online scoring.
+
+#### Key Concepts
+
+#### Hadamard Product
+
+The Hadamard product is an element-wise multiplication of two matrices (or vectors). For two vectors \( A \) and \( B \), the Hadamard product \( A \circ B \) is calculated as:
+
+\[
+A \circ B = (A_1 \cdot B_1, A_2 \cdot B_2, \ldots, A_n \cdot B_n)
+\]
+
+#### Cosine Similarity
+
+Cosine similarity measures the cosine of the angle between two non-zero vectors in an inner product space. It is commonly used to determine how similar two items are, regardless of their magnitude.
+
+#### Distance Function
+
+In machine learning, a distance function helps determine how "far apart" or "similar" two data points (like user preferences or item attributes) are. A model that learns its own distance function can adapt to specific data characteristics, improving performance.
+
+#### Fully Connected Layer
+
+In neural networks, a fully connected layer means that each neuron in one layer is connected to every neuron in the next layer. This can increase computational costs and latency, particularly in real-time systems like recommendation engines.
+
+## Example Scenario
+
+### Movie Recommendation System
+
+In our movie recommendation system, we represent users and movies as vectors.
+
+- **User Preferences Vector**:
+    - \( U = [0.9, 0.1, 0.5] \) (indicating preferences for Action, Comedy, and Drama).
+
+- **Movie Attributes Vector**:
+    - \( M = [0.8, 0.4, 0.3] \).
+
+#### Hadamard Product Approach
+
+The Hadamard product \( U \circ M \) yields:
+
+\[
+U \circ M = [0.9 \cdot 0.8, 0.1 \cdot 0.4, 0.5 \cdot 0.3] = [0.72, 0.04, 0.15]
+\]
+
+The resulting vector indicates the "combined" score for each genre, allowing the model to learn how to weigh different attributes based on user preferences.
+
+#### Cosine Similarity Approach
+
+If we used cosine similarity, we would compute:
+
+\[
+\text{cosine similarity} = \frac{U \cdot M}{\|U\| \|M\|}
+\]
+
+This would return a single similarity score that tells how similar the user is to the movie, which might not provide as detailed a picture of preferences as the Hadamard product.
+
+#### Advantages of the Hadamard Product
+
+- **Flexibility**: The model can learn and adjust weights for each attribute independently, capturing the nuances of user preferences.
+- **Reduced Latency**: By avoiding a fully connected layer, the system can operate more quickly, which is critical for online recommendation systems where users expect instant results.
+
+#### Conclusion
+
+The choice of the Hadamard product allows the model to create a more tailored representation of user preferences while maintaining efficiency in scoring recommendations. This flexibility can lead to improved performance in suggesting items that align closely with users' unique tastes.
+
+
+### Handling Imbalanced Class Distribution in Multi-Class Problems
+In machine learning tasks like fraud detection, click prediction, or spam detection, it's common to have imbalanced labels. For example, in ad click prediction, you might have a 0.2% conversion rate, meaning out of 1,000 clicks, only two lead to a desired action. This imbalance can cause the model to focus too much on learning from the majority class.
+
+When dealing with multi-class problems, methods like SMOTE (Synthetic Minority Over-sampling Technique) are not always effective. Below are some strategies to handle class imbalance in multi-class settings:
+
+#### 1. Class Weights in Loss Function
+Adjusting class weights in the loss function allows the model to give more importance to the minority classes.
+
+How it works:
+```loss = - (w0 * y * log(p)) - (w1 * (1 - y) * log(1 - p))```
+
+Effect: Helps the model focus on minority classes and reduces bias toward the majority class.
+
+#### 2. Oversampling and Undersampling
+a. Random Oversampling
+Random oversampling duplicates instances from minority classes to balance the dataset.
+
+```python
+from imblearn.over_sampling import RandomOverSampler
+
+ros = RandomOverSampler()
+X_res, y_res = ros.fit_resample(X, y)
+
+```
+
+b. Random Undersampling
+Random undersampling reduces the number of majority class samples.
+
+```python
+from imblearn.under_sampling import RandomUnderSampler
+
+rus = RandomUnderSampler()
+X_res, y_res = rus.fit_resample(X, y)
+```
+
+3. Hybrid Approach: Combining Oversampling and Undersampling
+A combination of oversampling for minority classes and undersampling for majority classes.
+
+4. Multi-Class Variants of SMOTE
+There are several multi-class variants of SMOTE, like SMOTE-ENN and Borderline-SMOTE.
+
+a. SMOTE-ENN
+This combines SMOTE with Edited Nearest Neighbors to clean noisy samples.
+
+```python
+from imblearn.combine import SMOTEENN
+
+smote_enn = SMOTEENN()
+X_res, y_res = smote_enn.fit_resample(X, y)
+```
+
+b. Borderline-SMOTE
+This method focuses on synthesizing samples specifically for borderline minority instances.
+
+5. Ensemble Methods
+a. Balanced Random Forest
+Balanced Random Forest undersamples the majority class at each bootstrap iteration, creating balanced datasets for each tree in the forest.
+
+```python
+from imblearn.ensemble import BalancedRandomForestClassifier
+
+clf = BalancedRandomForestClassifier()
+clf.fit(X, y)
+```
+b. EasyEnsemble
+EasyEnsemble creates multiple balanced subsets from the original dataset using undersampling.
+
+```
+python
+from imblearn.ensemble import EasyEnsembleClassifier
+
+clf = EasyEnsembleClassifier()
+clf.fit(X, y)
+```
+6. Data Augmentation
+Data augmentation can help generate more samples for minority classes, especially useful for image, text, or time-series data.
+
+These methods can help tackle the challenge of class imbalance in multi-class machine learning tasks.
+
+### Course Recommendations on LinkedIn Learning
+
+#### Problem
+The goal of Course Recommendations is to acquire new learners by showing highly relevant courses to learners. However, there are challenges:
+
+1. **Lack of label data**: Without engagement signals like user activities (browse, click), we can't use implicit labels for training. This is known as the *Cold Start problem*.
+   - A possible solution is user surveys during onboarding, where learners share the skills they want to learn. However, this is often insufficient.
+
+#### Example Scenario
+Given a learner with skills in *Big Data*, *Database*, and *Data Analysis*, LinkedIn Learning has two course options: *Data Engineering* and *Accounting 101*. The model should recommend *Data Engineering* since it aligns better with the learner's skills. This illustrates that skills can measure relevance.
+
+#### Skill-Based Model
+
+#### Course to Skill: Cold Start Model
+1. **Manual Tagging**: 
+   - Use taxonomy to map LinkedIn Learning courses to skills. Taxonomists perform this mapping, which achieves high precision but low coverage.
+   
+2. **Leverage LinkedIn Skill Taggers**: 
+   - Use LinkedIn Skill Taggers to extract skills from course data.
+
+3. **Supervised Model**: 
+   - Train a classification model that takes a pair (course, skill) and returns `1` if relevant, `0` otherwise.
+
+#### Data for Supervised Model
+- Positive examples: From manual tagging and LinkedIn Skill Taggers.
+- Negative examples: Randomly sampled data.
+- Features: Course data such as title, description, and section names. Skill-to-skill similarity is also used.
+
+#### Disadvantages:
+- Heavy reliance on skill taggers' quality.
+- A single logistic regression model may not capture skill-level effects.
+
+4. **Semi-Supervised Learning**:
+   - Train separate models for each skill, rather than one general model for all (course, skill) pairs.
+   
+5. **Data Augmentation**:
+   - Use skill-correlation graphs to add positive labels. For example, if SQL is highly related to Data Analysis, both skills should be labeled positively for relevant courses.
+
+#### Evaluation: Offline Metrics
+1. **Skill Coverage**: Measures how many LinkedIn standardized skills are present.
+2. **Precision and Recall**: Use human-generated mappings as ground truth to evaluate the model.
+
+#### Member to Skill
+
+1. **Member to Skill via Profile**: 
+   - LinkedIn users add skills to their profiles, which is often noisy and needs to be standardized. Coverage is limited since not all users provide skill data.
+
+2. **Member to Skill Using Title and Industry**:
+   - Infer skills using cohort-level mapping based on job titles and industry. For example, a Machine Learning Engineer in Ad Tech might not provide skills but can be inferred from the cohort.
+
+#### Final Skill Mapping
+Combine profile-based and cohort-based mappings using a weighted combination. For instance, if SQL has a higher weight in the cohort mapping, it will influence the final score accordingly.
+
