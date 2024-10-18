@@ -573,7 +573,8 @@ Scale-independent, making it useful for comparing across datasets with different
 
 #### Disadvantage:
 Sensitive to small values in the true labels, which can inflate the error.
-Best Suited For:
+
+#### Best Suited For:
 Data where you care more about percentage errors than absolute differences.
 
 #### Example:
@@ -608,7 +609,8 @@ Useful in imbalanced datasets by focusing on harder-to-classify examples.
 
 #### Disadvantage:
 Requires tuning a focusing parameter (γ), which adds complexity.
-Best Suited For:
+
+#### Best Suited For:
 Imbalanced regression or classification tasks where you want to focus on hard examples.
 
 ####  Example:
