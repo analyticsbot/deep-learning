@@ -639,7 +639,597 @@ hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
 ```
 
 
+### Evaluation Metrics for Information Retrieval and Ranking
+
+#### 1. Area Under the Curve (AUC)
+#### Description:
+AUC measures the ability of a model to discriminate between positive and negative classes. It is calculated from the Receiver Operating Characteristic (ROC) curve, which plots the true positive rate against the false positive rate at various threshold settings.
+
+#### Advantage:
+- Provides a single metric to evaluate model performance across all classification thresholds.
+- Intuitive interpretation as the probability that a randomly chosen positive instance is ranked higher than a randomly chosen negative instance.
+
+#### Disadvantage:
+- Can be misleading if the class distribution is highly imbalanced.
+- Does not provide insight into the model’s performance at specific thresholds.
+
+#### Best Suited For:
+- Binary classification problems where understanding the trade-off between true and false positive rates is important.
+
+#### Example:
+```python
+from sklearn.metrics import roc_auc_score
+
+y_true = [0, 0, 1, 1]  # Ground truth (0: negative, 1: positive)
+y_scores = [0.1, 0.4, 0.35, 0.8]  # Predicted probabilities
+
+auc = roc_auc_score(y_true, y_scores)
+```
+
+#### 2. Mean Average Recall at K (MAR@K)
+#### Description:
+MAR@K measures the average recall of a model at the top K retrieved items. It is particularly useful in scenarios where only the top K results are considered relevant.
+
+#### Advantage:
+Focuses on the most relevant items, making it suitable for recommendation systems and information retrieval tasks.
+Provides a clearer picture of recall when only a subset of results is of interest.
+
+#### Disadvantage:
+May overlook relevant items that are not in the top K.
+Sensitive to the choice of K; different K values can yield different insights.
+
+#### Best Suited For:
+Scenarios where retrieving the top K relevant items is more important than retrieving all relevant items.
+
+#### Example:
+```python
+def average_recall_at_k(y_true, y_pred, k):
+    relevant_items = sum(y_true)
+    retrieved_items = y_pred[:k]
+    true_positives = sum([1 for i in range(k) if retrieved_items[i] == 1])
+    return true_positives / relevant_items if relevant_items > 0 else 0
+
+y_true = [0, 1, 1, 0, 1]  # Ground truth
+y_pred = [1, 1, 0, 1, 0]  # Predicted top K items
+
+mar_k = average_recall_at_k(y_true, y_pred, k=3)
+```
+
+#### 3. Mean Average Precision (MAP)
+#### Description:
+MAP is the mean of average precision scores across multiple queries. Average precision summarizes the precision-recall curve for a single query and considers the order of predicted results.
+
+#### Advantage:
+Considers both precision and the rank of positive instances, providing a nuanced evaluation.
+Useful for evaluating ranked retrieval tasks.
+#### Disadvantage:
+Requires careful computation, as it involves precision at each relevant item in the ranking.
+May be sensitive to the number of queries in the dataset.
+
+#### Best Suited For:
+Information retrieval tasks where both the order and relevance of items matter.
+
+#### Example:
+```python
+def average_precision(y_true, y_scores):
+    sorted_indices = np.argsort(y_scores)[::-1]  # Sort scores in descending order
+    y_true_sorted = [y_true[i] for i in sorted_indices]
+    
+    precision_scores = [np.sum(y_true_sorted[:k]) / k for k in range(1, len(y_true_sorted) + 1)]
+    ap = np.mean([precision_scores[k - 1] for k in range(1, len(y_true_sorted) + 1) if y_true_sorted[k - 1] == 1])
+    return ap
+
+y_true = [0, 1, 1, 0, 1]  # Ground truth
+y_scores = [0.1, 0.4, 0.35, 0.8, 0.3]  # Predicted scores
+
+map_score = average_precision(y_true, y_scores)
+```
+
+#### 4. Mean Reciprocal Rank (MRR)
+#### Description:
+MRR measures the average of the reciprocal ranks of the first relevant item across multiple queries. It emphasizes the importance of retrieving the relevant item as early as possible.
+
+#### Advantage:
+Simple to compute and interpret.
+Highlights the effectiveness of retrieval systems in providing relevant results early in the ranking.
+#### Disadvantage:
+Only considers the first relevant item, which may not provide a comprehensive view of the retrieval system's performance.
+Sensitive to cases where there are no relevant items in the ranking.
+#### Best Suited For:
+Tasks where finding the first relevant item quickly is crucial, such as question-answering systems.
+#### Example:
+```python
+def mean_reciprocal_rank(queries):
+    ranks = []
+    for query in queries:
+        rank = next((i + 1 for i, relevance in enumerate(query) if relevance), None)
+        ranks.append(1 / rank if rank else 0)
+    return np.mean(ranks)
+
+queries = [[0, 0, 1], [0, 1, 0]]  # List of queries with relevance
+mrr = mean_reciprocal_rank(queries)
+```
+
+#### 5. Normalized Discounted Cumulative Gain (NDCG)
+#### Description:
+Normalized Discounted Cumulative Gain (NDCG) is a ranking metric that is widely used in information retrieval, such as in search engines and recommendation systems. It measures the usefulness (or "gain") of the results based on their relevance, while also considering the position of the results in the ranking. Higher-ranked items (those shown earlier) are given more importance compared to lower-ranked ones.
+
+#### Key Concepts:
+
+1. **Cumulative Gain (CG)**: This is the sum of the relevance scores of the retrieved items, without considering their positions.
+   - Formula: 
+   ```math
+   CG = \sum_{i=1}^{k} rel_i
+
+2. **Discounted Cumulative Gain (DCG)**: DCG penalizes the relevance scores based on their positions. Lower-ranked items are discounted, meaning their contribution to the overall score decreases as the rank increases.
+
+3. **Ideal DCG (IDCG)**: This is the best possible DCG that could be obtained if the items were perfectly ranked according to their relevance. This is used to normalize the DCG.
+
+4. **NDCG**: NDCG is the ratio of DCG to IDCG. It normalizes the score so that it lies between 0 and 1, where a higher score indicates better ranking.
+
+#### Why is NDCG Important?
+NDCG is especially useful when dealing with graded relevance, where items are not simply "relevant" or "irrelevant" but have varying degrees of relevance. By considering both the relevance of items and their positions in the ranking, NDCG provides a more nuanced evaluation of the ranking quality.
+
+
+#### Advantage:
+- Position-sensitive: Penalizes relevant items that are placed lower in the list, encouraging better ordering of items.
+- Graded relevance: Handles varying levels of relevance, unlike binary relevance metrics like Precision or Recall.
+- Normalized: Scores are normalized between 0 and 1, making them comparable across queries or datasets.
+
+#### Disadvantage:
+Requires relevance scores, which may not always be available.
+Complexity in implementation compared to simpler metrics.
+
+#### Best Suited For:
+Ranking tasks in information retrieval where graded relevance is available.
+
+#### Example:
+```python
+def ndcg(y_true, y_scores):
+    sorted_indices = np.argsort(y_scores)[::-1]
+    ideal_relevance = np.sort(y_true)[::-1]
+    
+    dcg = np.sum([(2**y_true[i] - 1) / np.log2(i + 2) for i in range(len(y_true)) if i in sorted_indices])
+    idcg = np.sum([(2**ideal_relevance[i] - 1) / np.log2(i + 2) for i in range(len(ideal_relevance))])
+    return dcg / idcg if idcg > 0 else 0
+
+y_true = [3, 2, 3, 0, 1, 2]  # Relevance scores
+y_scores = [0.1, 0.4, 0.35, 0.8, 0.3, 0.2]  # Predicted scores
+
+ndcg_score = ndcg(y_true, y_scores)
+```
+
+#### Example:
+
+Suppose we have a list of 5 retrieved items with the following relevance scores:
+
+- Ground truth relevance: `[3, 2, 3, 0, 1]`
+- Predicted ranking scores: `[0.5, 0.4, 0.9, 0.3, 0.2]`
+
+1. **Calculate DCG**:
+$$
+DCG_5 = 3 + \frac{2}{\log_2(2+1)} + \frac{3}{\log_2(3+1)} + \frac{0}{\log_2(4+1)} + \frac{1}{\log_2(5+1)}
+$$
+$$
+DCG_5 = 3 + \frac{2}{1.58496} + \frac{3}{2} + 0 + \frac{1}{2.58496} \approx 6.1487
+$$
+
+2. **Calculate IDCG**:
+$$
+IDCG_5 = 3 + \frac{3}{\log_2(2+1)} + \frac{2}{\log_2(3+1)} + \frac{1}{\log_2(4+1)} + 0
+$$
+$$
+IDCG_5 \approx 6.27965
+$$
+
+3. **Calculate NDCG**:
+$$
+NDCG_5 = \frac{DCG_5}{IDCG_5} = \frac{6.1487}{6.27965} \approx 0.9792
+$$
+
+In this case, the NDCG score is approximately **0.979**, indicating a very well-ranked list.
+
+#### 6. Cumulative Gain (CG)
+#### Description:
+Cumulative Gain measures the total relevance score of the retrieved items, regardless of their rank. It sums the relevance scores of the top K results.
+
+#### Advantage:
+Simple and intuitive to calculate, providing a straightforward measure of total relevance.
+Useful for understanding overall retrieval effectiveness.
+#### Disadvantage:
+Ignores the rank of items, meaning it can give a false sense of performance if lower-ranked items are highly relevant.
+#### Best Suited For:
+Situations where the overall relevance of retrieved items is more important than their order.
+#### Example:
+```python
+def cumulative_gain(y_true, k):
+    return np.sum(y_true[:k])
+
+y_true = [3, 2, 3, 0, 1, 2]  # Relevance scores
+cg_score = cumulative_gain(y_true, k=3)
+```
 
 
 
+### Normalized Discounted Cumulative Gain (NDCG) Based on Click Data
 
+**Click data** can be used as a proxy for ground truth relevance scores, especially when explicit relevance labels (e.g., ratings or user feedback) are unavailable. In recommendation systems, clicks indicate user interest, with more clicks suggesting higher relevance. Here’s how click data can be transformed and used as ground truth (GT) relevance:
+
+#### Transforming Click Data into Ground Truth (GT) Relevance:
+- **Clicks as binary relevance**: If a user clicks on an item, it can be labeled as relevant (1), while non-clicked items are considered irrelevant (0).
+- **Clicks as graded relevance**: You can assign higher relevance scores based on the number of clicks or interactions with an item. For instance:
+  - 3+ clicks = highly relevant (relevance score 3)
+  - 2 clicks = relevant (relevance score 2)
+  - 1 click = somewhat relevant (relevance score 1)
+  - 0 clicks = irrelevant (relevance score 0)
+
+### Example: Calculating NDCG Based on Click Data
+
+Let's assume we have a set of 5 items and the following click data:
+
+- **Ground truth relevance** (based on click data): `[3, 0, 2, 0, 1]`
+- **Model-predicted scores**: `[0.9, 0.7, 0.6, 0.4, 0.2]`
+
+**1. Calculate DCG:**
+
+$$
+DCG_5 = \frac{2^3 - 1}{\log_2(1+1)} + \frac{2^0 - 1}{\log_2(2+1)} + \frac{2^2 - 1}{\log_2(3+1)} + \frac{2^0 - 1}{\log_2(4+1)} + \frac{2^1 - 1}{\log_2(5+1)}
+$$
+
+$$
+DCG_5 \approx 7 + 0 + 1.5 + 0 + 0.387 \approx 8.887
+$$
+
+**2. Calculate IDCG:**
+
+$$
+IDCG_5 = \frac{2^3 - 1}{\log_2(1+1)} + \frac{2^2 - 1}{\log_2(2+1)} + \frac{2^1 - 1}{\log_2(3+1)} + \frac{2^0 - 1}{\log_2(4+1)} + \frac{2^0 - 1}{\log_2(5+1)}
+$$
+
+$$
+IDCG_5 \approx 7 + 1.892 + 0.5 + 0 + 0 = 9.392
+$$
+
+**3. Calculate NDCG:**
+
+$$
+NDCG_5 = \frac{DCG_5}{IDCG_5} = \frac{8.887}{9.392} \approx 0.946
+$$
+
+### Interpretation:
+- The NDCG score is approximately **0.946**, indicating that the ranking generated by the model is close to the ideal ranking.
+- This score suggests that the model’s predictions align well with the ground truth relevance derived from click data.
+
+### Use of Click Data as Ground Truth:
+1. **Advantages**:
+   - **Implicit feedback**: Click data is automatically collected, so there's no need to rely on explicit feedback (like ratings or reviews).
+   - **Reflects user interest**: Clicks represent user interactions and interest, making them a strong signal of relevance in many cases.
+
+2. **Challenges**:
+   - **Noisy signals**: Clicks may not always represent true interest or relevance (e.g., accidental clicks).
+   - **Cold start problem**: Users with no click history or new items may not have any click data, making it difficult to assess relevance.
+
+### Conclusion:
+Click data is a valuable source of implicit feedback that can be transformed into ground truth relevance for ranking tasks in recommendation systems. NDCG is an effective metric to evaluate the quality of rankings generated by models that use click-based relevance.
+
+
+### Sampling Techniques
+
+In statistical analysis and machine learning, sampling techniques are used to select a subset of data from a larger population. These techniques allow for efficient computation and generalization. Below are some common sampling techniques, with examples where applicable.
+
+---
+
+#### 1. Random Sampling
+
+#### Description:
+Random Sampling is the simplest sampling technique where each data point in the population has an equal chance of being selected. It helps to ensure that the sample represents the population without bias.
+
+#### Example:
+Suppose you have a dataset of 1000 customer transactions. To randomly select 100 transactions for analysis:
+
+```python
+import random
+
+# Data of 1000 customer transactions
+transactions = list(range(1000))
+
+# Randomly selecting 100 transactions
+random_sample = random.sample(transactions, 100)
+```
+
+This method is unbiased and works well when the population is homogeneous.
+
+#### Advantages:
+Easy to implement
+Unbiased if the population is uniform
+#### Disadvantages:
+May not work well for non-homogeneous populations
+Sample may not represent smaller subgroups effectively
+
+#### 2. Rejection Sampling
+#### Description:
+Rejection Sampling is a technique where samples are drawn from a proposal distribution, and then accepted or rejected based on how well they fit the target distribution. It is commonly used in probabilistic models and Monte Carlo simulations.
+
+#### Example:
+Consider a scenario where you want to sample from a target distribution P(x) but only have access to a simpler proposal distribution Q(x). You generate samples from Q(x) and accept them with probability 𝑃 ( 𝑥 ) / 𝑀 𝑄 ( 𝑥 ), where 𝑀 is a constant.
+
+```python
+import random
+
+def target_distribution(x):
+    return 0.5 * x  # Example target distribution
+
+def proposal_distribution():
+    return random.uniform(0, 2)  # Uniform proposal distribution
+
+samples = []
+for _ in range(1000):
+    x = proposal_distribution()
+    acceptance_prob = target_distribution(x) / 1  # Assume M=1
+    if random.uniform(0, 1) < acceptance_prob:
+        samples.append(x)
+```
+
+#### Advantages:
+Effective for complex distributions
+Flexible and adaptable to various target distributions
+#### Disadvantages:
+Inefficient if many samples are rejected
+Requires a well-designed proposal distribution
+
+#### 3. Weight Sampling (Weighted Random Sampling)
+#### Description:
+Weight Sampling involves selecting samples based on their assigned weights, giving more importance to some data points over others. Each data point has a probability proportional to its weight.
+
+#### Example:
+Suppose you have a list of items with corresponding weights:
+
+```python
+import random
+
+items = ['A', 'B', 'C', 'D']
+weights = [0.1, 0.3, 0.5, 0.1]
+
+####  Select 1 item with weight-based probability
+weighted_sample = random.choices(items, weights, k=1)
+```
+
+#### Advantages:
+Useful when some data points are more important than others
+Reduces bias toward less important data points
+#### Disadvantages:
+Requires accurate weighting of data
+Weight assignment may be subjective
+
+#### 4. Importance Sampling
+#### Description:
+Importance Sampling is a variance reduction technique used in Monte Carlo simulations. It involves drawing samples from a different (usually easier) distribution and adjusting for the difference by weighting the samples. The goal is to estimate properties of a distribution while sampling from a simpler distribution.
+
+#### Example:
+Let's estimate the mean of a target distribution P(x), using a proposal distribution Q(x):
+
+```python
+import numpy as np
+
+def target_distribution(x):
+    return np.exp(-x)  # Example target distribution (exponential decay)
+
+def proposal_distribution():
+    return np.random.normal(0, 2)  # Normal distribution as proposal
+
+weights = []
+samples = []
+
+# Importance sampling
+for _ in range(1000):
+    x = proposal_distribution()
+    w = target_distribution(x) / np.random.normal(0, 2)  # Weight adjustment
+    samples.append(x)
+    weights.append(w)
+
+# Weighted mean estimate
+estimate = np.average(samples, weights=weights)
+```
+#### Advantages:
+Reduces variance in estimates
+More efficient than brute-force sampling
+#### Disadvantages:
+Choosing an appropriate proposal distribution is challenging
+Can lead to high variance if the weights vary significantly
+
+#### 5. Stratified Sampling
+#### Description:
+Stratified Sampling involves dividing the population into distinct subgroups (strata) and sampling from each stratum proportionally. This ensures that each subgroup is adequately represented in the sample.
+
+#### Example:
+Suppose you have a population of students, divided into 3 strata based on grade levels: Grade A, Grade B, and Grade C. You want to ensure that each grade level is represented in your sample.
+
+```python
+import random
+
+# Strata with different populations
+grade_A = list(range(50))
+grade_B = list(range(50, 150))
+grade_C = list(range(150, 250))
+
+# Sample proportionally from each stratum
+sample_A = random.sample(grade_A, 5)
+sample_B = random.sample(grade_B, 10)
+sample_C = random.sample(grade_C, 10)
+
+# Combine the stratified samples
+stratified_sample = sample_A + sample_B + sample_C
+```
+#### Advantages:
+Ensures representation from all subgroups
+Reduces variability within each stratum
+#### Disadvantages:
+Requires prior knowledge of strata
+More complex than simple random sampling
+
+#### 6. Reservoir Sampling
+#### Description:
+Reservoir Sampling is used to sample a fixed number of items from a stream of data of unknown size, ensuring that each item has an equal probability of being included. It's efficient and works well with large datasets.
+
+#### Example:
+Suppose you have a data stream of unknown size and you want to select a random sample of 5 items:
+
+```python
+import random
+
+def reservoir_sampling(stream, k):
+    reservoir = []
+
+    # Fill the reservoir with the first k items
+    for i, item in enumerate(stream):
+        if i < k:
+            reservoir.append(item)
+        else:
+            # Replace items with gradually decreasing probability
+            j = random.randint(0, i)
+            if j < k:
+                reservoir[j] = item
+
+    return reservoir
+
+# Simulated data stream of size 1000
+stream = list(range(1000))
+
+# Reservoir sample of size 5
+reservoir_sample = reservoir_sampling(stream, 5)
+```
+#### Advantages:
+Works efficiently with large datasets
+No need to know the size of the data stream in advance
+#### Disadvantages:
+Limited to uniform sampling
+May not work well for biased or weighted sampling needs
+#### Conclusion:
+Each sampling technique has its own advantages and limitations, depending on the type of data and the goal of the analysis. For simple data, random sampling may be sufficient, but for more complex datasets or streams, methods like stratified sampling and reservoir sampling may be more appropriate.
+
+### Deep Cross Network with parallel architecture
+
+In the context of neural networks and machine learning models, Deep & Cross Layers with Parallel Architecture refers to a specific architectural design used in models such as Deep & Cross Networks (DCN) for recommendation systems and other tasks involving tabular data. This architecture is designed to combine the strengths of deep learning and feature crossing techniques to better capture both high-order feature interactions and non-linear relationships in data.
+
+#### Deep Layers:
+Deep layers refer to the deep neural network (DNN) part of the architecture. These layers consist of multiple fully connected layers stacked on top of each other. Each layer applies a linear transformation followed by a non-linear activation function. The deep layers are good at learning complex, non-linear representations of the input features.
+
+#### Key properties:
+
+Complexity: The deep layers help capture non-linear and intricate patterns from the input features.
+Feature Interaction: Deep layers automatically learn interactions between features through multiple transformations.
+Typical Layers: Fully connected (dense) layers with activations like ReLU or sigmoid.
+
+
+#### Cross Layers:
+Cross layers focus on capturing explicit feature interactions by taking the Cartesian product of features at different levels. They are designed to efficiently learn cross-feature interactions without the need to manually specify the interactions. These layers perform a feature crossing operation, where the feature vectors from the input are multiplied with themselves at different depths to create new combined features.
+
+#### Key properties:
+
+Explicit Feature Interaction: Unlike deep layers, which learn interactions implicitly, cross layers capture explicit feature crossings.
+Higher-Order Feature Interaction: Cross layers are effective in modeling high-order feature interactions in a more controlled and efficient manner.
+Cross Product: These layers iteratively compute cross products between raw input features and transformed features.
+
+
+#### Parallel Architecture:
+In models with parallel architecture, both deep and cross layers are applied simultaneously to the input data, allowing the model to capture both types of relationships—explicit feature interactions (cross layers) and non-linear transformations (deep layers)—in parallel. The outputs of both types of layers are combined (e.g., concatenated) at the final stage to make predictions.
+
+#### Key properties:
+
+Parallel Processing: Deep and cross layers operate on the input data in parallel, and their outputs are fused later on.
+Hybrid Strength: This structure leverages the strengths of both deep learning (complex non-linear patterns) and feature crossing (explicit interactions).
+Effective for Tabular Data: This design is highly effective in domains like recommendation systems and click-through-rate (CTR) prediction, where high-order interactions between categorical and numerical features are crucial.
+
+#### Example of Architecture:
+#### Input Features: The model takes raw input features such as user behavior, product features, and contextual data.
+
+####  Deep Layers:
+
+Multiple dense layers process the input data.
+Each layer applies a linear transformation followed by an activation function (e.g., ReLU).
+#### Cross Layers:
+
+Feature interactions are explicitly calculated by taking products of the input features at various stages.
+Cross layers repeatedly combine the transformed feature vectors with the raw input in a multiplicative manner.
+#### Parallel Structure:
+
+The deep layers and cross layers operate in parallel.
+Their outputs are then concatenated or merged and passed to a final output layer for prediction.
+
+#### Applications:
+This parallel design is particularly useful in recommendation systems (e.g., Google Play, YouTube), click-through-rate (CTR) prediction, and other domains where interactions between categorical and continuous variables are important for accurate predictions.
+
+#### Summary:
+Deep Layers: Learn complex, non-linear patterns in data.
+Cross Layers: Learn explicit, high-order feature interactions.
+#### Parallel Architecture: Combines both approaches to capture a wide range of interactions in data efficiently.
+
+#### Sample code
+
+Let's assume we have a dataset with two features, X1 and X2, and a binary target y for a recommendation task.
+
+```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# Example dataset: 100 samples, 2 features
+X = torch.randn(100, 2)
+y = torch.randint(0, 2, (100, 1)).float()
+
+# DCN Architecture
+class DCN(nn.Module):
+    def __init__(self, input_dim, deep_dims, cross_layers):
+        super(DCN, self).__init__()
+        
+        # Deep part
+        deep_layers = []
+        for dim in deep_dims:
+            deep_layers.append(nn.Linear(input_dim, dim))
+            deep_layers.append(nn.ReLU())
+            input_dim = dim
+        self.deep = nn.Sequential(*deep_layers)
+        
+        # Cross part
+        self.cross_layers = cross_layers
+        self.cross_w = nn.ModuleList([nn.Linear(input_dim, 1, bias=False) for _ in range(cross_layers)])
+        self.cross_b = nn.ParameterList([nn.Parameter(torch.zeros(input_dim)) for _ in range(cross_layers)])
+        
+        # Final output layer
+        self.fc = nn.Linear(input_dim + deep_dims[-1], 1)
+    
+    def forward(self, x):
+        # Cross layers
+        cross = x.clone()
+        for i in range(self.cross_layers):
+            cross = x * self.cross_w[i](cross) + cross + self.cross_b[i]
+
+        # Deep layers
+        deep = self.deep(x)
+
+        # Concatenate deep and cross layers
+        out = torch.cat([cross, deep], dim=-1)
+        out = self.fc(out)
+        return torch.sigmoid(out)
+
+# Model, loss, optimizer
+model = DCN(input_dim=2, deep_dims=[64, 32], cross_layers=3)
+criterion = nn.BCELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01)
+
+# Training loop (basic example)
+for epoch in range(100):
+    optimizer.zero_grad()
+    outputs = model(X)
+    loss = criterion(outputs, y)
+    loss.backward()
+    optimizer.step()
+
+    if (epoch + 1) % 10 == 0:
+        print(f'Epoch [{epoch+1}/100], Loss: {loss.item():.4f}')
+```
+
+#### Breakdown:
+##### Deep Layers: A simple fully connected feed-forward network with ReLU activations.
+##### Cross Layers: Explicit feature interactions calculated iteratively.
+##### Final Output: Concatenates the outputs of both deep and cross layers, and then a final linear layer is used for binary classification.
