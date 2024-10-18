@@ -414,8 +414,7 @@ clf.fit(X, y)
 b. EasyEnsemble
 EasyEnsemble creates multiple balanced subsets from the original dataset using undersampling.
 
-```
-python
+```python
 from imblearn.ensemble import EasyEnsembleClassifier
 
 clf = EasyEnsembleClassifier()
@@ -520,8 +519,7 @@ The loss is not differentiable at zero, making it less suitable for some optimiz
 Data with outliers or where you want errors to contribute linearly.
 
 #### Example:
-```
-python
+```python
 mae = np.mean(np.abs(np.array(y_true) - np.array(y_pred)))
 ```
 
@@ -539,8 +537,7 @@ Requires tuning a hyperparameter (δ) to switch between MSE and MAE behavior.
 Data with some outliers, but where smaller errors still need to be penalized effectively.
 
 #### Example:
-```
-python
+```python
 delta = 1.0
 huber_loss = np.mean(np.where(np.abs(y_true - y_pred) <= delta, 
                               0.5 * (y_true - y_pred)**2, 
@@ -562,8 +559,7 @@ Requires setting a quantile τ, which needs domain knowledge or experimentation.
 Asymmetric prediction intervals or for use in probabilistic forecasting.
 
 #### Example:
-```
-python
+```python
 tau = 0.9
 quantile_loss = np.mean(np.maximum(tau * (y_true - y_pred), (tau - 1) * (y_true - y_pred)))
 ```
@@ -581,8 +577,7 @@ Best Suited For:
 Data where you care more about percentage errors than absolute differences.
 
 #### Example:
-```
-python
+```python
 mape = np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 ```
 
@@ -600,8 +595,7 @@ Still sensitive to small values in the denominator.
 Forecasting data, especially time-series, where you want a balanced error metric.
 
 #### Example:
-```
-python
+```python
 smape = 100 * np.mean(2 * np.abs(y_true - y_pred) / (np.abs(y_true) + np.abs(y_pred)))
 ```
 
@@ -619,8 +613,7 @@ Imbalanced regression or classification tasks where you want to focus on hard ex
 
 ####  Example:
 
-```
-python
+```python
 gamma = 2.0
 focal_loss = np.mean(((1 - np.abs(y_true - y_pred))**gamma) * (y_true - y_pred)**2)
 ```
@@ -639,8 +632,7 @@ Not suitable for regression tasks directly.
 Classification tasks where margin-based optimization is important, such as support vector machines (SVMs).
 
 #### Example:
-```
-python
+```python
 hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
 ```
 
