@@ -1384,3 +1384,7 @@ The predicted ranking would be: `Doc A`, `Doc C`, `Doc B`.
 
 - **RankNet:** A neural network-based pairwise model that predicts relative rankings using probabilities.
 - **RankNet** uses a neural network to predict the relative ranking between pairs of documents, outputting probabilities that one document is ranked higher than another.
+
+
+#### Linear Regression
+[linear_regression.ipynb](Linear Regression Notebook)
