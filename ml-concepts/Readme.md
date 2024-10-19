@@ -1233,3 +1233,154 @@ for epoch in range(100):
 ##### Deep Layers: A simple fully connected feed-forward network with ReLU activations.
 ##### Cross Layers: Explicit feature interactions calculated iteratively.
 ##### Final Output: Concatenates the outputs of both deep and cross layers, and then a final linear layer is used for binary classification.
+
+
+###  How Instagram “blend” video and photos in their recommendations?
+When Instagram recommends videos and photos to users, it needs a way to combine or "blend" these two different types of content in its feed or suggestions. But videos and photos might be interacted with differently by users—some might get more likes, while others might get more comments or views. To fairly compare and recommend content from both types, Instagram uses a mathematical trick to "normalize" these interactions.
+
+Here's how Instagram blends videos and photos:
+Mapping User Interactions to a Probability: Instagram first takes the interaction a user has with content (like clicking, viewing, or liking) and calculates the probability that the user will perform that action, such as a p(like)—the probability that a user will like a video or a photo.
+
+Gaussian Distribution: A Gaussian distribution (or bell curve) is a common way to describe how data points (in this case, the interactions like likes) are spread out. Gaussian distributions are "well-behaved" in the sense that they make it easier to compare data. If Instagram maps the probability of an action (like or view) onto a Gaussian curve, it creates a standardized way to measure and compare different types of content.
+
+Why is this important?: Videos might get fewer likes but more views, while photos might get lots of likes but fewer views. If Instagram simply compared the raw number of likes or views, it wouldn't be a fair comparison because videos and photos are interacted with differently. By mapping these interactions to a Gaussian curve, Instagram normalizes the data so that it can compare them in a standardized way.
+
+Blending Recommendations: Now that both videos and photos have been mapped to the same type of distribution, Instagram can blend the recommendations. This allows the platform to present a balanced mix of videos and photos that are both likely to engage the user, based on the probabilities and interactions Instagram has normalized.
+
+Imagine Instagram sees that you tend to like 60% of the photos you come across, but only 30% of the videos. Instagram doesn’t want to only show you photos because they get more likes—there’s still a good chance you’d enjoy some of those videos! So, instead of just looking at the raw percentage, it maps both your photo likes and video likes onto a Gaussian curve to make a more even comparison. Now, Instagram can recommend both photos and videos to you in a balanced way, factoring in your preferences for each in a fair manner.
+
+In the end, this process makes sure that the content you see is a well-rounded mix of both videos and photos that are likely to engage you.
+
+#### A/B Testing
+
+#### Normal A/B Testing
+In traditional A/B testing, two versions (A and B) of a product feature or webpage are compared to determine which performs better. A portion of users is randomly assigned to version A, and another portion is assigned to version B. Metrics such as click-through rate or conversion rate are measured, and statistical tests are used to determine which version performs best.
+
+#### Example:
+- **Version A**: Original homepage with a "Sign Up" button.
+- **Version B**: New homepage with a "Get Started" button.
+- If version B increases sign-ups by 10%, it may be selected as the better option.
+
+### Budget-Splitting A/B Testing
+Budget-splitting A/B testing involves allocating different portions of a testing budget to multiple variants based on performance over time. Instead of splitting traffic equally, traffic is dynamically allocated to the variant that shows higher potential, maximizing returns while the test is still running.
+
+#### Example:
+- **Version A**: 40% of users (initial budget allocation).
+- **Version B**: 60% of users (because it shows higher conversions after early results).
+- If version B continues to outperform, more budget/traffic is allocated to it to maximize results during the test.
+
+
+### Ranking Approaches in Machine Learning
+
+#### Example Dataset:
+We have a dataset of search results with relevance scores. Let's assume we have 3 documents (`Doc A`, `Doc B`, and `Doc C`) and their relevance scores for a given query:
+
+| Document | Relevance Score |
+|----------|-----------------|
+| Doc A    | 3               |
+| Doc B    | 1               |
+| Doc C    | 2               |
+
+
+#### 1. Point-wise Approach:
+In the **point-wise approach**, each item or data point is treated independently, and the model is trained to predict a score or relevance for each item individually. The main idea is to minimize the difference between the predicted score and the actual score for each point, similar to traditional regression.
+
+- **Example:** Predicting relevance scores for search results. Each document is given a relevance label, and the model predicts the score for each document without considering its relation to other documents.
+
+- **Advantages:**
+  - Simple and easy to implement.
+  - Works well when the relevance of individual items is more important than their relative ranking.
+
+- **Disadvantages:**
+  - Does not directly optimize for ranking metrics like NDCG or MAP.
+  - Ignores the relative ranking between items, which may lead to suboptimal ranking performance.
+
+#### Training Data:
+- `Doc A`: Label = 3
+- `Doc B`: Label = 1
+- `Doc C`: Label = 2
+
+We train a model to predict the relevance score for each document individually.
+
+#### Prediction:
+After training, the model predicts the following relevance scores:
+- `Doc A`: Predicted Score = 2.8
+- `Doc B`: Predicted Score = 1.2
+- `Doc C`: Predicted Score = 2.1
+
+Based on these scores, the predicted ranking would be: `Doc A`, `Doc C`, `Doc B`.
+
+#### 2. Pairwise Approach:
+In the **pairwise approach**, the focus is on comparing pairs of items. The model is trained to predict the relative order between two items by learning which one is more relevant. Instead of predicting the absolute score, the model learns a preference between pairs of items.
+
+- **Example:** Given two search results, A and B, the model learns to predict whether A is more relevant than B or vice versa.
+
+- **Advantages:**
+  - Optimizes the ranking directly by focusing on item pairs.
+  - Reduces the problem of learning absolute scores and focuses on relative comparisons.
+
+- **Disadvantages:**
+  - The number of pairs grows quadratically with the number of items, making it computationally expensive.
+  - Ignores absolute relevance scores.
+
+In the pairwise approach, we focus on pairs of documents and learn which document should be ranked higher.
+
+#### Pairs for Training:
+- Compare `Doc A` and `Doc B`: Label = A is higher than B (3 > 1)
+- Compare `Doc A` and `Doc C`: Label = A is higher than C (3 > 2)
+- Compare `Doc B` and `Doc C`: Label = C is higher than B (2 > 1)
+
+We train a model to predict the relative ranking between pairs of documents.
+
+#### Prediction:
+After training, the model predicts the following relative orders:
+- `Doc A` > `Doc C`
+- `Doc C` > `Doc B`
+
+The predicted ranking would be: `Doc A`, `Doc C`, `Doc B`.
+
+#### 3. RankNet:
+**RankNet** is a specific type of pairwise ranking algorithm developed by Microsoft Research. It uses a neural network to predict the relative ranking between two items. The network outputs the probability that one item is ranked higher than the other, and the loss function used is a cross-entropy loss based on these probabilities.
+
+- **How RankNet Works:**
+  1. Two items are input into the network.
+  2. The network predicts a score for each item.
+  3. The predicted scores are then transformed into probabilities that one item is ranked higher than the other using a sigmoid function.
+  4. The loss is computed using the cross-entropy between the predicted probability and the actual relative ranking.
+
+- **Example:** For search engine ranking, RankNet compares pairs of documents and learns whether document A should be ranked higher than document B.
+
+- **Advantages:**
+  - Directly focuses on ranking pairs, making it effective for ranking tasks.
+  - Flexible and can be used with different neural network architectures.
+
+- **Disadvantages:**
+  - Still requires generating pairs, which increases computational complexity.
+  - It may not capture complex interactions as effectively as newer models like ListNet.
+
+In RankNet, we input pairs of documents and the model outputs a probability that one document is ranked higher than the other.
+
+#### Pairs for Training:
+- `Doc A` vs `Doc B`: True Label = `Doc A` is higher (3 > 1)
+- `Doc A` vs `Doc C`: True Label = `Doc A` is higher (3 > 2)
+- `Doc C` vs `Doc B`: True Label = `Doc C` is higher (2 > 1)
+
+The model is trained using these pairwise comparisons. It outputs probabilities based on which document should be ranked higher, using a neural network to predict scores for each document.
+
+#### Prediction:
+The model predicts the following probabilities:
+- `Doc A` is ranked higher than `Doc B` with probability 0.9.
+- `Doc A` is ranked higher than `Doc C` with probability 0.8.
+- `Doc C` is ranked higher than `Doc B` with probability 0.85.
+
+The predicted ranking would be: `Doc A`, `Doc C`, `Doc B`.
+
+#### Summary:
+- **Point-wise:** Each item is treated independently, simple but doesn't optimize ranking directly.
+- **Point-wise Approach** predicts relevance scores directly for each document and ranks them.
+
+- **Pairwise:** Focuses on comparing pairs of items, optimizes ranking but can be computationally expensive.
+- **Pairwise Approach** compares documents in pairs and learns which document should be ranked higher.
+
+- **RankNet:** A neural network-based pairwise model that predicts relative rankings using probabilities.
+- **RankNet** uses a neural network to predict the relative ranking between pairs of documents, outputting probabilities that one document is ranked higher than another.
