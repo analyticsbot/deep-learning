@@ -1385,6 +1385,127 @@ The predicted ranking would be: `Doc A`, `Doc C`, `Doc B`.
 - **RankNet:** A neural network-based pairwise model that predicts relative rankings using probabilities.
 - **RankNet** uses a neural network to predict the relative ranking between pairs of documents, outputting probabilities that one document is ranked higher than another.
 
+#### Similarity Functions
+#### 1. Euclidean Distance
+Euclidean distance is the straight-line distance between two points in multi-dimensional space. It is often used in clustering (e.g., k-means) and nearest-neighbor algorithms.
+
+#### Pros:
+Intuitive: Represents the actual geometric distance between points, easy to understand.
+Effective in low dimensions: Works well when the number of dimensions is small.
+#### Cons:
+Sensitive to scale: If features are on different scales (e.g., age in years vs. height in centimeters), this can distort the distance. Normalization is needed.
+Curse of dimensionality: As the number of dimensions increases, Euclidean distance loses effectiveness due to all points appearing equidistant.
+
+#### 2. Cosine Similarity
+Cosine similarity measures the cosine of the angle between two non-zero vectors. It is commonly used in text analysis to measure the similarity of documents.
+
+#### Pros:
+Scale-invariant: Focuses on the direction rather than the magnitude, so it's useful when comparing high-dimensional data like text, where the magnitude (e.g., document length) can vary.
+Works well for sparse data: Effective in cases where vectors are sparse, such as in document term matrices.
+#### Cons:
+Ignores magnitude: If the magnitude of vectors matters (i.e., the size of the values), cosine similarity might not be suitable since it only considers the angle.
+Not appropriate for negative values: Works best when feature values are non-negative, such as in word count vectors or TF-IDF matrices.
+
+#### 3. Manhattan Distance (L1 Norm)
+Also known as "taxicab" or "city block" distance, Manhattan distance calculates the sum of the absolute differences between the coordinates of two points.
+
+#### Pros:
+Robust to outliers: Less sensitive to large differences compared to Euclidean distance, which is affected by squared values.
+Works in high dimensions: Often more effective in high-dimensional spaces than Euclidean distance.
+#### Cons:
+Not as intuitive: The geometric meaning of this distance can be less intuitive, especially in non-grid-like data.
+Sensitive to feature scaling: Like Euclidean distance, it requires normalization of features to avoid biasing toward features with larger ranges.
+
+#### 4. Jaccard Similarity
+Jaccard similarity is used for comparing the similarity and diversity of sets. It is the ratio of the intersection to the union of two sets. Commonly used in binary or categorical data.
+
+#### Pros:
+Effective for set-based similarity: Useful in applications involving set comparison, such as recommendation systems, document comparison, or binary features.
+Good for sparse data: Works well when the data is sparse or binary.
+#### Cons:
+Ignores frequency information: Jaccard does not consider how many times an item appears; it only looks at whether it appears or not (presence/absence).
+Sensitive to small sets: If one or both sets are small, Jaccard similarity can be misleading since small differences are amplified.
+
+#### 5. Hamming Distance
+Hamming distance measures the number of positions at which two strings of equal length differ. It is typically used for categorical variables and binary strings.
+
+#### Pros:
+Simple to compute: Works well for binary and categorical data.
+Useful for exact match tasks: Ideal for cases where small deviations in sequences matter, such as in DNA sequences or binary data.
+#### Cons:
+Not suitable for continuous variables: Designed for binary or categorical data, it doesn’t work well when the features are continuous.
+Sensitive to length: Requires strings or vectors to have the same length.
+
+#### 6. Minkowski Distance
+The Minkowski distance is a generalized metric that encompasses both Euclidean and Manhattan distances. It's defined as:
+
+$$
+d(x, y) = \left(\sum_{i=1}^{n} |x_i - y_i|^p\right)^{1/p}
+$$
+
+where:
+
+x and y are two points in n-dimensional space.
+p is a positive integer that determines the type of distance:
+p = 1: Manhattan distance (also known as L1 norm)
+p = 2: Euclidean distance (also known as L2 norm)
+By varying the value of p, you can explore different distance metrics that may be more suitable for specific applications. For example, Manhattan distance might be more appropriate for data with a grid-like structure (like city blocks), while Euclidean distance is better suited for continuous spaces.
+
+#### Pros:
+Flexibility: With the parameter 
+𝑝, you can interpolate between Manhattan and Euclidean distances based on the problem at hand.
+General-purpose: Can be adapted to a wide range of scenarios depending on how the 
+p-norm is set.
+#### Cons:
+Interpretability: Can be harder to interpret, especially when p ≠ 1 or p ≠ 2.
+Sensitivity to p: The performance can vary widely based on the choice of p, and it may require tuning.
+
+#### 7. Mahalanobis Distance
+Mahalanobis distance measures the distance between two points while accounting for correlations in the dataset. It is a generalized form of Euclidean distance.
+
+Pros:
+Accounts for correlations: Useful when there are relationships between features, as it takes into account the covariance between variables.
+Works in multivariate data: Suitable for situations where the features are interrelated.
+Cons:
+Requires the inverse covariance matrix: Computing this matrix can be computationally expensive, especially in high dimensions or when the matrix is singular.
+Sensitive to outliers: If the dataset contains outliers, they can skew the covariance matrix, distorting the distance measure.
+
+#### 8. Pearson Correlation
+Pearson correlation measures the linear relationship between two variables. It ranges from -1 (perfect negative correlation) to 1 (perfect positive correlation).
+
+#### Pros:
+Simplicity: Easy to compute and interpret.
+Linear relationship: Works well when the relationship between variables is linear.
+#### Cons:
+Sensitive to outliers: Pearson correlation can be heavily influenced by outliers.
+Assumes linearity: Does not capture non-linear relationships.
+
+#### 9. Spearman Correlation
+Spearman correlation measures the rank correlation between two variables. It assesses how well the relationship between two variables can be described by a monotonic function.
+
+#### Pros:
+Non-parametric: Does not assume a linear relationship between variables, capturing monotonic relationships.
+Less sensitive to outliers: Since it uses ranks, it's more robust to outliers compared to Pearson correlation.
+
+#### Cons:
+Ignores magnitude of differences: Only looks at rank, not the actual differences between values.
+Less interpretable in some cases: Can be harder to interpret compared to Pearson correlation when trying to understand the strength of association.
+
+#### Summary Table
+
+| Similarity Function | Pros | Cons |
+|---|---|---|
+| Euclidean Distance | Intuitive, good for low-dimensional data | Sensitive to scale, not effective in high dimensions |
+| Cosine Similarity | Scale-invariant, works well for text and sparse data | Ignores magnitude, not suited for negative values |
+| Manhattan Distance | Robust to outliers, useful in high dimensions | Requires normalization, less intuitive |
+| Jaccard Similarity | Effective for set-based and sparse data, works with binary features | Ignores frequency, sensitive to small sets |
+| Hamming Distance | Simple, works well for binary and categorical data | Not suitable for continuous variables, requires equal-length strings |
+| Minkowski Distance | Flexible, generalizes Euclidean and Manhattan distances | Requires tuning of the parameter p, can be hard to interpret |
+| Mahalanobis Distance | Accounts for feature correlations, useful for multivariate data | Computationally expensive, sensitive to outliers |
+| Pearson Correlation | Easy to compute and interpret, effective for linear relationships | Sensitive to outliers, assumes linearity |
+| Spearman Correlation | Captures monotonic relationships, less sensitive to outliers | Ignores magnitude, may be harder to interpret |
+
 
 #### Linear Regression
-[linear_regression.ipynb](Linear Regression Notebook)
+[Linear Regression Notebook](notebooks/linear_regression.ipynb)
+
