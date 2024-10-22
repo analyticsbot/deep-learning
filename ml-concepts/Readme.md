@@ -1,3 +1,17 @@
+## Feature Engineering
+### Bucketizing
+Bucketizing, in the context of machine learning, refers to the process of dividing a continuous feature or variable into discrete intervals, or "buckets." It is often used when dealing with continuous numerical features but can also be applied to categorical features in certain scenarios.
+
+For categorical features, bucketizing typically involves grouping similar categories together to reduce the dimensionality or complexity of the feature. This is useful when you have many distinct categories, and combining related ones into broader groups can make the model more generalizable or easier to train.
+
+For example:
+
+Original Categorical Feature: Types of fruits (apple, banana, orange, grape, mango)
+Bucketized Feature: Grouped into "Citrus" (orange) and "Non-citrus" (apple, banana, grape, mango)
+In the case of continuous features (like age or income), bucketizing involves converting ranges of values into categories (e.g., grouping ages 0-20, 21-40, etc.).
+
+Bucketizing simplifies data, but it should be used carefully to avoid losing important nuances.
+
 ### Feature Hashing ####
 
 Feature hashing, or hashing trick, converts text data, or categorical attributes with high cardinalities, into a feature vector of arbitrary dimensionality. In some AdTech companies (Twitter, Pinterest, etc.), it’s not uncommon for a model to have thousands of raw features.
@@ -35,12 +49,12 @@ hashed_array = hashed_features.toarray()
 print(hashed_array)
 ```
 
-#### Explanation
+**Explanation**
 The data consists of 3 categorical features: ad_campaign_id, user_location, and device.
 We use FeatureHasher to convert these categorical features into a fixed-length feature vector of size 10 (n_features=10).
 The hashed features reduce the memory usage compared to one-hot encoding while preserving some information about the original features.
 
-#### Output
+**Output**
 ```
 The hashed feature matrix will look like this:
 [[ 0.  1. -1.  0.  1.  0.  0.  0. -1.  0.]
@@ -50,14 +64,7 @@ The hashed feature matrix will look like this:
 ```
 Each row represents the hashed features for a row of categorical data, which can be used as input to a machine learning model.
 
-#### Requirements
-Make sure you have scikit-learn installed:
-
-```
-pip install scikit-learn
-```
-
-#### Notes
+**Notes**
 FeatureHasher is particularly useful when working with datasets that have high cardinality categorical features.
 By converting categorical features into fixed-length vectors, you can reduce the memory footprint and still retain useful information for machine learning models.
 
@@ -106,12 +113,12 @@ hashed_array = hashed_features.toarray()
 print(hashed_array)
 ```
 
-#### Explanation
+**Explanation**
 Cross Features: We combine the latitude and longitude values into a single feature called pickup_location.
 Feature Hashing: Since this cross feature could have a large number of possible values (high cardinality), we use the hashing trick to convert it into a fixed-size feature vector of length 10 (n_features=10).
 This helps reduce the complexity while keeping enough information to feed into a machine learning model.
 
-#### Output
+**Output**
 This will print a hashed feature matrix like this:
 ```[[ 0.  1. -1.  0.  1.  0.  0.  0. -1.  0.]
  [ 1.  0.  1.  1.  0.  0.  0.  0.  0.  0.]
@@ -122,7 +129,7 @@ This will print a hashed feature matrix like this:
 #### Why Use the Hashing Trick?
 Cross features often create many new categories when you combine existing features, making the data too large or "high-dimensional." Using the hashing trick helps keep the data manageable while still using the important information in your machine learning model.
 
-
+## Word Embeddings
 ### CBOW and Skip-gram Models in Word2Vec
 
 Word2Vec is a popular technique used to create word embeddings, where words are represented as dense vectors in a continuous vector space. There are two primary models used in Word2Vec: **CBOW (Continuous Bag of Words)** and **Skip-gram**.
@@ -1506,20 +1513,11 @@ Less interpretable in some cases: Can be harder to interpret compared to Pearson
 | Spearman Correlation | Captures monotonic relationships, less sensitive to outliers | Ignores magnitude, may be harder to interpret |
 
 
+### ML Model Implemented from Scratch
 #### Linear Regression
 [Linear Regression Notebook](notebooks/linear_regression.ipynb)
 
 
-### Feature Engineering
-#### Bucketizing
-Bucketizing, in the context of machine learning, refers to the process of dividing a continuous feature or variable into discrete intervals, or "buckets." It is often used when dealing with continuous numerical features but can also be applied to categorical features in certain scenarios.
+#### Logistic Regression
+[Logistic Regression Notebook](notebooks/logistic_regression.ipynb)
 
-For categorical features, bucketizing typically involves grouping similar categories together to reduce the dimensionality or complexity of the feature. This is useful when you have many distinct categories, and combining related ones into broader groups can make the model more generalizable or easier to train.
-
-For example:
-
-Original Categorical Feature: Types of fruits (apple, banana, orange, grape, mango)
-Bucketized Feature: Grouped into "Citrus" (orange) and "Non-citrus" (apple, banana, grape, mango)
-In the case of continuous features (like age or income), bucketizing involves converting ranges of values into categories (e.g., grouping ages 0-20, 21-40, etc.).
-
-Bucketizing simplifies data, but it should be used carefully to avoid losing important nuances.
