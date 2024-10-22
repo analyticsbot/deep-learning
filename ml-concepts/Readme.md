@@ -1509,3 +1509,17 @@ Less interpretable in some cases: Can be harder to interpret compared to Pearson
 #### Linear Regression
 [Linear Regression Notebook](notebooks/linear_regression.ipynb)
 
+
+### Feature Engineering
+#### Bucketizing
+Bucketizing, in the context of machine learning, refers to the process of dividing a continuous feature or variable into discrete intervals, or "buckets." It is often used when dealing with continuous numerical features but can also be applied to categorical features in certain scenarios.
+
+For categorical features, bucketizing typically involves grouping similar categories together to reduce the dimensionality or complexity of the feature. This is useful when you have many distinct categories, and combining related ones into broader groups can make the model more generalizable or easier to train.
+
+For example:
+
+Original Categorical Feature: Types of fruits (apple, banana, orange, grape, mango)
+Bucketized Feature: Grouped into "Citrus" (orange) and "Non-citrus" (apple, banana, grape, mango)
+In the case of continuous features (like age or income), bucketizing involves converting ranges of values into categories (e.g., grouping ages 0-20, 21-40, etc.).
+
+Bucketizing simplifies data, but it should be used carefully to avoid losing important nuances.
