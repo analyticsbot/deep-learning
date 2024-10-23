@@ -129,10 +129,101 @@ This will print a hashed feature matrix like this:
 #### Why Use the Hashing Trick?
 Cross features often create many new categories when you combine existing features, making the data too large or "high-dimensional." Using the hashing trick helps keep the data manageable while still using the important information in your machine learning model.
 
+
+#### Scaling/Normalization:
+- Min-Max Scaling: Rescales features to a range (usually [0, 1]).
+- Standardization (Z-score Normalization): Rescales features to have zero mean and unit variance.
+- Log Transformation: Helps reduce skewness in data by applying the log function.
+- Square Root / Cube Root: Similar to log transformation, helps with skewness for positive data.
+- Power Transformation: Helps stabilize variance and make the data more Gaussian-like.
+
+#### Feature Encoding
+- Label Encoding: Converts categorical values into numeric labels (for ordinal categories).
+- One-Hot Encoding: Converts categorical features into binary vectors (for nominal categories).
+- Binary Encoding: Represents categories as binary codes (efficient for high-cardinality categorical data).
+- Target Encoding: Replaces categories with the average of the target variable for each category (used in classification).
+- Frequency Encoding: Encodes categorical variables by the frequency of each category.
+
+#### Handling Missing Data
+- Imputation: Filling missing values using strategies such as:
+- Mean/Median/Mode Imputation: Replacing missing values with the column’s mean, median, or mode.
+- K-Nearest Neighbors (KNN) Imputation: Predict missing values based on the closest neighbors.
+- MICE (Multiple Imputation by Chained Equations): Imputing missing data multiple times and averaging the results.
+- Forward/Backward Fill: Using preceding or following values for imputation (for time series data).
+
+#### Binning
+- Discretization/Binning: Convert continuous features into discrete bins.
+- Equal-Width Binning: Divides the data range into equal-width bins.
+- Equal-Frequency Binning: Divides data so that each bin has an equal number of observations.
+- Quantile Binning: Bins based on quantiles to ensure the distribution of values is uniform across bins.
+
+#### Polynomial Features
+
+- Polynomial Expansion: Create new features by combining existing ones using polynomial combinations.
+
+Generate new features like:
+
+* `x_1^2`
+* `x_1 \cdot x_2`
+* ...
+
+This technique can help capture non-linear relationships between features and the target variable.
+
+#### Interaction Features
+- Interaction Terms: Create new features by multiplying or interacting features with each other.
+Example: If you have age and income, you might create a feature age * income.
+
+#### Feature Extraction
+- Principal Component Analysis (PCA): Reduces dimensionality by projecting data onto the principal components.
+- Linear Discriminant Analysis (LDA): A supervised dimensionality reduction technique used to maximize class separability.
+- t-SNE/UMAP: Non-linear techniques for dimensionality reduction and visualization.
+
+#### Datetime Features
+- Extract Date/Time Features: Extract meaningful features from datetime data, such as:
+    - Day, Month, Year
+    - Day of Week, Day of Year
+    - Hour, Minute
+    - Is Weekend, Is Holiday
+
+
+- Domain-Specific Transformations
+    - Text Data:
+
+        - Bag of Words (BoW): Convert text into a frequency matrix of words.
+        - TF-IDF: Weighs terms by their importance in the document and reduces the impact of commonly used words.
+        - Word Embeddings: Dense vector representations (e.g., Word2Vec, GloVe).
+        - N-grams: Capture sequences of n words to extract context from text.
+
+    - Image Data:
+
+        - Resizing/Scaling: Adjust image size to a common resolution.
+        - Data Augmentation: Apply transformations like rotation, flipping, cropping, etc.
+        - Color Histogram: Extract color distribution as a feature.
+
+#### Feature Selection
+- Filter Methods: Select features based on statistical tests (e.g., correlation, chi-square test, ANOVA).
+- Wrapper Methods: Use models like forward selection, backward elimination, or recursive feature elimination (RFE).
+- Embedded Methods: Feature selection during model training (e.g., Lasso, Ridge, tree-based models like Random Forest).
+
+#### Outlier Detection and Treatment
+- Clipping: Limit the range of values by capping outliers at a maximum or minimum threshold.
+- Winsorizing: Replace extreme values with percentile values to reduce the impact of outliers.
+
+#### Aggregation
+- Aggregating Features: Combine or aggregate features at different levels.
+    -  Example: Sum, mean, count, max, min operations applied to group data.
+
+
+#### Target Transformation
+    - Box-Cox Transformation: Transform target variables to stabilize variance and normalize data.
+    - Log Transformation: Apply log function to compress high values and reduce skewness.
+
 ## Word Embeddings
 ### CBOW and Skip-gram Models in Word2Vec
 
 Word2Vec is a popular technique used to create word embeddings, where words are represented as dense vectors in a continuous vector space. There are two primary models used in Word2Vec: **CBOW (Continuous Bag of Words)** and **Skip-gram**.
+
+
 
 #### 1. CBOW (Continuous Bag of Words)
 
