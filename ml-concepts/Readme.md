@@ -607,9 +607,17 @@ Forecasting data, especially time-series, where you want a balanced error metric
 smape = 100 * np.mean(2 * np.abs(y_true - y_pred) / (np.abs(y_true) + np.abs(y_pred)))
 ```
 
-#### 7. Focal Loss
+### CLassifcation Loss
+
+## Binary Classification Loss Functions
+
+#### 1. Focal Loss
 #### Description:
 Focal loss is designed to down-weight easy examples and focus on learning from hard, misclassified examples.
+
+$$
+\text{Focal Loss} = -\frac{1}{N} \sum_{i=1}^{N} \left[ \alpha(1 - p_i)^{\gamma} y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]
+$$
 
 #### Advantage:
 Useful in imbalanced datasets by focusing on harder-to-classify examples.
@@ -627,9 +635,20 @@ gamma = 2.0
 focal_loss = np.mean(((1 - np.abs(y_true - y_pred))**gamma) * (y_true - y_pred)**2)
 ```
 
-#### 8. Hinge Loss
+**Use Cases:**
+- Useful for addressing class imbalance by down-weighting well-classified examples.
+- Often applied in object detection tasks.
+
+**Avoid When:**
+- When the dataset is balanced, as it may over-penalize easy examples.
+
+#### 2. Hinge Loss
 #### Description:
 Hinge loss is commonly used for "maximum-margin" classification, such as in support vector machines. It penalizes predictions that are on the wrong side of the margin.
+
+$$
+\text{Hinge Loss} = \frac{1}{N} \sum_{i=1}^{N} \max(0, 1 - y_i f(x_i))
+$$
 
 #### Advantage:
 Ensures that not just the correct label, but the margin is optimized.
@@ -645,6 +664,109 @@ Classification tasks where margin-based optimization is important, such as suppo
 hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
 ```
 
+   **Use Cases:**
+- Mainly used in Support Vector Machines (SVMs) for binary classification.
+
+**Avoid When:**
+- In cases where probabilistic output is desired, as it does not provide a probability.
+
+
+#### 3. **Log Loss (Binary Cross-Entropy Loss)**
+
+   **Formula:**
+   $$
+    \text{Log Loss} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]
+    $$
+
+   **Use Cases:**
+   - Commonly used for binary classification problems.
+   - Effective when class distributions are balanced.
+
+   **Avoid When:**
+   - Class imbalance is significant, as it may lead to misleading loss values.
+
+
+## Multi-Class Classification Loss Functions
+
+1. **Categorical Cross-Entropy Loss**
+
+   **Formula:**
+    $$
+    \text{Categorical Cross-Entropy} = -\frac{1}{N} \sum_{i=1}^{N} \sum_{c=1}^{C} y_{i,c} \log(p_{i,c})
+    $$
+
+   **Use Cases:**
+   - Used for multi-class classification tasks where classes are one-hot encoded.
+   - Effective when class distributions are balanced.
+
+   **Avoid When:**
+   - When the target classes are not mutually exclusive, as it assumes that classes are one-hot encoded.
+
+2. **Sparse Categorical Cross-Entropy Loss**
+
+   **Formula:**
+    $$
+    \text{Sparse Categorical Cross-Entropy} = -\frac{1}{N} \sum_{i=1}^{N} \log(p_{i,y_i})
+    $$
+
+   **Use Cases:**
+   - Similar to categorical cross-entropy but used when the target classes are provided as integer labels (not one-hot encoded).
+
+   **Avoid When:**
+   - When one-hot encoding is required for compatibility with certain models.
+
+3. **Kullback-Leibler Divergence (KL Divergence)**
+
+   **Formula:**
+    $$
+    D_{KL}(P || Q) = \sum_{i} P(i) \log \frac{P(i)}{Q(i)}
+    $$
+
+   **Use Cases:**
+   - Useful for measuring how one probability distribution diverges from a second expected probability distribution.
+
+   **Avoid When:**
+   - When actual class probabilities are not known or are very small, leading to instability in computation.
+
+4. **Normalized Cross-Entropy Loss**
+
+   **Formula:**
+    $$
+    \text{Normalized Cross-Entropy} = -\frac{1}{N} \sum_{i=1}^{N} \left( \sum_{c=1}^{C} \frac{y_{i,c}}{\sum_{c'} y_{i,c'}} \log(p_{i,c}) \right)
+    $$
+
+   **Use Cases:**
+   - Useful when class frequencies vary significantly, normalizing the contribution of each class.
+
+   **Avoid When:**
+   - When the normalization may obscure the learning of relevant features.
+
+5. **Hinge Loss (Multi-Class)**
+
+   **Formula:**
+    $$
+    \text{Multi-Class Hinge Loss} = \sum_{i=1}^{N} \sum_{j \neq y_i} \max(0, 1 - f(x_i, y_i) + f(x_i, j))
+    $$
+
+   **Use Cases:**
+   - Applied in multi-class SVMs and problems where margin maximization is desired.
+
+   **Avoid When:**
+   - When probabilistic interpretations of the output are needed.
+
+6. **Triplet Loss**
+
+   **Formula:**
+    $$
+    \text{Triplet Loss} = \max(0, d(a, p) - d(a, n) + \alpha)
+    $$
+   where \(d\) is the distance function, \(a\) is the anchor, \(p\) is the positive example, \(n\) is the negative example, and \(\alpha\) is a margin.
+
+   **Use Cases:**
+   - Useful in tasks involving similarity learning, such as face recognition.
+
+   **Avoid When:**
+   - When training data does not provide adequate positive/negative pairs.
 
 ### Evaluation Metrics for Information Retrieval and Ranking
 
