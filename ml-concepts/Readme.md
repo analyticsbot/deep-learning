@@ -1780,86 +1780,33 @@ Less interpretable in some cases: Can be harder to interpret compared to Pearson
 
 
 ### ML Model Implemented from Scratch
-#### - Linear Regression
-    - [Linear Regression Notebook](notebooks/linear_regression.ipynb)
 
-#### Logistic Regression
-[Logistic Regression Notebook](notebooks/logistic_regression.ipynb)
-
-#### Active Learning
-[Active Learning Notebook](notebooks/active_learning.ipynb)
-
-#### Autoencoders
-[Autoencoders Notebook](notebooks/autoencoders.ipynb)
-
-#### Association Rule
-[Association Rule Notebook](notebooks/association_rule_learning.ipynb)
-
-#### Boosting and Bagging
-[Boosting and Bagging Notebook](notebooks/boosting_n_bagging.ipynb)
-
-#### CNN
-[CNN Notebook](notebooks/cnn.ipynb)
-
-#### Collaborative Filtering
-[Collaborative Filtering Notebook](notebooks/collaborative_filtering.ipynb)
-
-#### Compare LSTM GRU RNN Transformers
-[Compare LSTM GRU RNN Transformers Notebook](notebooks/compare_lstm_gru_rnn_transformer.ipynb)
-
-#### Decision Tree
-[Decision Tree Notebook](notebooks/decision_tree.ipynb)
-
-#### ML Deployment
-[ML Deployment Notebook](notebooks/deployment.ipynb)
-
-#### Graph based ML
-[Graph based ML Notebook](notebooks/graph_based_ml.ipynb)
-
-#### GRU
-[GRU Notebook](notebooks/gru.ipynb)
-
-#### KMeans
-[KMeans Notebook](notebooks/kmeans.ipynb)
-
-#### KNN
-[KNN Notebook](notebooks/knn.ipynb)
-
-#### Naive Bayes
-[Naive Baiyes Notebook](notebooks/naive_bayes.ipynb)
-
-#### LSTM
-[LSTM Notebook](notebooks/lstm.ipynb)
-
-#### Multimodal
-[Multimodal Notebook](notebooks/multimodal.ipynb)
-
-#### PCA
-[PCA Notebook](notebooks/pca.ipynb)
-
-#### Random Forest
-[PCA Notebook](notebooks/random_forest.ipynb)
-
-#### RNN
-[RNN Notebook](notebooks/rnn.ipynb)
-
-#### Transformers
-[Transformers Notebook](notebooks/transformers.ipynb)
-
-#### Random Forest
-[Random Forest Notebook](notebooks/random_forest.ipynb)
-
-#### SVM
-[SVM Notebook](notebooks/svm.ipynb)
-
-#### Vision Transformer
-[Vision Transformer Notebook](notebooks/vision_transformer.ipynb)
-
-#### Two Tower Model
-[Two Tower Model Notebook](notebooks/two_tower_model.ipynb)
-
-#### XGBoost
-[XGBoost Notebook](notebooks/xgboost.ipynb)
+- **Linear Regression:** [Linear Regression Notebook](notebooks/linear_regression.ipynb)
+- **Logistic Regression:** [Logistic Regression Notebook](notebooks/logistic_regression.ipynb)
+- **Active Learning:** [Active Learning Notebook](notebooks/active_learning.ipynb)
+- **Autoencoders:** [Autoencoders Notebook](notebooks/autoencoders.ipynb)
+- **Association Rule:** [Association Rule Notebook](notebooks/association_rule_learning.ipynb)
+- **Boosting and Bagging:** [Boosting and Bagging Notebook](notebooks/boosting_n_bagging.ipynb)
+- **CNN:** [CNN Notebook](notebooks/cnn.ipynb)
+- **Collaborative Filtering:** [Collaborative Filtering Notebook](notebooks/collaborative_filtering.ipynb)
+- **Compare LSTM, GRU, RNN, Transformers:** [Compare LSTM GRU RNN Transformers Notebook](notebooks/compare_lstm_gru_rnn_transformer.ipynb)
+- **Decision Tree:** [Decision Tree Notebook](notebooks/decision_tree.ipynb)
+- **ML Deployment:** [ML Deployment Notebook](notebooks/deployment.ipynb)
+- **Graph-based ML:** [Graph-based ML Notebook](notebooks/graph_based_ml.ipynb)
+- **GRU:** [GRU Notebook](notebooks/gru.ipynb)
+- **K-Means:** [KMeans Notebook](notebooks/kmeans.ipynb)
+- **KNN:** [KNN Notebook](notebooks/knn.ipynb)
+- **Naive Bayes:** [Naive Bayes Notebook](notebooks/naive_bayes.ipynb)
+- **LSTM:** [LSTM Notebook](notebooks/lstm.ipynb)
+- **Multimodal:** [Multimodal Notebook](notebooks/multimodal.ipynb)
+- **PCA:** [PCA Notebook](notebooks/pca.ipynb)
+- **Random Forest:** [Random Forest Notebook](notebooks/random_forest.ipynb)
+- **RNN:** [RNN Notebook](notebooks/rnn.ipynb)
+- **Transformers:** [Transformers Notebook](notebooks/transformers.ipynb)
+- **SVM:** [SVM Notebook](notebooks/svm.ipynb)
+- **Vision Transformer:** [Vision Transformer Notebook](notebooks/vision_transformer.ipynb)
+- **Two Tower Model:** [Two Tower Model Notebook](notebooks/two_tower_model.ipynb)
+- **XGBoost:** [XGBoost Notebook](notebooks/xgboost.ipynb)
 
 #### DL Concepts
 #### Overfitting, Underfitting, and the Bias-Variance Tradeoff
