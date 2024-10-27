@@ -1786,6 +1786,12 @@ Less interpretable in some cases: Can be harder to interpret compared to Pearson
 #### Logistic Regression
 [Logistic Regression Notebook](notebooks/logistic_regression.ipynb)
 
+#### Active Learning
+[Active Learning Notebook](notebooks/active_learning.ipynb)
+
+#### Autoencoders
+[Autoencoders Notebook](notebooks/autoencoders.ipynb)
+
 #### Association Rule
 [Association Rule Notebook](notebooks/association_rule_learning.ipynb)
 
@@ -1798,8 +1804,20 @@ Less interpretable in some cases: Can be harder to interpret compared to Pearson
 #### Collaborative Filtering
 [Collaborative Filtering Notebook](notebooks/collaborative_filtering.ipynb)
 
+#### Compare LSTM GRU RNN Transformers
+[Compare LSTM GRU RNN Transformers Notebook](notebooks/compare_lstm_gru_rnn_transformer.ipynb)
+
 #### Decision Tree
 [Decision Tree Notebook](notebooks/decision_tree.ipynb)
+
+#### ML Deployment
+[ML Deployment Notebook](notebooks/deployment.ipynb)
+
+#### Graph based ML
+[Graph based ML Notebook](notebooks/graph_based_ml.ipynb)
+
+#### GRU
+[GRU Notebook](notebooks/gru.ipynb)
 
 #### KMeans
 [KMeans Notebook](notebooks/kmeans.ipynb)
@@ -1810,14 +1828,32 @@ Less interpretable in some cases: Can be harder to interpret compared to Pearson
 #### Naive Bayes
 [Naive Baiyes Notebook](notebooks/naive_bayes.ipynb)
 
+#### LSTM
+[LSTM Notebook](notebooks/lstm.ipynb)
+
+#### Multimodal
+[Multimodal Notebook](notebooks/multimodal.ipynb)
+
 #### PCA
 [PCA Notebook](notebooks/pca.ipynb)
+
+#### Random Forest
+[PCA Notebook](notebooks/random_forest.ipynb)
+
+#### RNN
+[RNN Notebook](notebooks/rnn.ipynb)
+
+#### Transformers
+[Transformers Notebook](notebooks/transformers.ipynb)
 
 #### Random Forest
 [Random Forest Notebook](notebooks/random_forest.ipynb)
 
 #### SVM
 [SVM Notebook](notebooks/svm.ipynb)
+
+#### Vision Transformer
+[Vision Transformer Notebook](notebooks/vision_transformer.ipynb)
 
 #### Two Tower Model
 [Two Tower Model Notebook](notebooks/two_tower_model.ipynb)
