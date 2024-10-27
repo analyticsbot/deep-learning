@@ -33,7 +33,7 @@ An **ML Design Interview** assesses your understanding of designing machine lear
 
 ## Resources
 - [This ML Design Interview strategy got me into Meta](https://www.youtube.com/watch?v=XN2ymraj27g)
-[![This ML Design Interview strategy got me into Meta](https://img.youtube.com/vi/XN2ymraj27g/0.jpg)](https://www.youtube.com/watch?v=XN2ymraj27g)
+- [![This ML Design Interview strategy got me into Meta](https://img.youtube.com/vi/XN2ymraj27g/0.jpg)](https://www.youtube.com/watch?v=XN2ymraj27g)
 
 According to the video "This ML Design Interview Strategy Got Me Into Meta", common pitfalls that lead to failure in ML design interviews include:
 
