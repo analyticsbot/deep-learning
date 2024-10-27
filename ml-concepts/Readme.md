@@ -1780,8 +1780,8 @@ Less interpretable in some cases: Can be harder to interpret compared to Pearson
 
 
 ### ML Model Implemented from Scratch
-#### Linear Regression
-[Linear Regression Notebook](notebooks/linear_regression.ipynb)
+#### - Linear Regression
+    - [Linear Regression Notebook](notebooks/linear_regression.ipynb)
 
 #### Logistic Regression
 [Logistic Regression Notebook](notebooks/logistic_regression.ipynb)
