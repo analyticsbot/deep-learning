@@ -113,52 +113,63 @@ end_recording = st.button("End Recording")
 # Function to listen and capture audio
 # Function to capture audio segments continuously
 def continuous_listening():
-    full_text = ""
     with sr.Microphone() as source:
         st.write("Listening... (click 'End Recording' to stop)")
         recognizer.adjust_for_ambient_noise(source, duration=1)
 
         while st.session_state['is_recording']:
             try:
-                audio_segment = recognizer.listen(source, timeout=500, phrase_time_limit=100)  # Capture each segment
+                audio_segment = recognizer.listen(source, timeout=50, phrase_time_limit=100)  # Capture each segment
                 text_segment = recognizer.recognize_google(audio_segment)
-                full_text += " " + text_segment
+                st.session_state['response_text'] += " " + text_segment
                 # Optionally display live segments
-                # st.write("Captured segment:", text_segment)  
+                st.write("Captured segment:", text_segment)  
             except sr.UnknownValueError:
                 st.write("Could not understand segment, continuing...")
             except Exception as e:
                 st.write(f"Error: {str(e)}")
                 break
-    return full_text
 
-# Main loop to iterate through questions
-for question in questions:
-    st.write(f"**Question:** {question}")
-    
-    # Wait for the user to start recording
-    if start_recording:
+
+# Initialize the question index in session state if it doesn't exist
+if 'question_index' not in st.session_state:
+    st.session_state['question_index'] = 0  # Start with the first question
+if 'is_recording' not in st.session_state:
+    st.session_state['is_recording'] = False
+if 'response_text' not in st.session_state:
+    st.session_state['response_text'] = ""
+
+# Main logic to display one question at a time
+if st.session_state['question_index'] < len(questions):
+    current_question = questions[st.session_state['question_index']]
+    st.write(f"**Question:** {current_question}")
+
+    # Check if recording should start
+    if start_recording and not st.session_state['is_recording']:
         st.session_state['is_recording'] = True
-        speak_text(question)  # Speak the question
+        st.session_state['response_text'] = ""
+        speak_text(current_question)  # Speak the question
         st.write("Recording started... Click 'End Recording' when done.")
-        
-        # Capture audio until end recording is clicked
-        st.session_state['response_text'] = continuous_listening()
-    
-    # Wait for the user to end recording
-    if end_recording and st.session_state['is_recording']:
+        continuous_listening()
+
+    # Check if recording should end
+    if end_recording:
         st.session_state['is_recording'] = False
-        print (st.session_state['response_text'])
-        # Display the captured response
         if st.session_state['response_text']:
             st.write("**Your Response:**", st.session_state['response_text'])
-            
+
             # Call the LLM for feedback
             feedback = call_llm(
-                f"As a {behavior_role} at {company_name}, interviewing for {job_role}, analyze this answer: '{st.session_state['response_text']}'. Focus on: {response_criteria}. Keep the response brief and use bullet points"
+                f"As a {behavior_role} at {company_name}, interviewing for {job_role}, imagine you asked the question '{current_question}', analyze this answer: '{st.session_state['response_text']}'. Focus on: {response_criteria}. Keep the response brief and use bullet points."
             )
             st.write("**Feedback:**", feedback)
-            print('Feedback:', feedback)
+
+            # Move to the next question
+            st.session_state['question_index'] += 1
+            st.session_state['response_text'] = ""  # Reset response text for the next question
+else:
+    st.write("Interview complete! Thank you for your responses.")
+
 # # Display questions asked
 # if st.session_state['asked_questions']:
 #     st.write("**Questions Asked:**", st.session_state['asked_questions'])
