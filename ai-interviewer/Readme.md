@@ -1,6 +1,11 @@
 # AI Interviewer
 
-This application allows users to interactively ask questions and receive responses through speech recognition. It utilizes the `SpeechRecognition` library for capturing audio input and the OpenAI API for generating feedback based on the recognized responses. The application is built using Streamlit for a web-based user interface.
+This Streamlit application creates an AI-powered interview experience. It allows you to:
+
+- Define interview questions
+- Reorder questions based on role and company
+- Record candidate responses
+- Analyze responses using a Large Language Model (LLM)
 
 ## Features
 
@@ -16,13 +21,16 @@ To run this application, you need the following libraries:
 
 - Streamlit
 - SpeechRecognition
-- OpenAI (for connecting with the LLM)
+- OpenAI (for connecting with the LLM, or alternative LLM provider)
 - Textstat (for analyzing the text)
+- gtts
+- pydub
+- sqlite3
 
 You can install the required libraries using pip:
 
 ```bash
-pip install streamlit SpeechRecognition openai textstat
+pip install streamlit speech_recognition openai gtts pydub sqlite3
 ```
 
 ### Usage
@@ -48,6 +56,16 @@ streamlit run app.py
 - Feedback Analysis: The recognized text is analyzed for brevity, filler words, and overall quality using a language model, and the results are displayed to the user.
 - Question Management: Users can define the order of questions and keep track of previously asked questions.
 
-### TODO
+### Further Development:
+This is a basic implementation and can be further customized.
+
+Feel free to modify and extend the code to suit your specific needs. Explore features like:
+- Advanced LLM prompts for more comprehensive feedback
+- Candidate profile management and evaluation scoring
+- Better Speech Recognition
+
+### TODO & Bugs
 - speak the question
 - runs into loop and doesnt listen to user
+- writes all the question to the screen
+- recording doesn't input all the
