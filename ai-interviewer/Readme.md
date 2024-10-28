@@ -28,8 +28,8 @@ pip install streamlit SpeechRecognition openai textstat
 ### Usage
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/analyticsbot/deep-learning.git
+cd ai-interviewer
 ```
 
 2. Run the Streamlit application:
