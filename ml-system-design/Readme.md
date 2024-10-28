@@ -60,3 +60,25 @@ Here are some tips for effective preparation for ML design interviews:
 * Master fundamental concepts like data preprocessing, feature engineering, model selection, and evaluation.
 
 By following this framework and practicing consistently, you can significantly improve your chances of succeeding in your next ML design interview.
+
+
+- [Building an ML Service Platform from the Ground Up](https://www.youtube.com/watch?v=8h7vIN2WzT4)
+- [![Building an ML Service Platform from the Ground Up](https://img.youtube.com/vi/8h7vIN2WzT4/0.jpg)](https://www.youtube.com/watch?v=8h7vIN2WzT4)
+
+Key points:
+
+- Challenges of deploying ML models:
+- Model complexity and data dependencies
+- Infrastructure and DevOps challenges
+
+BentoML:
+- Simplifies ML model deployment
+- Provides a flexible framework for defining custom inference logic
+- Supports various ML frameworks and hardware
+- Offers features like batching, asynchronous execution, and real-time monitoring
+
+Best practices:
+- Consider the specific needs of your use case
+- Choose the right framework and tools
+- Focus on model performance and scalability
+- Monitor and optimize your ML service
