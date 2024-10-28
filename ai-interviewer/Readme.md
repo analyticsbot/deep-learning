@@ -47,3 +47,7 @@ streamlit run app.py
 - Speech Recognition: The application listens for audio input using a microphone and converts it to text using Google’s speech recognition service.
 - Feedback Analysis: The recognized text is analyzed for brevity, filler words, and overall quality using a language model, and the results are displayed to the user.
 - Question Management: Users can define the order of questions and keep track of previously asked questions.
+
+### TODO
+- speak the question
+- runs into loop and doesnt listen to user
