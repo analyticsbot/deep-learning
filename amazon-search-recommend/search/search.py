@@ -3,6 +3,7 @@ import requests
 from config import *
 from bm25 import get_bm25_results, get_bm_index_status
 from elastic_search import get_elasticsearch_results, get_elasticsearch_index_status
+from semantic_embedding import get_qdrant_results, check_index_exists
 import pandas as pd
 import ast
 import json
@@ -90,10 +91,16 @@ if query:
 
     elif selected_tab == "Semantic Embedding":
         st.header("Semantic Embedding Results")
-        st.write(indices["qdrant_semantic"])  # Show index build status
+        qdrt_index_1 = check_index_exists(collection_name_text)
+        print ('qdrt_index_1', qdrt_index_1)
+        # Display the status of the index with color
+        if qdrt_index_1:
+            st.markdown("<h3 style='color: green;'>Index Status: Built</h3>", unsafe_allow_html=True)
+        else:
+            st.markdown("<h3 style='color: red;'>Index Status: Building</h3>", unsafe_allow_html=True)
         # Call Qdrant Docker container API for semantic embedding
-        semantic_results = get_semantic_results(query)  # Replace with actual API call
-        st.write(semantic_results)
+        semantic_results = get_qdrant_results(query, meta_url, directory, sample_size, collection_name_text)  # Replace with actual API call
+        display_results(es_results)
 
     elif selected_tab == "Semantic and Image Embedding":
         st.header("Semantic and Image Embedding Results")

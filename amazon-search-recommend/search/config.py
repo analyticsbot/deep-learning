@@ -9,3 +9,6 @@ bm_pickle_file = 'bm25_index.pkl'
 
 #ES
 es_index_name = 'es_index'
+
+# qdrant
+collection_name_text = "text_collection"
