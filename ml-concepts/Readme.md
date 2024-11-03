@@ -1988,6 +1988,8 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
 
     **Result**: All activations are now on a similar scale (e.g., `[-0.05, -0.80, -0.69, 1.53]`), stabilizing training and preventing any one neuron from dominating.
 
+    [Layer Normalization - EXPLAINED](https://www.youtube.com/watch?v=G45TuC6zRf4)
+
 2. **Batch Normalization**  
    - **Description**: Batch Normalization normalizes the activations of each layer across the mini-batch, reducing internal covariate shift and improving training speed and stability. By normalizing the mean and variance across each mini-batch, it makes the network less sensitive to initialization and allows higher learning rates.
    - **How It’s Done**: For each mini-batch, the mean and variance of each feature are computed across the batch. Each feature is then normalized and scaled with learnable parameters.
@@ -1996,6 +1998,8 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
      where \( \mu_B \) and \( \sigma_B^2 \) are the batch mean and variance, and \( \epsilon \) is a small constant.
    - **Use Case**: Commonly used in CNNs and large-scale networks with stable, large batch sizes.
    - **When to Use**: When training CNNs or dense networks with large, consistent batch sizes; not ideal for small or variable batch sizes.
+
+   [Batch Normalization - EXPLAINED](https://www.youtube.com/watch?v=DtEq44FTPM4)
 
 3. **Group Normalization**  
    - **Description**: Group Normalization divides channels in a layer into groups and normalizes each group separately, independent of the batch size. This technique is useful when batch sizes are small or vary significantly.
@@ -2026,3 +2030,11 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
    - **When to Use**: In Transformer-based or very deep networks, allowing for layer-specific normalization adjustments.
 
 Each normalization technique is suited to specific network architectures and task requirements, offering different ways to improve training stability and convergence.
+
+#### Choosing the Right Technique:
+
+The choice of normalization technique depends on the specific task and dataset. Consider the following factors:
+
+- Batch size: For small batch sizes, Group Normalization or Layer Normalization might be more suitable.
+- Data distribution: For datasets with varying data distributions, Layer Normalization can be effective.
+- Task complexity: For complex tasks, Batch Normalization can help improve performance.
