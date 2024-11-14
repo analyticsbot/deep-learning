@@ -1,5 +1,5 @@
-## Feature Engineering
-### Bucketizing
+## A. Feature Engineering
+#### 1. Bucketizing
 Bucketizing, in the context of machine learning, refers to the process of dividing a continuous feature or variable into discrete intervals, or "buckets." It is often used when dealing with continuous numerical features but can also be applied to categorical features in certain scenarios.
 
 For categorical features, bucketizing typically involves grouping similar categories together to reduce the dimensionality or complexity of the feature. This is useful when you have many distinct categories, and combining related ones into broader groups can make the model more generalizable or easier to train.
@@ -12,14 +12,14 @@ In the case of continuous features (like age or income), bucketizing involves co
 
 Bucketizing simplifies data, but it should be used carefully to avoid losing important nuances.
 
-### Feature Hashing ####
+#### 2. Feature Hashing ####
 
 Feature hashing, or hashing trick, converts text data, or categorical attributes with high cardinalities, into a feature vector of arbitrary dimensionality. In some AdTech companies (Twitter, Pinterest, etc.), it’s not uncommon for a model to have thousands of raw features.
 
 
 In AdTech, consider a model that predicts user click behavior based on categorical features like "ad campaign ID" or "user location." These features can have thousands of unique values, which would make one-hot encoding inefficient. Feature hashing compresses these high-cardinality categorical features into a fixed-length feature vector by applying a hash function, allowing the model to handle a large number of features efficiently without exploding the feature space. For example, "ad campaign ID" might be hashed into a vector of length 1,000 instead of having individual binary columns for each ID.
 
-#### Feature Hashing Example with Python and `sklearn`
+##### Feature Hashing Example with Python and `sklearn`
 
 This example demonstrates how to use **feature hashing** (also known as the hashing trick) with categorical data in Python using `sklearn`'s `FeatureHasher`. Feature hashing is useful when dealing with high cardinality categorical features, such as those found in AdTech companies (Twitter, Pinterest, etc.).
 
@@ -65,15 +65,67 @@ The hashed feature matrix will look like this:
 Each row represents the hashed features for a row of categorical data, which can be used as input to a machine learning model.
 
 **Notes**
-FeatureHasher is particularly useful when working with datasets that have high cardinality categorical features.
-By converting categorical features into fixed-length vectors, you can reduce the memory footprint and still retain useful information for machine learning models.
+
+FeatureHasher is particularly useful when working with datasets that have high cardinality categorical features. By converting categorical features into fixed-length vectors, you can reduce the memory footprint and still retain useful information for machine learning models.
+
+| **Aspect**             | **One-Hot Encoding**                                                                                 | **Feature Hashing**                                                                                  |
+|-------------------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| **Memory Usage**       | High memory usage for high-cardinality features due to large sparse matrix.                         | Fixed memory usage regardless of cardinality, making it efficient for large datasets.               |
+| **Handling New Categories** | Fails if unseen categories are encountered during inference.                                       | Seamlessly handles new categories by hashing them into the predefined space.                        |
+| **Hash Collisions**    | No collisions; unique mapping ensures no information loss.                                          | May introduce noise due to hash collisions where different categories map to the same index.        |
+| **Model Performance**  | Precise and interpretable, works well for small to medium cardinality with models like logistic regression. | Slightly noisy due to collisions but works well for high cardinality, especially with robust models. |
+| **Training Speed**     | Slower due to high dimensionality for large cardinality.                                            | Faster due to reduced dimensionality.                                                              |
+| **Best Use Case**      | Small to medium cardinality features for interpretable models.                                      | High-cardinality features or large-scale datasets.                                                 |
+
+```python
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.feature_extraction.text import HashingVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+import numpy as np
+
+# Simulate data
+np.random.seed(42)
+ad_ids = [f"ad_{np.random.randint(1, 1000000)}" for _ in range(1000)]
+labels = np.random.randint(0, 2, size=1000)
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(ad_ids, labels, test_size=0.2, random_state=42)
+
+# One-Hot Encoding
+ohe = OneHotEncoder(handle_unknown='ignore')
+X_train_ohe = ohe.fit_transform(np.array(X_train).reshape(-1, 1))
+X_test_ohe = ohe.transform(np.array(X_test).reshape(-1, 1))
+
+# Feature Hashing
+hv = HashingVectorizer(n_features=100, alternate_sign=False)
+X_train_hash = hv.transform(X_train)
+X_test_hash = hv.transform(X_test)
+
+# Logistic Regression
+lr_ohe = LogisticRegression(max_iter=1000).fit(X_train_ohe, y_train)
+lr_hash = LogisticRegression(max_iter=1000).fit(X_train_hash, y_train)
+
+# Calculate accuracies
+ohe_accuracy = lr_ohe.score(X_test_ohe, y_test)
+hash_accuracy = lr_hash.score(X_test_hash, y_test)
+
+ohe_accuracy, hash_accuracy
+```
+
+The accuracies for the logistic regression models using different encoding techniques are as follows:
+
+- One-Hot Encoding Accuracy: 50.0%
+- Feature Hashing Accuracy: 55.5%
+
+This shows that for this dataset, the model using feature hashing performed slightly better than the one using one-hot encoding.
 
 
-#### Cross Feature and Hashing Trick Example in Python
+##### Cross Feature and Hashing Trick Example in Python
 
 This example demonstrates **cross features** and how we can use the **hashing trick** to manage high-dimensional categorical data in Python using `sklearn`.
 
-#### What is a Cross Feature?
+##### What is a Cross Feature?
 
 A **cross feature** is simply a new feature created by combining two or more categorical features. For example, if we have the Uber pickup data containing `latitude` and `longitude` of locations, we can combine them (or cross them) to create a new feature that represents the pickup location more uniquely.
 
@@ -82,9 +134,7 @@ A **cross feature** is simply a new feature created by combining two or more cat
 
 To handle this large number of possible combinations (or high-dimensional data), we use the **hashing trick**, which reduces the number of dimensions while still preserving useful information.
 
-#### Example: Predict Uber Demand Using Cross Features
-
-#### Data
+##### Example: Predict Uber Demand Using Cross Features
 
 Let's assume we have some Uber pickup data containing `latitude` and `longitude` information:
 
@@ -126,104 +176,241 @@ This will print a hashed feature matrix like this:
  [ 0.  2.  0.  0.  1.  0.  0.  0. -1.  0.]]
 ```
 
-#### Why Use the Hashing Trick?
+##### Why Use the Hashing Trick here?
 Cross features often create many new categories when you combine existing features, making the data too large or "high-dimensional." Using the hashing trick helps keep the data manageable while still using the important information in your machine learning model.
 
 
-#### Scaling/Normalization:
+#### 3. Scaling/Normalization:
 - Min-Max Scaling: Rescales features to a range (usually [0, 1]).
 - Standardization (Z-score Normalization): Rescales features to have zero mean and unit variance.
 - Log Transformation: Helps reduce skewness in data by applying the log function.
 - Square Root / Cube Root: Similar to log transformation, helps with skewness for positive data.
 - Power Transformation: Helps stabilize variance and make the data more Gaussian-like.
 
-#### Feature Encoding
-- Label Encoding: Converts categorical values into numeric labels (for ordinal categories).
-- One-Hot Encoding: Converts categorical features into binary vectors (for nominal categories).
-- Binary Encoding: Represents categories as binary codes (efficient for high-cardinality categorical data).
-- Target Encoding: Replaces categories with the average of the target variable for each category (used in classification).
-- Frequency Encoding: Encodes categorical variables by the frequency of each category.
+#### 4. Feature Encoding
+- Label Encoding: Ordinal categories like education levels.  
 
-#### Handling Missing Data
+Example:
+
+Input:  
+| Education Level |  
+|-----------------|  
+| High School     |  
+| Bachelor's      |  
+| Master's        |  
+
+Output:  
+| Education Level | Encoded Value |  
+|-----------------|---------------|  
+| High School     | 0             |  
+| Bachelor's      | 1             |  
+| Master's        | 2             |  
+
+
+- One-Hot Encoding : Nominal categories like colors.  
+
+Example:
+
+Input:  
+| Color   |  
+|---------|  
+| Red     |  
+| Green   |  
+| Blue    |  
+
+Output:  
+| Color   | Red | Green | Blue |  
+|---------|-----|-------|------|  
+| Red     | 1   | 0     | 0    |  
+| Green   | 0   | 1     | 0    |  
+| Blue    | 0   | 0     | 1    |  
+
+
+
+- Binary Encoding: High-cardinality categories like city names.  
+
+Example:
+
+Input:  
+| City       |  
+|------------|  
+| New York   |  
+| San Diego  |  
+| Los Angeles|  
+
+Output:  
+| City        | Binary Encoding |  
+|-------------|-----------------|  
+| New York    | 0001            |  
+| San Diego   | 0010            |  
+| Los Angeles | 0011            |  
+
+---
+
+- Target Encoding: Categorical data correlated with a target variable (e.g., predicting income).  
+
+Example:
+
+Input:  
+| Job Title     | Target (Income) |  
+|---------------|-----------------|  
+| Engineer      | 80,000          |  
+| Teacher       | 50,000          |  
+| Engineer      | 90,000          |  
+| Teacher       | 45,000          |  
+
+Output:  
+| Job Title     | Encoded Value   |  
+|---------------|-----------------|  
+| Engineer      | 85,000          |  
+| Teacher       | 47,500          |  
+
+---
+
+- Frequency Encoding: Encoding by the frequency of occurrence in the dataset.  
+
+Example:
+
+Input:  
+| Product    |  
+|------------|  
+| Apple      |  
+| Banana     |  
+| Apple      |  
+| Orange     |  
+| Banana     |  
+
+Output:  
+| Product    | Frequency Encoding |  
+|------------|--------------------|  
+| Apple      | 2                  |  
+| Banana     | 2                  |  
+| Orange     | 1                  |  
+
+#### 5. Handling Missing Data
 - Imputation: Filling missing values using strategies such as:
 - Mean/Median/Mode Imputation: Replacing missing values with the column’s mean, median, or mode.
 - K-Nearest Neighbors (KNN) Imputation: Predict missing values based on the closest neighbors.
 - MICE (Multiple Imputation by Chained Equations): Imputing missing data multiple times and averaging the results.
 - Forward/Backward Fill: Using preceding or following values for imputation (for time series data).
 
-#### Binning
+#### 6. Binning
 - Discretization/Binning: Convert continuous features into discrete bins.
 - Equal-Width Binning: Divides the data range into equal-width bins.
 - Equal-Frequency Binning: Divides data so that each bin has an equal number of observations.
 - Quantile Binning: Bins based on quantiles to ensure the distribution of values is uniform across bins.
 
-#### Polynomial Features
+#### 7. Polynomial Features
 
 - Polynomial Expansion: Create new features by combining existing ones using polynomial combinations.
 
 Generate new features like:
 
-* `x_1^2`
-* `x_1 \cdot x_2`
+* $x_1^2$
+* $x_1 \cdot x_2$
 * ...
 
 This technique can help capture non-linear relationships between features and the target variable.
 
-#### Interaction Features
+#### 8. Interaction Features
 - Interaction Terms: Create new features by multiplying or interacting features with each other.
 Example: If you have age and income, you might create a feature age * income.
 
-#### Feature Extraction
+#### 9. Feature Extraction
 - Principal Component Analysis (PCA): Reduces dimensionality by projecting data onto the principal components.
 - Linear Discriminant Analysis (LDA): A supervised dimensionality reduction technique used to maximize class separability.
 - t-SNE/UMAP: Non-linear techniques for dimensionality reduction and visualization.
 
-#### Datetime Features
+#### 10. Datetime Features
 - Extract Date/Time Features: Extract meaningful features from datetime data, such as:
     - Day, Month, Year
     - Day of Week, Day of Year
     - Hour, Minute
-    - Is Weekend, Is Holiday
+    - Is Weekend, Weekday, Is Holiday
 
 
-- Domain-Specific Transformations
-    - Text Data:
+#### 11. Domain-Specific Transformations
+- Text Data:
 
-        - Bag of Words (BoW): Convert text into a frequency matrix of words.
-        - TF-IDF: Weighs terms by their importance in the document and reduces the impact of commonly used words.
-        - Word Embeddings: Dense vector representations (e.g., Word2Vec, GloVe).
-        - N-grams: Capture sequences of n words to extract context from text.
+    - Bag of Words (BoW): Convert text into a frequency matrix of words.
+    - TF-IDF: Weighs terms by their importance in the document and reduces the impact of commonly used words.
+    - Word Embeddings: Dense vector representations (e.g., Word2Vec, GloVe).
+    - N-grams: Capture sequences of n words to extract context from text.
+    - Sentence Embeddings
 
-    - Image Data:
+- Image Data:
 
-        - Resizing/Scaling: Adjust image size to a common resolution.
-        - Data Augmentation: Apply transformations like rotation, flipping, cropping, etc.
-        - Color Histogram: Extract color distribution as a feature.
+    - Resizing/Scaling: Adjust image size to a common resolution.
+    - Data Augmentation: Apply transformations like rotation, flipping, cropping, etc.
+    - Color Histogram: Extract color distribution as a feature.
+    - Image Embedding
 
-#### Feature Selection
-- Filter Methods: Select features based on statistical tests (e.g., correlation, chi-square test, ANOVA).
-- Wrapper Methods: Use models like forward selection, backward elimination, or recursive feature elimination (RFE).
-- Embedded Methods: Feature selection during model training (e.g., Lasso, Ridge, tree-based models like Random Forest).
 
-#### Outlier Detection and Treatment
+#### 12. Outlier Detection and Treatment
 - Clipping: Limit the range of values by capping outliers at a maximum or minimum threshold.
 - Winsorizing: Replace extreme values with percentile values to reduce the impact of outliers.
 
-#### Aggregation
+#### 13. Aggregation
 - Aggregating Features: Combine or aggregate features at different levels.
     -  Example: Sum, mean, count, max, min operations applied to group data.
 
 
-#### Target Transformation
-    - Box-Cox Transformation: Transform target variables to stabilize variance and normalize data.
-    - Log Transformation: Apply log function to compress high values and reduce skewness.
+## B. Feature Selection
+- Filter Methods: Select features based on statistical tests (e.g., correlation, chi-square test, ANOVA).
+- Wrapper Methods: Use models like forward selection, backward elimination, or recursive feature elimination (RFE).
+- Embedded Methods: Feature selection during model training (e.g., Lasso, Ridge, tree-based models like Random Forest).
 
-## Word Embeddings
-### CBOW and Skip-gram Models in Word2Vec
+Some of the methods available in sklearn
+
+##### Filter Methods
+1. **Variance Threshold**
+   - Removes features with low variance.
+   - Example: `sklearn.feature_selection.VarianceThreshold`
+
+2. **SelectKBest**
+   - Selects the top k features based on a scoring function.
+   - Example: `sklearn.feature_selection.SelectKBest`
+
+3. **SelectPercentile**
+   - Selects features based on the top percentile of the highest scores.
+   - Example: `sklearn.feature_selection.SelectPercentile`
+
+##### Wrapper Methods
+4. **Recursive Feature Elimination (RFE)**
+   - Recursively removes features and builds a model to identify important features.
+   - Example: `sklearn.feature_selection.RFE`
+
+5. **RFECV**
+   - RFE combined with cross-validation to select the best number of features.
+   - Example: `sklearn.feature_selection.RFECV`
+
+##### Embedded Methods
+6. **Lasso (L1 Regularization)**
+   - Uses L1 regularization to shrink coefficients of less important features to zero.
+   - Example: `sklearn.linear_model.Lasso`
+
+7. **Tree-Based Feature Selection**
+   - Uses tree-based estimators to determine feature importance.
+   - Example: `sklearn.ensemble.RandomForestClassifier` with `.feature_importances_`
+
+8. **SelectFromModel**
+   - Selects features based on the importance weights from an estimator.
+   - Example: `sklearn.feature_selection.SelectFromModel`
+
+##### Feature Selection for Sparse Data
+9. **chi2**
+   - Selects features using the Chi-squared statistic for non-negative features.
+   - Example: `sklearn.feature_selection.chi2`
+
+10. **mutual_info_classif / mutual_info_regression**
+    - Selects features based on mutual information for classification or regression tasks.
+    - Example: `sklearn.feature_selection.mutual_info_classif`
+
+
+## C. Word Embeddings
+#### CBOW and Skip-gram Models in Word2Vec
 
 Word2Vec is a popular technique used to create word embeddings, where words are represented as dense vectors in a continuous vector space. There are two primary models used in Word2Vec: **CBOW (Continuous Bag of Words)** and **Skip-gram**.
-
-
 
 #### 1. CBOW (Continuous Bag of Words)
 
@@ -232,7 +419,7 @@ Word2Vec is a popular technique used to create word embeddings, where words are 
   
 For example, in the sentence "The cat sits on the mat," if "cat" is the target word, the context might be ["The", "sits"].
 
-#### CBOW Python Example
+##### CBOW Python Example
 
 ```python
 import numpy as np
@@ -271,12 +458,13 @@ print(f"Training data (CBOW): {training_data}")
 The output represents the context-target pairs used in CBOW training:
 ```Training data (CBOW): [([word1_idx, word3_idx], target_word_idx), ...]```
 
-#### Skip-gram Model
+#### 2. Skip-gram Model
 Goal: Predict the context words (neighboring words) given the target word.
 In this model, the center word is used to predict its context.
 For example, in the sentence "The cat sits on the mat," if "cat" is the target word, the model tries to predict its neighboring words "The" and "sits." based on a variable called window size.
 
-Skip-gram Python Example
+##### Skip-gram Python Example
+
 ```python
 # Generate training data (Skip-gram style: target -> context)
 def generate_skipgram_data(sentences, window_size):
@@ -301,154 +489,77 @@ The output represents the target-context pairs used in Skip-gram training:
 CBOW: Predicts the center word using context words.
 Skip-gram: Predicts context words using the center word.
 
-#### Visual Summary
-CBOW: Context -> Target
-Skip-gram: Target -> Context
+#### 3. GloVe (Global Vectors for Word Representation)
+- **How it Works:**
+    - Uses word co-occurrence statistics across a corpus to capture relationships between words.
+    - Constructs a word-word co-occurrence matrix and factorizes it to find word embeddings.
+    - Balances local (contextual) and global statistics for better word representation.
+- **Use Case:** Efficient for finding semantic similarities and analogies.
+
+#### 3. FastText
+
+- **How it Works:**
+    - Extends Word2Vec by breaking words into character n-grams.
+    - Captures subword information, allowing it to represent rare and out-of-vocabulary words.
+    - Models can learn embeddings even for words not in the training corpus.
+- **Use Case:** Suitable for morphologically rich languages and handling misspelled words.
+
+#### 4. ELMo (Embeddings from Language Models)
+
+- **How it Works:**
+    - Uses deep bidirectional LSTMs to generate context-dependent embeddings.
+    - Word embeddings depend on the sentence context, capturing polysemy.
+    - Pretrained on large corpora and fine-tuned for specific tasks.
+- **Use Case:** Effective for NLP tasks requiring contextual understanding.
+
+#### 5. BERT (Bidirectional Encoder Representations from Transformers)
+
+- **How it Works:**
+    - Uses transformer architecture to generate contextual embeddings.
+    - Words are represented differently based on their context in a sentence.
+    - Pretrained on large corpora with unsupervised objectives like masked language modeling.
+- **Use Case:** Best for NLP tasks like classification, question answering, and named entity recognition.
+
+#### 6. TF-IDF (Term Frequency-Inverse Document Frequency)
+
+- **How it Works:**
+    - Computes weights for words based on their frequency in a document and their rarity across the corpus.
+    - Does not produce dense embeddings but is useful for sparse representation of text.
+- **Use Case:** Useful for simpler NLP tasks or feature extraction for traditional ML models.
+
+#### 7. Doc2Vec
+
+- **How it Works:**
+    - Extends Word2Vec to learn embeddings for entire documents or paragraphs instead of individual words.
+    - Uses distributed memory (DM) and distributed bag of words (DBOW) frameworks.
+- **Use Case:** Suitable for document similarity and classification tasks.
+
+#### 8. Transformer-Based Models (GPT, RoBERTa, T5)
+
+- **How it Works:**
+    - Use self-attention mechanisms to model context across entire sequences.
+    - Generate embeddings at the token, sentence, or document level.
+    - Pretrained on massive datasets with unsupervised tasks and fine-tuned for downstream tasks.
+- **Use Case:** Cutting-edge performance for complex NLP applications.
+
+#### 9. CoVe (Contextualized Word Vectors)
+
+- **How it Works:**
+    - Uses pre-trained sequence-to-sequence models to generate embeddings.
+    - Encodes semantic context and polysemy by training on translation tasks.
+- **Use Case:** Provides context-sensitive embeddings for tasks like sentiment analysis.
+
+#### 10. Latent Semantic Analysis (LSA)
+- **How it Works:**
+    - Reduces dimensionality of term-document matrices using singular value decomposition (SVD).
+    - Captures latent semantic relationships between words.
+- **Use Case:** Effective for smaller datasets and simple semantic tasks.
 
 
-### How Does Instagram Train User Embedding?
-
-Instagram aims to recommend photos to users that align with their current interests during a session. Here's a simplified view of how Instagram could train user embeddings based on user interactions with other users' photos.
-
-#### Concept
-
-- **User A's session**: Imagine User A browsing photos from different accounts in one session.
-- **Sequence assumption**: If User A is interested in certain topics, then the photos they view from User B and User C are likely related to that interest.
-  
-Instagram can model these sequences of interactions (e.g., "User A sees User B's photos, then User C's photos") as sequences of words in a sentence. This allows Instagram to learn user embeddings that reflect users' preferences during a session.
-
-#### Example Scenario
-
-- **Session**: User A → sees User B’s photos → sees User C’s photos.
-  
-This can be treated like a sentence where:
-- Each session is a "sentence."
-- Each user whose photos are viewed is like a "word" in that sentence.
-
-By representing these sessions as sequences, we can train embeddings for each user, similar to how we might train word embeddings in natural language processing.
-
-#### Sequence Embedding Example with Python
-
-Here’s a Python example of how you can implement this using simple sequence embedding logic. We'll simulate user sessions and generate training data.
-
-#### Python Example
-
-```python
-import numpy as np
-from collections import defaultdict
-
-# Simulate user sessions where each session contains a sequence of users' photos viewed
-sessions = [
-    ["user_A", "user_B", "user_C"],
-    ["user_A", "user_D", "user_E"],
-    ["user_B", "user_C", "user_F"]
-]
-
-# Vocabulary and user to index mapping
-users = {user for session in sessions for user in session}
-user2idx = {user: i for i, user in enumerate(users)}
-idx2user = {i: user for user, i in user2idx.items()}
-
-# Parameters
-embedding_dim = 10  # Embedding size
-
-# Generate training data (sequence style: context -> target)
-def generate_sequence_data(sessions):
-    data = []
-    for session in sessions:
-        for i, user in enumerate(session):
-            target = user2idx[user]
-            context = [user2idx[session[j]] for j in range(max(0, i - 1), min(len(session), i + 2)) if i != j]
-            data.append((context, target))
-    return data
-
-training_data = generate_sequence_data(sessions)
-print(f"Training data (Sequence Embedding): {training_data}")
-```
-
-#### Output
-The output represents the context-target pairs used in sequence embedding training:
-```Training data (Sequence Embedding): [([user_B_idx, user_C_idx], user_A_idx), ...]```
-
-#### Explanation of the Code
-Sessions: Each session is a sequence of users, where User A might see photos from User B, then User C.
-Training data: We generate context-target pairs for training embeddings, where each user has surrounding users in the session as context.
-
-
-### Recommendation System Design
-
-#### Overview
-
-This project focuses on building a recommendation system that efficiently suggests items to users based on their preferences. One of the key design choices is the use of the **Hadamard product** over more common functions like **cosine similarity**. This choice allows the model to learn its own distance function while reducing latency in online scoring.
-
-#### Key Concepts
-
-#### Hadamard Product
-
-The Hadamard product is an element-wise multiplication of two matrices (or vectors). For two vectors \( A \) and \( B \), the Hadamard product \( A \circ B \) is calculated as:
-
-\[
-A \circ B = (A_1 \cdot B_1, A_2 \cdot B_2, \ldots, A_n \cdot B_n)
-\]
-
-#### Cosine Similarity
-
-Cosine similarity measures the cosine of the angle between two non-zero vectors in an inner product space. It is commonly used to determine how similar two items are, regardless of their magnitude.
-
-#### Distance Function
-
-In machine learning, a distance function helps determine how "far apart" or "similar" two data points (like user preferences or item attributes) are. A model that learns its own distance function can adapt to specific data characteristics, improving performance.
-
-#### Fully Connected Layer
-
-In neural networks, a fully connected layer means that each neuron in one layer is connected to every neuron in the next layer. This can increase computational costs and latency, particularly in real-time systems like recommendation engines.
-
-## Example Scenario
-
-### Movie Recommendation System
-
-In our movie recommendation system, we represent users and movies as vectors.
-
-- **User Preferences Vector**:
-    - \( U = [0.9, 0.1, 0.5] \) (indicating preferences for Action, Comedy, and Drama).
-
-- **Movie Attributes Vector**:
-    - \( M = [0.8, 0.4, 0.3] \).
-
-#### Hadamard Product Approach
-
-The Hadamard product \( U \circ M \) yields:
-
-\[
-U \circ M = [0.9 \cdot 0.8, 0.1 \cdot 0.4, 0.5 \cdot 0.3] = [0.72, 0.04, 0.15]
-\]
-
-The resulting vector indicates the "combined" score for each genre, allowing the model to learn how to weigh different attributes based on user preferences.
-
-#### Cosine Similarity Approach
-
-If we used cosine similarity, we would compute:
-
-\[
-\text{cosine similarity} = \frac{U \cdot M}{\|U\| \|M\|}
-\]
-
-This would return a single similarity score that tells how similar the user is to the movie, which might not provide as detailed a picture of preferences as the Hadamard product.
-
-#### Advantages of the Hadamard Product
-
-- **Flexibility**: The model can learn and adjust weights for each attribute independently, capturing the nuances of user preferences.
-- **Reduced Latency**: By avoiding a fully connected layer, the system can operate more quickly, which is critical for online recommendation systems where users expect instant results.
-
-#### Conclusion
-
-The choice of the Hadamard product allows the model to create a more tailored representation of user preferences while maintaining efficiency in scoring recommendations. This flexibility can lead to improved performance in suggesting items that align closely with users' unique tastes.
-
-
-### Handling Imbalanced Class Distribution in Multi-Class Problems
+## D. Handling Imbalanced Class Distribution in Multi-Class Problems
 In machine learning tasks like fraud detection, click prediction, or spam detection, it's common to have imbalanced labels. For example, in ad click prediction, you might have a 0.2% conversion rate, meaning out of 1,000 clicks, only two lead to a desired action. This imbalance can cause the model to focus too much on learning from the majority class.
 
-When dealing with multi-class problems, methods like SMOTE (Synthetic Minority Over-sampling Technique) are not always effective. Below are some strategies to handle class imbalance in multi-class settings:
+Sometimes we can use under or oversampling or use SMOTE, but when dealing with multi-class problems, methods like SMOTE (Synthetic Minority Over-sampling Technique) are not always effective. Below are some strategies to handle class imbalance in multi-class settings:
 
 #### 1. Class Weights in Loss Function
 Adjusting class weights in the loss function allows the model to give more importance to the minority classes.
@@ -480,10 +591,10 @@ rus = RandomUnderSampler()
 X_res, y_res = rus.fit_resample(X, y)
 ```
 
-3. Hybrid Approach: Combining Oversampling and Undersampling
+#### 3. Hybrid Approach: Combining Oversampling and Undersampling
 A combination of oversampling for minority classes and undersampling for majority classes.
 
-4. Multi-Class Variants of SMOTE
+#### 4. Multi-Class Variants of SMOTE
 There are several multi-class variants of SMOTE, like SMOTE-ENN and Borderline-SMOTE.
 
 a. SMOTE-ENN
@@ -499,7 +610,7 @@ X_res, y_res = smote_enn.fit_resample(X, y)
 b. Borderline-SMOTE
 This method focuses on synthesizing samples specifically for borderline minority instances.
 
-5. Ensemble Methods
+#### 5. Ensemble Methods
 a. Balanced Random Forest
 Balanced Random Forest undersamples the majority class at each bootstrap iteration, creating balanced datasets for each tree in the forest.
 
@@ -518,66 +629,29 @@ from imblearn.ensemble import EasyEnsembleClassifier
 clf = EasyEnsembleClassifier()
 clf.fit(X, y)
 ```
-6. Data Augmentation
+#### 6. Data Augmentation
 Data augmentation can help generate more samples for minority classes, especially useful for image, text, or time-series data.
 
 These methods can help tackle the challenge of class imbalance in multi-class machine learning tasks.
 
-### Course Recommendations on LinkedIn Learning
+#### 7. Focal Loss for Imbalanced Data
 
-#### Problem
-The goal of Course Recommendations is to acquire new learners by showing highly relevant courses to learners. However, there are challenges:
+Focal Loss is a modification of standard cross-entropy loss designed to address class imbalance in datasets. It focuses on "hard-to-classify" examples while reducing the weight of "easy-to-classify" ones, thus preventing the model from being overwhelmed by the majority class.
 
-1. **Lack of label data**: Without engagement signals like user activities (browse, click), we can't use implicit labels for training. This is known as the *Cold Start problem*.
-   - A possible solution is user surveys during onboarding, where learners share the skills they want to learn. However, this is often insufficient.
+#### Formula:
+$ FL(p_t) = -\alpha_t (1 - p_t)^\gamma \log(p_t)$
 
-#### Example Scenario
-Given a learner with skills in *Big Data*, *Database*, and *Data Analysis*, LinkedIn Learning has two course options: *Data Engineering* and *Accounting 101*. The model should recommend *Data Engineering* since it aligns better with the learner's skills. This illustrates that skills can measure relevance.
+Where:
+- $ p_t $: Predicted probability for the correct class.
+- $ \alpha_t $: Balancing factor for class weights (optional).
+- $ \gamma $: Focusing parameter that controls the down-weighting of easy examples.
 
-#### Skill-Based Model
+#### Key Benefits:
+1. **Handles Class Imbalance**: By reducing the loss contribution of well-classified examples, it allows the model to focus on minority or difficult cases.
+2. **Customizable**: The hyperparameter $ \gamma $ can be tuned to adjust the focus on hard examples $ \gamma = 2 $ is commonly used.
+3. **Improves Performance**: Particularly effective in scenarios like object detection and classification with highly imbalanced data.
 
-#### Course to Skill: Cold Start Model
-1. **Manual Tagging**: 
-   - Use taxonomy to map LinkedIn Learning courses to skills. Taxonomists perform this mapping, which achieves high precision but low coverage.
-   
-2. **Leverage LinkedIn Skill Taggers**: 
-   - Use LinkedIn Skill Taggers to extract skills from course data.
-
-3. **Supervised Model**: 
-   - Train a classification model that takes a pair (course, skill) and returns `1` if relevant, `0` otherwise.
-
-#### Data for Supervised Model
-- Positive examples: From manual tagging and LinkedIn Skill Taggers.
-- Negative examples: Randomly sampled data.
-- Features: Course data such as title, description, and section names. Skill-to-skill similarity is also used.
-
-#### Disadvantages:
-- Heavy reliance on skill taggers' quality.
-- A single logistic regression model may not capture skill-level effects.
-
-4. **Semi-Supervised Learning**:
-   - Train separate models for each skill, rather than one general model for all (course, skill) pairs.
-   
-5. **Data Augmentation**:
-   - Use skill-correlation graphs to add positive labels. For example, if SQL is highly related to Data Analysis, both skills should be labeled positively for relevant courses.
-
-#### Evaluation: Offline Metrics
-1. **Skill Coverage**: Measures how many LinkedIn standardized skills are present.
-2. **Precision and Recall**: Use human-generated mappings as ground truth to evaluate the model.
-
-#### Member to Skill
-
-1. **Member to Skill via Profile**: 
-   - LinkedIn users add skills to their profiles, which is often noisy and needs to be standardized. Coverage is limited since not all users provide skill data.
-
-2. **Member to Skill Using Title and Industry**:
-   - Infer skills using cohort-level mapping based on job titles and industry. For example, a Machine Learning Engineer in Ad Tech might not provide skills but can be inferred from the cohort.
-
-#### Final Skill Mapping
-Combine profile-based and cohort-based mappings using a weighted combination. For instance, if SQL has a higher weight in the cohort mapping, it will influence the final score accordingly.
-
-
-### Regression Loss Functions
+## E. Regression Loss Functions
 
 #### 1. Mean Square Error (MSE)
 #### Description:
@@ -633,6 +707,33 @@ Requires tuning a hyperparameter (δ) to switch between MSE and MAE behavior.
 
 #### Best Suited For:
 Data with some outliers, but where smaller errors still need to be penalized effectively.
+
+#### Choosing a Good Value for Delta (δ) in Huber Loss
+
+The value of **δ (delta)** in Huber Loss determines the threshold where the loss transitions from **quadratic** (like MSE) to **linear** (like MAE). Selecting δ depends on the scale of your data and the presence of outliers.
+
+#### Guidelines for Choosing δ:
+1. **Default Starting Point**:  
+   - A typical default value is **1.0**, which works well for normalized data or when the target variable has a small scale.
+
+2. **Based on Data Scale**:  
+   - Set $ \delta $ to match the scale of residuals, such as the standard deviation  $\sigma $ of residuals:
+     $\delta = \sigma$
+
+3. **Outlier Sensitivity**:  
+   - Smaller δ: More sensitive to small residuals, behaves like MSE.  
+   - Larger δ: More robust to outliers, behaves like MAE.
+
+4. **Hyperparameter Tuning**:  
+   - Experiment with different δ values to optimize performance on validation data.
+
+#### Practical Example:
+- For residuals in the range \([-10, 10]\), start with δ values between **1 and 5**.
+- For larger residuals, increase δ proportionally.
+
+#### Summary:
+- Begin with **δ = 1.0**, and adjust based on data scale or through tuning to achieve the best performance.
+
 
 #### Example:
 ```python
@@ -698,17 +799,15 @@ Forecasting data, especially time-series, where you want a balanced error metric
 smape = 100 * np.mean(2 * np.abs(y_true - y_pred) / (np.abs(y_true) + np.abs(y_pred)))
 ```
 
-### CLassifcation Loss
+## F. CLassifcation Loss Functions
 
-## Binary Classification Loss Functions
+### 1. Binary Classification Loss Functions
 
 #### 1. Focal Loss
 #### Description:
 Focal loss is designed to down-weight easy examples and focus on learning from hard, misclassified examples.
 
-$$
-\text{Focal Loss} = -\frac{1}{N} \sum_{i=1}^{N} \left[ \alpha(1 - p_i)^{\gamma} y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]
-$$
+$$\text{Focal Loss} = -\frac{1}{N} \sum_{i=1}^{N} \left[ \alpha(1 - p_i)^{\gamma} y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]$$
 
 #### Advantage:
 Useful in imbalanced datasets by focusing on harder-to-classify examples.
@@ -777,9 +876,9 @@ hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
    - Class imbalance is significant, as it may lead to misleading loss values.
 
 
-## Multi-Class Classification Loss Functions
+### 2. Multi-Class Classification Loss Functions
 
-1. **Categorical Cross-Entropy Loss**
+#### 1. **Categorical Cross-Entropy Loss**
 
    **Formula:**
     $$
@@ -793,7 +892,7 @@ hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
    **Avoid When:**
    - When the target classes are not mutually exclusive, as it assumes that classes are one-hot encoded.
 
-2. **Sparse Categorical Cross-Entropy Loss**
+#### 2. **Sparse Categorical Cross-Entropy Loss**
 
    **Formula:**
     $$
@@ -806,7 +905,7 @@ hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
    **Avoid When:**
    - When one-hot encoding is required for compatibility with certain models.
 
-3. **Kullback-Leibler Divergence (KL Divergence)**
+#### 3. **Kullback-Leibler Divergence (KL Divergence)**
 
    **Formula:**
     $$
@@ -816,10 +915,26 @@ hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
    **Use Cases:**
    - Useful for measuring how one probability distribution diverges from a second expected probability distribution.
 
+   KL Divergence is used in multi-class classification when:
+
+1. **Probability Distributions are Compared**:  
+   - It measures the difference between two probability distributions: the **true distribution** (ground truth) and the **predicted distribution** from the model.
+
+2. **Soft Labels or Probabilistic Targets**:  
+   - Commonly used when the ground truth is not a one-hot encoded vector but a **probability distribution** over classes (e.g., in **knowledge distillation** or label smoothing).
+
+3. **Output of the Model is a Probability Distribution**:  
+   - Typically applied when the model uses a **softmax** activation function to produce class probabilities.
+
+4. **Applications**:
+   - **Knowledge Distillation**: Aligning the predicted distribution of a student model to that of a teacher model.  
+   - **Regularization**: Ensuring smoother predictions in cases like label smoothing.
+
+
    **Avoid When:**
    - When actual class probabilities are not known or are very small, leading to instability in computation.
 
-4. **Normalized Cross-Entropy Loss**
+#### 4. **Normalized Cross-Entropy Loss**
 
    **Formula:**
     $$
@@ -829,10 +944,28 @@ hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
    **Use Cases:**
    - Useful when class frequencies vary significantly, normalizing the contribution of each class.
 
+   #### Key Applications:
+1. **Multi-Class Classification**:
+   - Widely used in tasks like text classification, image recognition, and other scenarios where class probabilities are modeled.
+
+2. **Language Modeling**:
+   - Optimizing large-scale models like Word2Vec or neural language models to handle large vocabulary sizes efficiently.
+
+3. **Imbalanced Datasets**:
+   - Helps mitigate the impact of imbalanced class distributions by incorporating normalization factors.
+
+4. **Information Retrieval**:
+   - Used in ranking tasks where probabilities of relevant items are modeled.
+
+5. **Contrastive Learning**:
+   - Applied in self-supervised learning, such as SimCLR, to maximize similarity between augmented data representations.
+
+NCE loss is particularly effective in settings where computing the full softmax distribution is computationally expensive or unnecessary.
+
    **Avoid When:**
    - When the normalization may obscure the learning of relevant features.
 
-5. **Hinge Loss (Multi-Class)**
+#### 5. **Hinge Loss (Multi-Class)**
 
    **Formula:**
     $$
@@ -845,7 +978,7 @@ hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
    **Avoid When:**
    - When probabilistic interpretations of the output are needed.
 
-6. **Triplet Loss**
+#### 6. **Triplet Loss**
 
    **Formula:**
     $$
@@ -857,9 +990,9 @@ hinge_loss = np.mean(np.maximum(0, 1 - y_true * y_pred))
    - Useful in tasks involving similarity learning, such as face recognition.
 
    **Avoid When:**
-   - When training data does not provide adequate positive/negative pairs.
+   - When training data does not provide adequate positive/negative pairs. Good quality negative pairs are also needed.
 
-### Evaluation Metrics 
+## F. Evaluation Metrics 
 
 #### 1. Area Under the Curve (AUC)
 #### Description:
@@ -887,21 +1020,21 @@ auc = roc_auc_score(y_true, y_scores)
 ```
 
 #### 2. Mean Average Recall at K (MAR@K)
-#### Description:
+##### Description:
 MAR@K measures the average recall of a model at the top K retrieved items. It is particularly useful in scenarios where only the top K results are considered relevant.
 
-#### Advantage:
-Focuses on the most relevant items, making it suitable for recommendation systems and information retrieval tasks.
-Provides a clearer picture of recall when only a subset of results is of interest.
+##### Advantage:
+- Focuses on the most relevant items, making it suitable for recommendation systems and information retrieval tasks.
+- Provides a clearer picture of recall when only a subset of results is of interest.
 
-#### Disadvantage:
-May overlook relevant items that are not in the top K.
-Sensitive to the choice of K; different K values can yield different insights.
+##### Disadvantage:
+- May overlook relevant items that are not in the top K.
+- Sensitive to the choice of K; different K values can yield different insights.
 
-#### Best Suited For:
+##### Best Suited For:
 Scenarios where retrieving the top K relevant items is more important than retrieving all relevant items.
 
-#### Example:
+##### Example:
 ```python
 def average_recall_at_k(y_true, y_pred, k):
     relevant_items = sum(y_true)
@@ -914,22 +1047,68 @@ y_pred = [1, 1, 0, 1, 0]  # Predicted top K items
 
 mar_k = average_recall_at_k(y_true, y_pred, k=3)
 ```
+##### Difference Between Recall and Recall@K
+
+##### **Recall**:
+- **Definition**: Recall measures the proportion of actual positive instances that the model correctly identified.
+- **Formula**:  
+  $$
+  \text{Recall} = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Negatives (FN)}}
+  $$
+- **Example**:
+  Suppose we have 10 items, and 4 of them are relevant (ground truth). The model identifies 6 items as relevant, of which 3 are correct. Recall is:
+ $$
+  \text{Recall} = \frac{3}{4} = 0.75
+  $$
+
+##### **Recall@K**:
+- **Definition**: Recall@K measures how many relevant items are retrieved in the **top K predictions**.
+- **Example**:
+  Let's assume:
+  - There are 10 total items.
+  - 4 items are relevant (ground truth).
+  - The model produces a ranked list of items:  
+    **[1, 2, 5, 3, 8, 7, 4, 6, 9, 10]**  
+    (Items 1, 3, 4, 5 are relevant).
+
+##### Case 1: Recall@3
+- Look at the **top 3 predictions**:  
+  **[1, 2, 5]**
+- Relevant items in the top 3: **[1, 5]**
+- Recall@3 = $$\frac{\text{Relevant items in top 3}}{\text{Total relevant items}}$$:  
+  $$
+  \text{Recall@3} = \frac{2}{4} = 0.5
+  $$
+
+##### Case 2: Recall@5
+- Look at the **top 5 predictions**:  
+  **[1, 2, 5, 3, 8]**
+- Relevant items in the top 5: **[1, 3, 5]**
+- Recall@5 = $$\frac{\text{Relevant items in top 5}}{\text{Total relevant items}}$$:  
+  $$
+  \text{Recall@5} = \frac{3}{4} = 0.75
+  $$
+
+##### Key Difference:
+- **Recall** evaluates performance across all predictions, focusing on the overall ability to retrieve relevant items.
+- **Recall@K** evaluates performance within the **top K predictions**, emphasizing ranking quality and relevance for top results (critical in recommender systems or search engines).
+
 
 #### 3. Mean Average Precision (MAP)
-#### Description:
+##### Description:
 MAP is the mean of average precision scores across multiple queries. Average precision summarizes the precision-recall curve for a single query and considers the order of predicted results.
 
-#### Advantage:
+##### Advantage:
 Considers both precision and the rank of positive instances, providing a nuanced evaluation.
 Useful for evaluating ranked retrieval tasks.
-#### Disadvantage:
+##### Disadvantage:
 Requires careful computation, as it involves precision at each relevant item in the ranking.
 May be sensitive to the number of queries in the dataset.
 
-#### Best Suited For:
+##### Best Suited For:
 Information retrieval tasks where both the order and relevance of items matter.
 
-#### Example:
+##### Example:
 ```python
 def average_precision(y_true, y_scores):
     sorted_indices = np.argsort(y_scores)[::-1]  # Sort scores in descending order
@@ -944,6 +1123,57 @@ y_scores = [0.1, 0.4, 0.35, 0.8, 0.3]  # Predicted scores
 
 map_score = average_precision(y_true, y_scores)
 ```
+##### Difference between MaP, AP, and Precision
+- **Definition**: MAP is the mean of the Average Precision (AP) scores for multiple queries or predictions. 
+- **Precision**: Measures the proportion of retrieved items that are relevant.
+  $$
+  \text{Precision} = \frac{\text{Relevant items retrieved}}{\text{Total items retrieved}}
+  $$
+- **Average Precision (AP)**: Captures precision at each rank where a relevant item is retrieved, averaged over all relevant items.
+
+---
+
+##### Example: Precision vs. MAP
+
+##### Setup:
+- **Ground Truth (relevant items)**:  
+  For a query, the relevant items are: **[1, 3, 5]**  
+- **Predictions (ranked list)**:  
+  The model predicts: **[1, 2, 3, 4, 5]**
+
+
+##### **Step 1: Precision at Each Rank**
+| Rank (k) | Item Predicted | Relevant? | Precision@k |
+|----------|----------------|-----------|-------------|
+| 1        | 1              | ✅         | \( 1/1 = 1.0 \)   |
+| 2        | 2              | ❌         | \( 1/2 = 0.5 \)   |
+| 3        | 3              | ✅         | \( 2/3 = 0.67 \)  |
+| 4        | 4              | ❌         | \( 2/4 = 0.5 \)   |
+| 5        | 5              | ✅         | \( 3/5 = 0.6 \)   |
+
+
+##### **Step 2: Average Precision (AP)**
+- Precision is calculated **only at ranks where relevant items are retrieved**:
+  - Precision@1 = \( 1.0 \)  
+  - Precision@3 = \( 0.67 \)  
+  - Precision@5 = \( 0.6 \)
+- Average Precision (AP):
+  $$
+  \text{AP} = \frac{\text{Sum of Precision at relevant ranks}}{\text{Total relevant items}} = \frac{1.0 + 0.67 + 0.6}{3} = 0.7567
+  $$
+
+
+##### **Step 3: MAP for Multiple Queries**
+- For multiple queries, calculate AP for each query and take the mean:
+  $$
+  \text{MAP} = \frac{\text{Sum of APs}}{\text{Number of queries}}
+  $$
+
+
+##### Key Difference: Precision vs. MAP
+- **Precision** focuses on a single cut-off point (e.g., top-k).
+- **MAP** averages precision over ranks, emphasizing ranking quality by rewarding early retrieval of relevant items.
+
 
 #### 4. Mean Reciprocal Rank (MRR)
 #### Description:
