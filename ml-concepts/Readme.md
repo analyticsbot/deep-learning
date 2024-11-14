@@ -1131,7 +1131,6 @@ map_score = average_precision(y_true, y_scores)
   $$
 - **Average Precision (AP)**: Captures precision at each rank where a relevant item is retrieved, averaged over all relevant items.
 
----
 
 ##### Example: Precision vs. MAP
 
@@ -1176,18 +1175,18 @@ map_score = average_precision(y_true, y_scores)
 
 
 #### 4. Mean Reciprocal Rank (MRR)
-#### Description:
+##### Description:
 MRR measures the average of the reciprocal ranks of the first relevant item across multiple queries. It emphasizes the importance of retrieving the relevant item as early as possible.
 
-#### Advantage:
+##### Advantage:
 Simple to compute and interpret.
 Highlights the effectiveness of retrieval systems in providing relevant results early in the ranking.
-#### Disadvantage:
+##### Disadvantage:
 Only considers the first relevant item, which may not provide a comprehensive view of the retrieval system's performance.
 Sensitive to cases where there are no relevant items in the ranking.
-#### Best Suited For:
+##### Best Suited For:
 Tasks where finding the first relevant item quickly is crucial, such as question-answering systems.
-#### Example:
+##### Example:
 ```python
 def mean_reciprocal_rank(queries):
     ranks = []
@@ -1201,15 +1200,16 @@ mrr = mean_reciprocal_rank(queries)
 ```
 
 #### 5. Normalized Discounted Cumulative Gain (NDCG)
-#### Description:
+##### Description:
 Normalized Discounted Cumulative Gain (NDCG) is a ranking metric that is widely used in information retrieval, such as in search engines and recommendation systems. It measures the usefulness (or "gain") of the results based on their relevance, while also considering the position of the results in the ranking. Higher-ranked items (those shown earlier) are given more importance compared to lower-ranked ones.
 
-#### Key Concepts:
+##### Key Concepts:
 
 1. **Cumulative Gain (CG)**: This is the sum of the relevance scores of the retrieved items, without considering their positions.
    - Formula: 
    ```math
    CG = \sum_{i=1}^{k} rel_i
+   ```
 
 2. **Discounted Cumulative Gain (DCG)**: DCG penalizes the relevance scores based on their positions. Lower-ranked items are discounted, meaning their contribution to the overall score decreases as the rank increases.
 
@@ -1217,23 +1217,23 @@ Normalized Discounted Cumulative Gain (NDCG) is a ranking metric that is widely 
 
 4. **NDCG**: NDCG is the ratio of DCG to IDCG. It normalizes the score so that it lies between 0 and 1, where a higher score indicates better ranking.
 
-#### Why is NDCG Important?
+##### Why is NDCG Important?
 NDCG is especially useful when dealing with graded relevance, where items are not simply "relevant" or "irrelevant" but have varying degrees of relevance. By considering both the relevance of items and their positions in the ranking, NDCG provides a more nuanced evaluation of the ranking quality.
 
 
-#### Advantage:
+##### Advantage:
 - Position-sensitive: Penalizes relevant items that are placed lower in the list, encouraging better ordering of items.
 - Graded relevance: Handles varying levels of relevance, unlike binary relevance metrics like Precision or Recall.
 - Normalized: Scores are normalized between 0 and 1, making them comparable across queries or datasets.
 
-#### Disadvantage:
+##### Disadvantage:
 Requires relevance scores, which may not always be available.
 Complexity in implementation compared to simpler metrics.
 
-#### Best Suited For:
+##### Best Suited For:
 Ranking tasks in information retrieval where graded relevance is available.
 
-#### Example:
+##### Example:
 ```python
 def ndcg(y_true, y_scores):
     sorted_indices = np.argsort(y_scores)[::-1]
@@ -1249,11 +1249,11 @@ y_scores = [0.1, 0.4, 0.35, 0.8, 0.3, 0.2]  # Predicted scores
 ndcg_score = ndcg(y_true, y_scores)
 ```
 
-#### Example:
+##### Example:
 
 Suppose we have a list of 5 retrieved items with the following relevance scores:
 
-- Ground truth relevance: `[3, 2, 3, 0, 1]`
+- Ground truth relevance: `[3, 2, 3, 0, 1]` # these can come from things such as purchase, click, add to cart etc
 - Predicted ranking scores: `[0.5, 0.4, 0.9, 0.3, 0.2]`
 
 1. **Calculate DCG**:
@@ -1280,17 +1280,17 @@ $$
 In this case, the NDCG score is approximately **0.979**, indicating a very well-ranked list.
 
 #### 6. Cumulative Gain (CG)
-#### Description:
+##### Description:
 Cumulative Gain measures the total relevance score of the retrieved items, regardless of their rank. It sums the relevance scores of the top K results.
 
-#### Advantage:
+##### Advantage:
 Simple and intuitive to calculate, providing a straightforward measure of total relevance.
 Useful for understanding overall retrieval effectiveness.
-#### Disadvantage:
+##### Disadvantage:
 Ignores the rank of items, meaning it can give a false sense of performance if lower-ranked items are highly relevant.
-#### Best Suited For:
+##### Best Suited For:
 Situations where the overall relevance of retrieved items is more important than their order.
-#### Example:
+##### Example:
 ```python
 def cumulative_gain(y_true, k):
     return np.sum(y_true[:k])
@@ -1299,11 +1299,11 @@ y_true = [3, 2, 3, 0, 1, 2]  # Relevance scores
 cg_score = cumulative_gain(y_true, k=3)
 ```
 
-### Normalized Discounted Cumulative Gain (NDCG) Based on Click Data
+##### Normalized Discounted Cumulative Gain (NDCG) Based on Click Data
 
 **Click data** can be used as a proxy for ground truth relevance scores, especially when explicit relevance labels (e.g., ratings or user feedback) are unavailable. In recommendation systems, clicks indicate user interest, with more clicks suggesting higher relevance. Here’s how click data can be transformed and used as ground truth (GT) relevance:
 
-#### Transforming Click Data into Ground Truth (GT) Relevance:
+##### Transforming Click Data into Ground Truth (GT) Relevance:
 - **Clicks as binary relevance**: If a user clicks on an item, it can be labeled as relevant (1), while non-clicked items are considered irrelevant (0).
 - **Clicks as graded relevance**: You can assign higher relevance scores based on the number of clicks or interactions with an item. For instance:
   - 3+ clicks = highly relevant (relevance score 3)
@@ -1311,7 +1311,7 @@ cg_score = cumulative_gain(y_true, k=3)
   - 1 click = somewhat relevant (relevance score 1)
   - 0 clicks = irrelevant (relevance score 0)
 
-### Example: Calculating NDCG Based on Click Data
+##### Example: Calculating NDCG Based on Click Data
 
 Let's assume we have a set of 5 items and the following click data:
 
@@ -1344,11 +1344,11 @@ $$
 NDCG_5 = \frac{DCG_5}{IDCG_5} = \frac{8.887}{9.392} \approx 0.946
 $$
 
-### Interpretation:
+##### Interpretation:
 - The NDCG score is approximately **0.946**, indicating that the ranking generated by the model is close to the ideal ranking.
 - This score suggests that the model’s predictions align well with the ground truth relevance derived from click data.
 
-### Use of Click Data as Ground Truth:
+##### Use of Click Data as Ground Truth:
 1. **Advantages**:
    - **Implicit feedback**: Click data is automatically collected, so there's no need to rely on explicit feedback (like ratings or reviews).
    - **Reflects user interest**: Clicks represent user interactions and interest, making them a strong signal of relevance in many cases.
@@ -1357,14 +1357,11 @@ $$
    - **Noisy signals**: Clicks may not always represent true interest or relevance (e.g., accidental clicks).
    - **Cold start problem**: Users with no click history or new items may not have any click data, making it difficult to assess relevance.
 
-### Conclusion:
-Click data is a valuable source of implicit feedback that can be transformed into ground truth relevance for ranking tasks in recommendation systems. NDCG is an effective metric to evaluate the quality of rankings generated by models that use click-based relevance.
-
-### Metrics for Imbalanced data in Classification
+#### 7. Metrics for Imbalanced data in Classification
 
 When working with imbalanced data, where the distribution of classes is uneven, traditional metrics like accuracy can be misleading. In such cases, here are the recommended metrics to evaluate model performance more effectively:
 
-#### 1. Precision, Recall, and F1 Score
+##### 1. Precision, Recall, and F1 Score
 
 - Precision: Measures the accuracy of positive predictions, especially useful when false positives (incorrectly predicting the minority class) need to be minimized.
 
@@ -1379,55 +1376,71 @@ $Recall = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negat
 $F1 Score = 2 * \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$
 ​
  
-#### 2. Area Under the ROC Curve (AUC-ROC)
+##### 2. Area Under the ROC Curve (AUC-ROC)
 - ROC Curve: Plots the true positive rate (recall) against the false positive rate at various threshold settings. AUC-ROC measures the model’s ability to distinguish between classes.
 - AUC-ROC: A higher AUC-ROC (closer to 1) means better performance. It’s particularly effective for binary classification tasks and gives an overview of how well the model differentiates between classes across threshold values.
 
-#### 3. Area Under the Precision-Recall Curve (AUC-PR)
+##### 3. Area Under the Precision-Recall Curve (AUC-PR)
 - This metric is often more informative for imbalanced data than AUC-ROC, especially when the positive class is rare. It shows the trade-off between precision and recall for different thresholds.
 - AUC-PR is especially valuable when the focus is on the minority class performance, as it focuses more on precision and recall.
 
-#### 4. Specificity (True Negative Rate)
+The Precision-Recall Curve (PR Curve) visually represents the trade-off between precision and recall at various thresholds for a binary classifier. Here's the explanation:
+
+##### Axes:
+- **X-axis**: Recall (True Positives / (True Positives + False Negatives)).
+- **Y-axis**: Precision (True Positives / (True Positives + False Positives)).
+
+##### Interpretation:
+- A high area under the curve (AUC-PR) indicates better performance, especially for imbalanced datasets where the positive class is rare.
+- The curve highlights how well the model balances precision and recall across different thresholds.
+
+##### Example Insight:
+- The AUC-PR value quantifies the model's average performance for different thresholds.
+- For example, at higher recall values, precision might drop due to more false positives being included, which is visually evident from the slope of the curve.
+
+##### Why AUC-PR?
+- In scenarios with imbalanced data, AUC-PR is more informative than AUC-ROC, as it emphasizes the performance on the minority class by focusing directly on precision and recall rather than true negatives, which are abundant in imbalanced settings.
+
+
+##### 4. Specificity (True Negative Rate)
 - Specificity measures how well the model avoids false positives. This is particularly useful when a high precision is crucial, such as in fraud detection, where predicting fraud incorrectly could lead to significant costs.
 
 $Specificity = \frac{\text{True Negatives}}{\text{True Negatives} + \text{False Positives}}$
 ​
  
-#### 5. Balanced Accuracy
+##### 5. Balanced Accuracy
 - Balanced Accuracy: The average of recall across classes. It’s calculated as:
 
 $Balanced Accuracy = \frac{2 \times \text{Recall of Positive Class} + \text{Recall of Negative Class}}{2}$
 ​
  
 This metric is helpful when dealing with highly imbalanced datasets, as it weighs each class equally and gives a fairer assessment of model performance.
-#### 6. Cohen’s Kappa
+##### 6. Cohen’s Kappa
 
 - Cohen’s Kappa compares the observed accuracy with the expected accuracy (random chance) and is robust in the case of class imbalance. Kappa values closer to 1 indicate a high level of agreement, while values closer to 0 indicate that the performance is near random.
 
-#### 7. Geometric Mean (G-Mean)
+##### 7. Geometric Mean (G-Mean)
 - The G-Mean is the square root of the product of recall for each class. It’s used to measure the balance between classification performance on both the majority and minority classes. This metric penalizes models that perform well only on the majority class but not the minority class.
 
 $G-Mean = \sqrt{\text{Recall of Positive Class} \times \text{Recall of Negative Class}}$
  
-#### 8. Matthews Correlation Coefficient (MCC)
+##### 8. Matthews Correlation Coefficient (MCC)
 - MCC takes into account true and false positives and negatives, and is considered a balanced measure even if the classes are of very different sizes. It’s particularly useful for binary classification with imbalanced data:
 
 ​
  $MCC = \frac{TP \times TN - FP \times FN}{\sqrt{(TP + FP)(TP + FN)(TN + FP)(TN + FN)}}$
 
 
-### Sampling Techniques
+## G. Sampling Techniques
 
 In statistical analysis and machine learning, sampling techniques are used to select a subset of data from a larger population. These techniques allow for efficient computation and generalization. Below are some common sampling techniques, with examples where applicable.
 
----
-
 #### 1. Random Sampling
 
-#### Description:
+##### Description:
 Random Sampling is the simplest sampling technique where each data point in the population has an equal chance of being selected. It helps to ensure that the sample represents the population without bias.
 
-#### Example:
+##### Example:
 Suppose you have a dataset of 1000 customer transactions. To randomly select 100 transactions for analysis:
 
 ```python
@@ -1442,18 +1455,18 @@ random_sample = random.sample(transactions, 100)
 
 This method is unbiased and works well when the population is homogeneous.
 
-#### Advantages:
-Easy to implement
-Unbiased if the population is uniform
-#### Disadvantages:
-May not work well for non-homogeneous populations
-Sample may not represent smaller subgroups effectively
+##### Advantages:
+- Easy to implement
+- Unbiased if the population is uniform
+##### Disadvantages:
+- May not work well for non-homogeneous populations
+- Sample may not represent smaller subgroups effectively
 
 #### 2. Rejection Sampling
-#### Description:
+##### Description:
 Rejection Sampling is a technique where samples are drawn from a proposal distribution, and then accepted or rejected based on how well they fit the target distribution. It is commonly used in probabilistic models and Monte Carlo simulations.
 
-#### Example:
+##### Example:
 Consider a scenario where you want to sample from a target distribution P(x) but only have access to a simpler proposal distribution Q(x). You generate samples from Q(x) and accept them with probability 𝑃 ( 𝑥 ) / 𝑀 𝑄 ( 𝑥 ), where 𝑀 is a constant.
 
 ```python
@@ -1473,18 +1486,18 @@ for _ in range(1000):
         samples.append(x)
 ```
 
-#### Advantages:
-Effective for complex distributions
-Flexible and adaptable to various target distributions
-#### Disadvantages:
-Inefficient if many samples are rejected
-Requires a well-designed proposal distribution
+##### Advantages:
+- Effective for complex distributions
+- Flexible and adaptable to various target distributions
+##### Disadvantages:
+- Inefficient if many samples are rejected
+- Requires a well-designed proposal distribution
 
 #### 3. Weight Sampling (Weighted Random Sampling)
-#### Description:
+##### Description:
 Weight Sampling involves selecting samples based on their assigned weights, giving more importance to some data points over others. Each data point has a probability proportional to its weight.
 
-#### Example:
+##### Example:
 Suppose you have a list of items with corresponding weights:
 
 ```python
@@ -1497,18 +1510,18 @@ weights = [0.1, 0.3, 0.5, 0.1]
 weighted_sample = random.choices(items, weights, k=1)
 ```
 
-#### Advantages:
-Useful when some data points are more important than others
-Reduces bias toward less important data points
-#### Disadvantages:
-Requires accurate weighting of data
-Weight assignment may be subjective
+##### Advantages:
+- Useful when some data points are more important than others
+- Reduces bias toward less important data points
+##### Disadvantages:
+- Requires accurate weighting of data
+- Weight assignment may be subjective
 
 #### 4. Importance Sampling
-#### Description:
+##### Description:
 Importance Sampling is a variance reduction technique used in Monte Carlo simulations. It involves drawing samples from a different (usually easier) distribution and adjusting for the difference by weighting the samples. The goal is to estimate properties of a distribution while sampling from a simpler distribution.
 
-#### Example:
+##### Example:
 Let's estimate the mean of a target distribution P(x), using a proposal distribution Q(x):
 
 ```python
@@ -1533,18 +1546,18 @@ for _ in range(1000):
 # Weighted mean estimate
 estimate = np.average(samples, weights=weights)
 ```
-#### Advantages:
-Reduces variance in estimates
-More efficient than brute-force sampling
-#### Disadvantages:
-Choosing an appropriate proposal distribution is challenging
-Can lead to high variance if the weights vary significantly
+##### Advantages:
+- Reduces variance in estimates
+- More efficient than brute-force sampling
+##### Disadvantages:
+- Choosing an appropriate proposal distribution is challenging
+- Can lead to high variance if the weights vary significantly
 
 #### 5. Stratified Sampling
-#### Description:
+##### Description:
 Stratified Sampling involves dividing the population into distinct subgroups (strata) and sampling from each stratum proportionally. This ensures that each subgroup is adequately represented in the sample.
 
-#### Example:
+##### Example:
 Suppose you have a population of students, divided into 3 strata based on grade levels: Grade A, Grade B, and Grade C. You want to ensure that each grade level is represented in your sample.
 
 ```python
@@ -1563,18 +1576,18 @@ sample_C = random.sample(grade_C, 10)
 # Combine the stratified samples
 stratified_sample = sample_A + sample_B + sample_C
 ```
-#### Advantages:
-Ensures representation from all subgroups
-Reduces variability within each stratum
-#### Disadvantages:
-Requires prior knowledge of strata
-More complex than simple random sampling
+##### Advantages:
+- Ensures representation from all subgroups
+- Reduces variability within each stratum
+##### Disadvantages:
+- Requires prior knowledge of strata
+- More complex than simple random sampling
 
 #### 6. Reservoir Sampling
-#### Description:
+##### Description:
 Reservoir Sampling is used to sample a fixed number of items from a stream of data of unknown size, ensuring that each item has an equal probability of being included. It's efficient and works well with large datasets.
 
-#### Example:
+##### Example:
 Suppose you have a data stream of unknown size and you want to select a random sample of 5 items:
 
 ```python
@@ -1601,181 +1614,37 @@ stream = list(range(1000))
 # Reservoir sample of size 5
 reservoir_sample = reservoir_sampling(stream, 5)
 ```
-#### Advantages:
-Works efficiently with large datasets
-No need to know the size of the data stream in advance
-#### Disadvantages:
-Limited to uniform sampling
-May not work well for biased or weighted sampling needs
-#### Conclusion:
+##### Advantages:
+- Works efficiently with large datasets
+- No need to know the size of the data stream in advance
+##### Disadvantages:
+- Limited to uniform sampling
+- May not work well for biased or weighted sampling needs
+##### Conclusion:
 Each sampling technique has its own advantages and limitations, depending on the type of data and the goal of the analysis. For simple data, random sampling may be sufficient, but for more complex datasets or streams, methods like stratified sampling and reservoir sampling may be more appropriate.
 
-### Deep Cross Network with parallel architecture
+## H. A/B Testing
 
-In the context of neural networks and machine learning models, Deep & Cross Layers with Parallel Architecture refers to a specific architectural design used in models such as Deep & Cross Networks (DCN) for recommendation systems and other tasks involving tabular data. This architecture is designed to combine the strengths of deep learning and feature crossing techniques to better capture both high-order feature interactions and non-linear relationships in data.
-
-#### Deep Layers:
-Deep layers refer to the deep neural network (DNN) part of the architecture. These layers consist of multiple fully connected layers stacked on top of each other. Each layer applies a linear transformation followed by a non-linear activation function. The deep layers are good at learning complex, non-linear representations of the input features.
-
-#### Key properties:
-
-Complexity: The deep layers help capture non-linear and intricate patterns from the input features.
-Feature Interaction: Deep layers automatically learn interactions between features through multiple transformations.
-Typical Layers: Fully connected (dense) layers with activations like ReLU or sigmoid.
-
-
-#### Cross Layers:
-Cross layers focus on capturing explicit feature interactions by taking the Cartesian product of features at different levels. They are designed to efficiently learn cross-feature interactions without the need to manually specify the interactions. These layers perform a feature crossing operation, where the feature vectors from the input are multiplied with themselves at different depths to create new combined features.
-
-#### Key properties:
-
-Explicit Feature Interaction: Unlike deep layers, which learn interactions implicitly, cross layers capture explicit feature crossings.
-Higher-Order Feature Interaction: Cross layers are effective in modeling high-order feature interactions in a more controlled and efficient manner.
-Cross Product: These layers iteratively compute cross products between raw input features and transformed features.
-
-
-#### Parallel Architecture:
-In models with parallel architecture, both deep and cross layers are applied simultaneously to the input data, allowing the model to capture both types of relationships—explicit feature interactions (cross layers) and non-linear transformations (deep layers)—in parallel. The outputs of both types of layers are combined (e.g., concatenated) at the final stage to make predictions.
-
-#### Key properties:
-
-Parallel Processing: Deep and cross layers operate on the input data in parallel, and their outputs are fused later on.
-Hybrid Strength: This structure leverages the strengths of both deep learning (complex non-linear patterns) and feature crossing (explicit interactions).
-Effective for Tabular Data: This design is highly effective in domains like recommendation systems and click-through-rate (CTR) prediction, where high-order interactions between categorical and numerical features are crucial.
-
-#### Example of Architecture:
-#### Input Features: The model takes raw input features such as user behavior, product features, and contextual data.
-
-####  Deep Layers:
-
-Multiple dense layers process the input data.
-Each layer applies a linear transformation followed by an activation function (e.g., ReLU).
-#### Cross Layers:
-
-Feature interactions are explicitly calculated by taking products of the input features at various stages.
-Cross layers repeatedly combine the transformed feature vectors with the raw input in a multiplicative manner.
-#### Parallel Structure:
-
-The deep layers and cross layers operate in parallel.
-Their outputs are then concatenated or merged and passed to a final output layer for prediction.
-
-#### Applications:
-This parallel design is particularly useful in recommendation systems (e.g., Google Play, YouTube), click-through-rate (CTR) prediction, and other domains where interactions between categorical and continuous variables are important for accurate predictions.
-
-#### Summary:
-Deep Layers: Learn complex, non-linear patterns in data.
-Cross Layers: Learn explicit, high-order feature interactions.
-#### Parallel Architecture: Combines both approaches to capture a wide range of interactions in data efficiently.
-
-#### Sample code
-
-Let's assume we have a dataset with two features, X1 and X2, and a binary target y for a recommendation task.
-
-```python
-import torch
-import torch.nn as nn
-import torch.optim as optim
-
-# Example dataset: 100 samples, 2 features
-X = torch.randn(100, 2)
-y = torch.randint(0, 2, (100, 1)).float()
-
-# DCN Architecture
-class DCN(nn.Module):
-    def __init__(self, input_dim, deep_dims, cross_layers):
-        super(DCN, self).__init__()
-        
-        # Deep part
-        deep_layers = []
-        for dim in deep_dims:
-            deep_layers.append(nn.Linear(input_dim, dim))
-            deep_layers.append(nn.ReLU())
-            input_dim = dim
-        self.deep = nn.Sequential(*deep_layers)
-        
-        # Cross part
-        self.cross_layers = cross_layers
-        self.cross_w = nn.ModuleList([nn.Linear(input_dim, 1, bias=False) for _ in range(cross_layers)])
-        self.cross_b = nn.ParameterList([nn.Parameter(torch.zeros(input_dim)) for _ in range(cross_layers)])
-        
-        # Final output layer
-        self.fc = nn.Linear(input_dim + deep_dims[-1], 1)
-    
-    def forward(self, x):
-        # Cross layers
-        cross = x.clone()
-        for i in range(self.cross_layers):
-            cross = x * self.cross_w[i](cross) + cross + self.cross_b[i]
-
-        # Deep layers
-        deep = self.deep(x)
-
-        # Concatenate deep and cross layers
-        out = torch.cat([cross, deep], dim=-1)
-        out = self.fc(out)
-        return torch.sigmoid(out)
-
-# Model, loss, optimizer
-model = DCN(input_dim=2, deep_dims=[64, 32], cross_layers=3)
-criterion = nn.BCELoss()
-optimizer = optim.Adam(model.parameters(), lr=0.01)
-
-# Training loop (basic example)
-for epoch in range(100):
-    optimizer.zero_grad()
-    outputs = model(X)
-    loss = criterion(outputs, y)
-    loss.backward()
-    optimizer.step()
-
-    if (epoch + 1) % 10 == 0:
-        print(f'Epoch [{epoch+1}/100], Loss: {loss.item():.4f}')
-```
-
-#### Breakdown:
-##### Deep Layers: A simple fully connected feed-forward network with ReLU activations.
-##### Cross Layers: Explicit feature interactions calculated iteratively.
-##### Final Output: Concatenates the outputs of both deep and cross layers, and then a final linear layer is used for binary classification.
-
-
-###  How Instagram “blend” video and photos in their recommendations?
-When Instagram recommends videos and photos to users, it needs a way to combine or "blend" these two different types of content in its feed or suggestions. But videos and photos might be interacted with differently by users—some might get more likes, while others might get more comments or views. To fairly compare and recommend content from both types, Instagram uses a mathematical trick to "normalize" these interactions.
-
-Here's how Instagram blends videos and photos:
-Mapping User Interactions to a Probability: Instagram first takes the interaction a user has with content (like clicking, viewing, or liking) and calculates the probability that the user will perform that action, such as a p(like)—the probability that a user will like a video or a photo.
-
-Gaussian Distribution: A Gaussian distribution (or bell curve) is a common way to describe how data points (in this case, the interactions like likes) are spread out. Gaussian distributions are "well-behaved" in the sense that they make it easier to compare data. If Instagram maps the probability of an action (like or view) onto a Gaussian curve, it creates a standardized way to measure and compare different types of content.
-
-Why is this important?: Videos might get fewer likes but more views, while photos might get lots of likes but fewer views. If Instagram simply compared the raw number of likes or views, it wouldn't be a fair comparison because videos and photos are interacted with differently. By mapping these interactions to a Gaussian curve, Instagram normalizes the data so that it can compare them in a standardized way.
-
-Blending Recommendations: Now that both videos and photos have been mapped to the same type of distribution, Instagram can blend the recommendations. This allows the platform to present a balanced mix of videos and photos that are both likely to engage the user, based on the probabilities and interactions Instagram has normalized.
-
-Imagine Instagram sees that you tend to like 60% of the photos you come across, but only 30% of the videos. Instagram doesn’t want to only show you photos because they get more likes—there’s still a good chance you’d enjoy some of those videos! So, instead of just looking at the raw percentage, it maps both your photo likes and video likes onto a Gaussian curve to make a more even comparison. Now, Instagram can recommend both photos and videos to you in a balanced way, factoring in your preferences for each in a fair manner.
-
-In the end, this process makes sure that the content you see is a well-rounded mix of both videos and photos that are likely to engage you.
-
-#### A/B Testing
-
-#### Normal A/B Testing
+#### 1. Normal A/B Testing
 In traditional A/B testing, two versions (A and B) of a product feature or webpage are compared to determine which performs better. A portion of users is randomly assigned to version A, and another portion is assigned to version B. Metrics such as click-through rate or conversion rate are measured, and statistical tests are used to determine which version performs best.
 
-#### Example:
+##### Example:
 - **Version A**: Original homepage with a "Sign Up" button.
 - **Version B**: New homepage with a "Get Started" button.
 - If version B increases sign-ups by 10%, it may be selected as the better option.
 
-### Budget-Splitting A/B Testing
+### 2. Budget-Splitting A/B Testing
 Budget-splitting A/B testing involves allocating different portions of a testing budget to multiple variants based on performance over time. Instead of splitting traffic equally, traffic is dynamically allocated to the variant that shows higher potential, maximizing returns while the test is still running.
 
-#### Example:
+##### Example:
 - **Version A**: 40% of users (initial budget allocation).
 - **Version B**: 60% of users (because it shows higher conversions after early results).
 - If version B continues to outperform, more budget/traffic is allocated to it to maximize results during the test.
 
 
-### Ranking Approaches in Machine Learning
+## I. Ranking Approaches in Machine Learning
 
-#### Example Dataset:
+##### Example Dataset:
 We have a dataset of search results with relevance scores. Let's assume we have 3 documents (`Doc A`, `Doc B`, and `Doc C`) and their relevance scores for a given query:
 
 | Document | Relevance Score |
@@ -1798,14 +1667,14 @@ In the **point-wise approach**, each item or data point is treated independently
   - Does not directly optimize for ranking metrics like NDCG or MAP.
   - Ignores the relative ranking between items, which may lead to suboptimal ranking performance.
 
-#### Training Data:
+##### Training Data:
 - `Doc A`: Label = 3
 - `Doc B`: Label = 1
 - `Doc C`: Label = 2
 
 We train a model to predict the relevance score for each document individually.
 
-#### Prediction:
+##### Prediction:
 After training, the model predicts the following relevance scores:
 - `Doc A`: Predicted Score = 2.8
 - `Doc B`: Predicted Score = 1.2
@@ -1828,14 +1697,14 @@ In the **pairwise approach**, the focus is on comparing pairs of items. The mode
 
 In the pairwise approach, we focus on pairs of documents and learn which document should be ranked higher.
 
-#### Pairs for Training:
+##### Pairs for Training:
 - Compare `Doc A` and `Doc B`: Label = A is higher than B (3 > 1)
 - Compare `Doc A` and `Doc C`: Label = A is higher than C (3 > 2)
 - Compare `Doc B` and `Doc C`: Label = C is higher than B (2 > 1)
 
 We train a model to predict the relative ranking between pairs of documents.
 
-#### Prediction:
+##### Prediction:
 After training, the model predicts the following relative orders:
 - `Doc A` > `Doc C`
 - `Doc C` > `Doc B`
@@ -1863,14 +1732,14 @@ The predicted ranking would be: `Doc A`, `Doc C`, `Doc B`.
 
 In RankNet, we input pairs of documents and the model outputs a probability that one document is ranked higher than the other.
 
-#### Pairs for Training:
+##### Pairs for Training:
 - `Doc A` vs `Doc B`: True Label = `Doc A` is higher (3 > 1)
 - `Doc A` vs `Doc C`: True Label = `Doc A` is higher (3 > 2)
 - `Doc C` vs `Doc B`: True Label = `Doc C` is higher (2 > 1)
 
 The model is trained using these pairwise comparisons. It outputs probabilities based on which document should be ranked higher, using a neural network to predict scores for each document.
 
-#### Prediction:
+##### Prediction:
 The model predicts the following probabilities:
 - `Doc A` is ranked higher than `Doc B` with probability 0.9.
 - `Doc A` is ranked higher than `Doc C` with probability 0.8.
@@ -1878,7 +1747,7 @@ The model predicts the following probabilities:
 
 The predicted ranking would be: `Doc A`, `Doc C`, `Doc B`.
 
-#### Summary:
+##### Summary:
 - **Point-wise:** Each item is treated independently, simple but doesn't optimize ranking directly.
 - **Point-wise Approach** predicts relevance scores directly for each document and ranks them.
 
@@ -1888,56 +1757,57 @@ The predicted ranking would be: `Doc A`, `Doc C`, `Doc B`.
 - **RankNet:** A neural network-based pairwise model that predicts relative rankings using probabilities.
 - **RankNet** uses a neural network to predict the relative ranking between pairs of documents, outputting probabilities that one document is ranked higher than another.
 
-#### Similarity Functions
+## J. Similarity Functions
 #### 1. Euclidean Distance
 Euclidean distance is the straight-line distance between two points in multi-dimensional space. It is often used in clustering (e.g., k-means) and nearest-neighbor algorithms.
 
-#### Pros:
-Intuitive: Represents the actual geometric distance between points, easy to understand.
-Effective in low dimensions: Works well when the number of dimensions is small.
-#### Cons:
-Sensitive to scale: If features are on different scales (e.g., age in years vs. height in centimeters), this can distort the distance. Normalization is needed.
-Curse of dimensionality: As the number of dimensions increases, Euclidean distance loses effectiveness due to all points appearing equidistant.
+##### Pros:
+- Intuitive: Represents the actual geometric distance between points, easy to understand.
+- Effective in low dimensions: Works well when the number of dimensions is small.
+##### Cons:
+- Sensitive to scale: If features are on different scales (e.g., age in years vs. height in centimeters), this can distort the distance. Normalization is needed.
+- Curse of dimensionality: As the number of dimensions increases, Euclidean distance loses effectiveness due to all points appearing equidistant.
 
 #### 2. Cosine Similarity
 Cosine similarity measures the cosine of the angle between two non-zero vectors. It is commonly used in text analysis to measure the similarity of documents.
 
-#### Pros:
-Scale-invariant: Focuses on the direction rather than the magnitude, so it's useful when comparing high-dimensional data like text, where the magnitude (e.g., document length) can vary.
-Works well for sparse data: Effective in cases where vectors are sparse, such as in document term matrices.
-#### Cons:
-Ignores magnitude: If the magnitude of vectors matters (i.e., the size of the values), cosine similarity might not be suitable since it only considers the angle.
-Not appropriate for negative values: Works best when feature values are non-negative, such as in word count vectors or TF-IDF matrices.
+##### Pros:
+- Scale-invariant: Focuses on the direction rather than the magnitude, so it's useful when comparing high-dimensional data like text, where the magnitude (e.g., document length) can vary.
+- Works well for sparse data: Effective in cases where vectors are sparse, such as in document term matrices.
+##### Pros:
+ Cons:
+- Ignores magnitude: If the magnitude of vectors matters (i.e., the size of the values), cosine similarity might not be suitable since it only considers the angle.
+- Not appropriate for negative values: Works best when feature values are non-negative, such as in word count vectors or TF-IDF matrices.
 
 #### 3. Manhattan Distance (L1 Norm)
 Also known as "taxicab" or "city block" distance, Manhattan distance calculates the sum of the absolute differences between the coordinates of two points.
 
-#### Pros:
-Robust to outliers: Less sensitive to large differences compared to Euclidean distance, which is affected by squared values.
-Works in high dimensions: Often more effective in high-dimensional spaces than Euclidean distance.
-#### Cons:
-Not as intuitive: The geometric meaning of this distance can be less intuitive, especially in non-grid-like data.
-Sensitive to feature scaling: Like Euclidean distance, it requires normalization of features to avoid biasing toward features with larger ranges.
+##### Pros:
+- Robust to outliers: Less sensitive to large differences compared to Euclidean distance, which is affected by squared values.
+- Works in high dimensions: Often more effective in high-dimensional spaces than Euclidean distance.
+##### Cons:
+- Not as intuitive: The geometric meaning of this distance can be less intuitive, especially in non-grid-like data.
+- Sensitive to feature scaling: Like Euclidean distance, it requires normalization of features to avoid biasing toward features with larger ranges.
 
 #### 4. Jaccard Similarity
 Jaccard similarity is used for comparing the similarity and diversity of sets. It is the ratio of the intersection to the union of two sets. Commonly used in binary or categorical data.
 
-#### Pros:
+##### Pros:
 Effective for set-based similarity: Useful in applications involving set comparison, such as recommendation systems, document comparison, or binary features.
 Good for sparse data: Works well when the data is sparse or binary.
-#### Cons:
+##### Cons:
 Ignores frequency information: Jaccard does not consider how many times an item appears; it only looks at whether it appears or not (presence/absence).
 Sensitive to small sets: If one or both sets are small, Jaccard similarity can be misleading since small differences are amplified.
 
 #### 5. Hamming Distance
 Hamming distance measures the number of positions at which two strings of equal length differ. It is typically used for categorical variables and binary strings.
 
-#### Pros:
-Simple to compute: Works well for binary and categorical data.
-Useful for exact match tasks: Ideal for cases where small deviations in sequences matter, such as in DNA sequences or binary data.
-#### Cons:
-Not suitable for continuous variables: Designed for binary or categorical data, it doesn’t work well when the features are continuous.
-Sensitive to length: Requires strings or vectors to have the same length.
+##### Pros:
+- Simple to compute: Works well for binary and categorical data.
+- Useful for exact match tasks: Ideal for cases where small deviations in sequences matter, such as in DNA sequences or binary data.
+##### Cons:
+- Not suitable for continuous variables: Designed for binary or categorical data, it doesn’t work well when the features are continuous.
+- Sensitive to length: Requires strings or vectors to have the same length.
 
 #### 6. Minkowski Distance
 The Minkowski distance is a generalized metric that encompasses both Euclidean and Manhattan distances. It's defined as:
@@ -1948,53 +1818,54 @@ $$
 
 where:
 
-x and y are two points in n-dimensional space.
-p is a positive integer that determines the type of distance:
-p = 1: Manhattan distance (also known as L1 norm)
-p = 2: Euclidean distance (also known as L2 norm)
+- x and y are two points in n-dimensional space.
+- p is a positive integer that determines the type of distance:
+- p = 1: Manhattan distance (also known as L1 norm)
+- p = 2: Euclidean distance (also known as L2 norm)
+
 By varying the value of p, you can explore different distance metrics that may be more suitable for specific applications. For example, Manhattan distance might be more appropriate for data with a grid-like structure (like city blocks), while Euclidean distance is better suited for continuous spaces.
 
-#### Pros:
-Flexibility: With the parameter 
+##### Pros:
+- Flexibility: With the parameter 
 𝑝, you can interpolate between Manhattan and Euclidean distances based on the problem at hand.
-General-purpose: Can be adapted to a wide range of scenarios depending on how the 
+- General-purpose: Can be adapted to a wide range of scenarios depending on how the 
 p-norm is set.
-#### Cons:
-Interpretability: Can be harder to interpret, especially when p ≠ 1 or p ≠ 2.
-Sensitivity to p: The performance can vary widely based on the choice of p, and it may require tuning.
+##### Cons:
+- Interpretability: Can be harder to interpret, especially when p ≠ 1 or p ≠ 2.
+- Sensitivity to p: The performance can vary widely based on the choice of p, and it may require tuning.
 
 #### 7. Mahalanobis Distance
 Mahalanobis distance measures the distance between two points while accounting for correlations in the dataset. It is a generalized form of Euclidean distance.
 
-Pros:
-Accounts for correlations: Useful when there are relationships between features, as it takes into account the covariance between variables.
-Works in multivariate data: Suitable for situations where the features are interrelated.
-Cons:
-Requires the inverse covariance matrix: Computing this matrix can be computationally expensive, especially in high dimensions or when the matrix is singular.
-Sensitive to outliers: If the dataset contains outliers, they can skew the covariance matrix, distorting the distance measure.
+##### Pros:
+- Accounts for correlations: Useful when there are relationships between features, as it takes into account the covariance between variables.
+- Works in multivariate data: Suitable for situations where the features are interrelated.
+##### Cons:
+- Requires the inverse covariance matrix: Computing this matrix can be computationally expensive, especially in high dimensions or when the matrix is singular.
+- Sensitive to outliers: If the dataset contains outliers, they can skew the covariance matrix, distorting the distance measure.
 
 #### 8. Pearson Correlation
 Pearson correlation measures the linear relationship between two variables. It ranges from -1 (perfect negative correlation) to 1 (perfect positive correlation).
 
-#### Pros:
-Simplicity: Easy to compute and interpret.
-Linear relationship: Works well when the relationship between variables is linear.
-#### Cons:
-Sensitive to outliers: Pearson correlation can be heavily influenced by outliers.
-Assumes linearity: Does not capture non-linear relationships.
+##### Pros:
+- Simplicity: Easy to compute and interpret.
+- Linear relationship: Works well when the relationship between variables is linear.
+##### Cons:
+- Sensitive to outliers: Pearson correlation can be heavily influenced by outliers.
+- Assumes linearity: Does not capture non-linear relationships.
 
 #### 9. Spearman Correlation
 Spearman correlation measures the rank correlation between two variables. It assesses how well the relationship between two variables can be described by a monotonic function.
 
-#### Pros:
-Non-parametric: Does not assume a linear relationship between variables, capturing monotonic relationships.
-Less sensitive to outliers: Since it uses ranks, it's more robust to outliers compared to Pearson correlation.
+##### Pros:
+- Non-parametric: Does not assume a linear relationship between variables, capturing monotonic relationships.
+- Less sensitive to outliers: Since it uses ranks, it's more robust to outliers compared to Pearson correlation.
 
-#### Cons:
-Ignores magnitude of differences: Only looks at rank, not the actual differences between values.
-Less interpretable in some cases: Can be harder to interpret compared to Pearson correlation when trying to understand the strength of association.
+##### Cons:
+- Ignores magnitude of differences: Only looks at rank, not the actual differences between values.
+- Less interpretable in some cases: Can be harder to interpret compared to Pearson correlation when trying to understand the strength of association.
 
-#### Summary Table
+##### Summary Table
 
 | Similarity Function | Pros | Cons |
 |---|---|---|
@@ -2009,7 +1880,7 @@ Less interpretable in some cases: Can be harder to interpret compared to Pearson
 | Spearman Correlation | Captures monotonic relationships, less sensitive to outliers | Ignores magnitude, may be harder to interpret |
 
 
-### ML Model Implemented from Scratch
+## K. ML Model Implemented from Scratch
 
 - **Linear Regression:** [Linear Regression Notebook](notebooks/linear_regression.ipynb)
 - **Logistic Regression:** [Logistic Regression Notebook](notebooks/logistic_regression.ipynb)
@@ -2038,25 +1909,24 @@ Less interpretable in some cases: Can be harder to interpret compared to Pearson
 - **Two Tower Model:** [Two Tower Model Notebook](notebooks/two_tower_model.ipynb)
 - **XGBoost:** [XGBoost Notebook](notebooks/xgboost.ipynb)
 
-#### DL Concepts
-#### Overfitting, Underfitting, and the Bias-Variance Tradeoff
+## L. DL Concepts
 
-#### Overfitting vs. Underfitting
+#### 1. Overfitting vs. Underfitting
 
 * **Overfitting:** Occurs when a model is too complex and learns the training data too well, including noise and specific details. This leads to poor performance on unseen data.
 * **Underfitting:** Happens when a model is too simple and fails to capture the underlying patterns in the data. This results in poor performance on both training and test data.
 
-#### Bias-Variance Tradeoff
+#### 2. Bias-Variance Tradeoff
 
 * **Bias:** Error introduced by simplifying assumptions made by the model. High bias leads to underfitting.
 * **Variance:** Sensitivity of the model to small fluctuations in the training data. High variance leads to overfitting.
 
 The goal is to find a balance between bias and variance to minimize overall error.
 
-#### Cross-Validation
+#### 3. Cross-Validation
 Cross-validation is a technique to evaluate a model's performance by dividing the dataset into multiple folds. The model is trained on different subsets of the data and evaluated on the remaining subset. This helps assess the model's generalization ability.
 
-#### Additional Related Topics
+#### 4. Additional Related Topics
 
 * **Regularization:** Techniques like L1 and L2 regularization penalize complex models to prevent overfitting.
 * **Hyperparameter Tuning:** Optimizing model parameters (e.g., learning rate, number of layers) to improve performance.
@@ -2065,7 +1935,7 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
 * **Resampling Techniques:** Create multiple datasets from the original data to improve generalization.
 * **Ensemble Learning:** Combine multiple models to improve performance and reduce overfitting/underfitting.
 
-#### Types of Dropout
+#### 5. Types of Dropout
 
 1. **Standard Dropout**  
    - **Description**: Randomly "drops" (sets to zero) a fraction of neurons in each layer during training, preventing overfitting by making the network less dependent on specific neurons.
@@ -2091,9 +1961,9 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
    - **Description**: Drops groups of neurons based on predefined groups or structures, such as groups of features. Unlike Spatial Dropout, it does not drop entire feature maps but rather specific groups within the network.
    - **Example**: In a multi-head network, Group Dropout can drop entire groups of neurons corresponding to particular feature sets, preserving the structure within other groups.
 
-#### Types of Normalization Techniques in Neural Networks
+#### 6. Types of Normalization Techniques in Neural Networks
 
-1. **Layer Normalization**  
+##### 1. **Layer Normalization**  
    - **Description**: Layer Normalization normalizes the activations across the features within each data sample (i.e., along the feature axis in a layer), rather than across the batch. This method stabilizes and accelerates training by reducing covariate shift and improving gradient flow.
    - **How It’s Done**: For each sample, the mean and variance of the features are computed. Each feature is then normalized using these statistics, with learnable parameters for rescaling and shifting the output.
    - **Formula**: Given a sample with features \( x_1, x_2, ..., x_d \):
@@ -2198,14 +2068,14 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
     - Expected Outcome
         When you run the code, you should see a plot comparing the loss over training epochs for both models. The model with Layer Normalization will likely show more stable and faster convergence, while the model without Layer Normalization might exhibit more fluctuations and potentially slower convergence. This stability is one of the key benefits of using Layer Normalization, particularly for models with sequential dependencies.
 
-    #### Example of Layer Normalization
+    ##### Example of Layer Normalization
 
     Consider a hidden layer with **4 neurons** producing activations: `[10.0, 0.5, 2.0, 30.0]`.
 
-    #### Without Layer Normalization
+    ##### Without Layer Normalization
     - The activations remain unadjusted, which can cause instability (one neuron, for instance, dominates with a value of `30.0`).
 
-    #### With Layer Normalization
+    ##### With Layer Normalization
     1. Calculate **mean**:  
     $    \text{mean} = \frac{(10.0 + 0.5 + 2.0 + 30.0)}{4} = 10.625$
     
@@ -2220,7 +2090,7 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
 
     [Layer Normalization - EXPLAINED](https://www.youtube.com/watch?v=G45TuC6zRf4)
 
-2. **Batch Normalization**  
+##### 2. **Batch Normalization**  
    - **Description**: Batch Normalization normalizes the activations of each layer across the mini-batch, reducing internal covariate shift and improving training speed and stability. By normalizing the mean and variance across each mini-batch, it makes the network less sensitive to initialization and allows higher learning rates.
    - **How It’s Done**: For each mini-batch, the mean and variance of each feature are computed across the batch. Each feature is then normalized and scaled with learnable parameters.
    - **Formula**: For a batch of features \( x_1, x_2, ..., x_n \):
@@ -2231,7 +2101,7 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
 
    [Batch Normalization - EXPLAINED](https://www.youtube.com/watch?v=DtEq44FTPM4)
 
-3. **Group Normalization**  
+##### 3. **Group Normalization**  
    - **Description**: Group Normalization divides channels in a layer into groups and normalizes each group separately, independent of the batch size. This technique is useful when batch sizes are small or vary significantly.
    - **How It’s Done**: Channels are divided into groups, and within each group, the mean and variance are calculated. Learnable parameters are applied for rescaling and shifting.
    - **Formula**: For each group \( g \) in the feature map:
@@ -2241,7 +2111,7 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
    - **Use Case**: Effective in computer vision tasks and with small batch sizes.
    - **When to Use**: In CNNs when using small batch sizes or when batch normalization is ineffective due to batch size constraints.
 
-4. **Instance Normalization**  
+##### 4. **Instance Normalization**  
    - **Description**: Instance Normalization normalizes each individual sample in the batch independently, with separate mean and variance for each feature map. This approach is particularly useful in style transfer applications where maintaining local contrast is important.
    - **How It’s Done**: For each sample, the mean and variance of each feature map are computed, normalizing each feature map independently.
    - **Formula**: For a sample with feature map \( x \):
@@ -2250,7 +2120,7 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
    - **Use Case**: Commonly used in Generative Adversarial Networks (GANs) and style transfer models.
    - **When to Use**: When the task requires preserving detailed local features, such as in style transfer and GANs.
 
-5. **Layer Scale Normalization (LSN)**  
+##### 5. **Layer Scale Normalization (LSN)**  
    - **Description**: This technique combines Layer and Instance Normalization by scaling normalized activations for each layer with a learned scaling factor. It allows the network to learn optimal normalization for each layer.
    - **How It’s Done**: Each layer's normalization is scaled by learnable parameters specific to that layer.
    - **Formula**: The normalized output is scaled as follows:
@@ -2261,7 +2131,7 @@ Cross-validation is a technique to evaluate a model's performance by dividing th
 
 Each normalization technique is suited to specific network architectures and task requirements, offering different ways to improve training stability and convergence.
 
-#### Choosing the Right Technique:
+##### Choosing the Right Technique:
 
 The choice of normalization technique depends on the specific task and dataset. Consider the following factors:
 
