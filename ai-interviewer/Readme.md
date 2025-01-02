@@ -95,6 +95,7 @@ I welcome contributions to make AI Interviewer even better! Here’s how you can
 - Resolve looping and listening issues
 - Prevent all questions from being displayed on the screen
 - Improve recording functionality to capture complete answers
+- Add a VLM to analyze facial expressions (such as eye contact, looking serious)
 
 4. Submit Pull Requests:
 
