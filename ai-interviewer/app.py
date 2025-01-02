@@ -73,7 +73,7 @@ def reorder_questions(questions, order_choice, company_name, job_role):
 # Initialize the app UI
 st.title("AI Interviewer")
 default_questions = """Tell me about yourself.
-Why do you want to join Meta?
+Why do you want to join Google?
 What are your strengths?
 Describe a challenging project you've worked on.
 Where do you see yourself in five years?"""
@@ -83,8 +83,8 @@ follow_up = st.checkbox("Allow LLM to ask follow-up questions if applicable")
 behavior_role = st.text_input("Define the role of the LLM (e.g., HR recruiter):", "HR recruiter")
 response_criteria = st.text_area("Describe response criteria (e.g., brevity, quality):", "Provide feedback on brevity, clarity, and relevance.")
 # UI for company and role prioritization
-company_name = st.text_input("Company Name:", "Meta")
-job_role = st.text_input("Job Role:", "Software Engineering Manager")
+company_name = st.text_input("Company Name:", "Google")
+job_role = st.text_input("Job Role:", "Software Engineer")
 
 # Prepare questions
 questions = [q.strip() for q in question_input.split("\n") if q.strip()]

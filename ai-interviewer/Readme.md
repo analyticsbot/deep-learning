@@ -4,8 +4,8 @@ This Streamlit application creates an AI-powered interview experience. It allows
 
 - Define interview questions
 - Reorder questions based on role and company
-- Record candidate responses
-- Analyze responses using a Large Language Model (LLM)
+- Record your responses
+- Analyze responses using a Large Language Model (LLM). Currently, I am using Meta-Llama-3.1-8B that I am hosting locally via LM Studio, but this can be easily extended to other models
 
 ## Features
 
@@ -20,20 +20,47 @@ This Streamlit application creates an AI-powered interview experience. It allows
 To run this application, you need the following libraries:
 
 - Streamlit
-- SpeechRecognition
-- OpenAI (for connecting with the LLM, or alternative LLM provider)
+- SpeechRecognition (via Google). TODO: better free and paid alternatives
+- OpenAI (for connecting with the LLM, or alternative LLM provider). TODO: experiment with other LLM providers
 - Textstat (for analyzing the text)
 - gtts
 - pydub
 - sqlite3
 
-You can install the required libraries using pip:
+## Setting Up a Virtual Environment and Installing Libraries
 
+1. **Create a Virtual Environment:**
+
+   Open your terminal and run the following command:
+   ```bash
+   python -m venv myenv
+   ```
+   Replace myenv with the desired name for your virtual environment.
+
+2. **Activate the Virtual Environment:**
+
+- On Windows:
 ```bash
-pip install streamlit speech_recognition openai gtts pydub sqlite3
+myenv\Scripts\activate
 ```
 
-### Usage
+- On macOS/Linux:
+```bash
+source myenv/bin/activate
+```
+
+3. **Install the Required Libraries:**
+Once the virtual environment is activated, use pip to install the libraries:
+```bash
+pip install streamlit speech_recognition openai gtts pydub
+```
+
+4. **Deactivate the Virtual Environment (when done):**
+```bash
+deactivate
+```
+
+## Usage
 1. Clone the repository:
 ```bash
 git clone https://github.com/analyticsbot/deep-learning.git
@@ -51,21 +78,34 @@ streamlit run app.py
 6. After capturing the response, the application will display your answer and generate feedback.
 7. If applicable, a follow-up question will be suggested based on the LLM feedback.
 
-### Functionality Overview
+## Functionality Overview
 - Speech Recognition: The application listens for audio input using a microphone and converts it to text using Google’s speech recognition service.
 - Feedback Analysis: The recognized text is analyzed for brevity, filler words, and overall quality using a language model, and the results are displayed to the user.
 - Question Management: Users can define the order of questions and keep track of previously asked questions.
 
-### Further Development:
-This is a basic implementation and can be further customized.
+## Contributing
+I welcome contributions to make AI Interviewer even better! Here’s how you can help:
 
-Feel free to modify and extend the code to suit your specific needs. Explore features like:
-- Advanced LLM prompts for more comprehensive feedback
-- Candidate profile management and evaluation scoring
-- Better Speech Recognition
+1. Report Bugs: If you encounter any issues, please open an issue with details.
 
-### TODO & Bugs
-- speak the question
-- runs into loop and doesnt listen to user
-- writes all the question to the screen
-- recording doesn't input all the
+2. Suggest Features: Have an idea for improving the application? Create a feature request by creating an issue.
+
+3. Fix TODOs or Bugs:
+- Speak the question
+- Resolve looping and listening issues
+- Prevent all questions from being displayed on the screen
+- Improve recording functionality to capture complete answers
+
+4. Submit Pull Requests:
+
+- Fork the repository.
+- Create a feature branch (git checkout -b feature-name).
+- Commit your changes (git commit -m "Add feature").
+- Push to your fork and submit a pull request.
+
+5. Improve Documentation: Help by enhancing the README or adding usage guides.
+
+Feel free to reach out if you have any questions. Thank you for contributing! 🚀
+
+## License
+[License](License.md)
