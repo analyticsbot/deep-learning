@@ -49,13 +49,33 @@ myenv\Scripts\activate
 source myenv/bin/activate
 ```
 
-3. **Install the Required Libraries:**
-Once the virtual environment is activated, use pip to install the libraries:
+3. **Install System Dependencies:**
+
+Before installing Python packages, you need to install PortAudio, which is required for PyAudio and microphone access:
+
+- On macOS:
 ```bash
-pip install streamlit speech_recognition openai gtts pydub
+brew install portaudio
 ```
 
-4. **Deactivate the Virtual Environment (when done):**
+- On Ubuntu/Debian:
+```bash
+sudo apt-get install portaudio19-dev
+```
+
+- On Windows:
+```bash
+pip install pipwin
+pipwin install pyaudio
+```
+
+4. **Install the Required Libraries:**
+Once the virtual environment is activated and system dependencies are installed, install the required Python packages:
+```bash
+pip install -r requirements.txt
+```
+
+5. **Deactivate the Virtual Environment (when done):**
 ```bash
 deactivate
 ```
@@ -69,7 +89,7 @@ cd ai-interviewer
 
 2. Run the Streamlit application:
 ```bash
-streamlit run app.py
+streamlit run main.py
 ```
 
 3. Open your web browser and go to http://localhost:8501.
