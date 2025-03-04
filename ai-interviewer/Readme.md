@@ -2,6 +2,8 @@
 
 This Streamlit application creates an AI-powered interview experience. It allows you to:
 
+![AI Interviewer Screenshot](screenshot.png)
+
 - Define interview questions
 - Reorder questions based on role and company
 - Record your responses
