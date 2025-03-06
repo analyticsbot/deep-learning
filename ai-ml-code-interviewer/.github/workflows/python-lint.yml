@@ -1,0 +1,41 @@
+name: Python Linting
+
+on:
+  push:
+    branches: [ main, master, develop ]
+    paths:
+      - '**.py'
+  pull_request:
+    branches: [ main, master, develop ]
+    paths:
+      - '**.py'
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pylint black isort
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Check formatting with Black
+        run: black --check --line-length 100 .
+
+      - name: Check import sorting with isort
+        run: isort --check --profile black .
+
+      - name: Lint with flake8
+        run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Lint with pylint
+        run: pylint --disable=C0111,C0103,C0303,C0330,C0326 --max-line-length=100 *.py
