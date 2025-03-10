@@ -78,7 +78,8 @@ pipeline {
         }
     }
 }
-Explanation of Stages:
+
+- Explanation of Stages:
 
 Checkout: Pulls the latest code from your GitHub repository.
 Build Docker Image: Builds a Docker image based on the Dockerfile.
