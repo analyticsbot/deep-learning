@@ -1,0 +1,3 @@
+[tool.bandit]
+exclude_dirs = ["tests", "venv"]
+skips = ["B112"]  # Skip try-except-continue warnings
