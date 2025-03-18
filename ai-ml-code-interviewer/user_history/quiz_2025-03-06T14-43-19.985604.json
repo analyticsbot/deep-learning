@@ -1,0 +1,43 @@
+{
+  "id": "quiz_2025-03-06T14-43-19.985604",
+  "timestamp": "2025-03-06T14:43:19.985604",
+  "type": "quiz",
+  "topic": "Linear Regression",
+  "difficulty": "Easy",
+  "questions": [
+    {
+      "question": "What is the primary objective of linear regression?",
+      "options": [
+        "A. To predict continuous outcomes based on input features",
+        "B. To classify data into discrete categories",
+        "C. To find clusters in unlabelled data",
+        "D. To model the probability of an event occurring"
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "question": "In the simple linear regression equation y = mx + b, which parameter represents the slope?",
+      "options": [
+        "A. m",
+        "B. x",
+        "C. y",
+        "D. b"
+      ],
+      "answer": [
+        "A"
+      ]
+    }
+  ],
+  "user_answers": {
+    "0": [
+      "A"
+    ],
+    "1": [
+      "A"
+    ]
+  },
+  "score": 2,
+  "total_questions": 2
+}
