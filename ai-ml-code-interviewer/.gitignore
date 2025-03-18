@@ -36,4 +36,4 @@ access.log
 Thumbs.db
 
 # Session specific
-*.jsonuser_history/
+user_history/

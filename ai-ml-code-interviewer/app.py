@@ -104,5 +104,6 @@ def main():
     with tab4:
         help_module.render()
 
+
 if __name__ == "__main__":
     main()
