@@ -104,22 +104,6 @@ def main():
     with tab4:
         help_module.render()
 
-        # About section
-        st.subheader("About")
-
-        st.markdown(
-            """
-        **AI-ML Code Interviewer** is an interactive tool designed to help you prepare for
-        machine learning and deep learning interviews.
-
-        - Practice implementing algorithms from scratch or using standard libraries
-        - Test your knowledge with multiple-choice questions
-        - Get explanations and feedback to improve your understanding
-
-        This application uses a Large Language Model to generate code examples and questions.
-        """
-        )
-
 
 if __name__ == "__main__":
     main()
