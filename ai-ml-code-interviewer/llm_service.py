@@ -167,7 +167,8 @@ class LLMService:
                         else:
                             raise Exception(
                                 "API returned status code %s: %s",
-                                response.status_code, response.text
+                                response.status_code,
+                                response.text,
                             )
 
                 elif self.provider == "anthropic":
@@ -226,7 +227,8 @@ class LLMService:
                         else:
                             raise Exception(
                                 "API returned status code %s: %s",
-                                response.status_code, response.text
+                                response.status_code,
+                                response.text,
                             )
 
                 elif self.provider == "google":
@@ -239,9 +241,13 @@ class LLMService:
 
                         for msg in messages:
                             if msg["role"] == "user":
-                                google_messages.append({"role": "user", "parts": [{"text": msg["content"]}]})
+                                google_messages.append(
+                                    {"role": "user", "parts": [{"text": msg["content"]}]}
+                                )
                             elif msg["role"] == "assistant":
-                                google_messages.append({"role": "model", "parts": [{"text": msg["content"]}]})
+                                google_messages.append(
+                                    {"role": "model", "parts": [{"text": msg["content"]}]}
+                                )
 
                         response = model.generate_content(google_messages)
                         return response.text
@@ -277,20 +283,22 @@ class LLMService:
                         else:
                             raise Exception(
                                 "API returned status code %s: %s",
-                                response.status_code, response.text
+                                response.status_code,
+                                response.text,
                             )
 
                 else:
                     raise ValueError(f"Unsupported provider: {self.provider}")
             except Exception as e:
-                logger.error("Error calling LLM API (attempt %s/%s): %s", 
-                             attempt+1, max_retries, str(e))
+                logger.error(
+                    "Error calling LLM API (attempt %s/%s): %s", attempt + 1, max_retries, str(e)
+                )
                 if attempt < max_retries - 1:
                     time.sleep(retry_delay)
                 else:
                     logger.error("Failed to get response after maximum retries")
                     return None
-        
+
         # This should never be reached, but adding for type checking
         return None
 
