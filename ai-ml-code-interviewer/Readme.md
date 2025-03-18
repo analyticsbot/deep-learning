@@ -9,11 +9,12 @@ This app is built using Streamlit and provides interactive coding and multiple-c
 ## Features
 
 - **Coding Practice**
-  - Choose from a list of top ML and DL algorithms and concepts (e.g., Linear Regression, K-Means, Self Attention).
+  - Choose from a list of top ML and DL algorithms and concepts (e.g., Linear Regression, K-Means, Self Attention). #TODO: Add more algorithms and concepts, perhaps add a free flowing text field
   - Set a coding intensity level to determine how much of the code you want to write yourself (from 0% to 100%).
   - Choose to implement the algorithm from scratch or using standard libraries (e.g., `scikit-learn` for machine learning algorithms).
   - Receive generated code from a Large Language Model (LLM) that matches the selected intensity level.
   - Edit, run, and test the code directly in the Streamlit app, mimicking an IDE-like experience.
+  - Use "Explain This Code" to get a detailed explanation of the code.
 
 - **Multiple Choice Questions**
   - Select the number of questions and difficulty level (easy, medium, or hard).
@@ -35,13 +36,22 @@ This app is built using Streamlit and provides interactive coding and multiple-c
 ai-ml-code-interviewer/
 ├── app.py                 # Main application entry point
 ├── coding_module.py       # Coding practice functionality
+├── help_module.py         # Help and documentation functionality
+├── history_manager.py     # Session history management
 ├── quiz_module.py         # Quiz functionality
 ├── llm_service.py         # LLM API interaction service
 ├── code_executor.py       # Safe code execution environment
+├── settings_module.py     # Settings management
 ├── utils.py               # Utility functions
 ├── config.py              # Configuration settings
 ├── requirements.txt       # Project dependencies
+├── dev-requirements.txt   # Development dependencies
 ├── .env.example           # Example environment variables
+├── styles/                # CSS styles
+│   └── app.css           # Application styles
+├── user_history/          # Session history files
+├── .github/               # GitHub workflow files
+├── .pre-commit-config.yaml# Pre-commit configuration
 └── Readme.md              # Project documentation
 ```
 
@@ -58,7 +68,21 @@ To set up and run this app locally, follow these steps:
 
 2. **Install dependencies**:
 
-    Make sure you have Python 3.7+ installed. Install the required packages:
+    Make sure you have Python 3.7+ installed. First, create and activate a virtual environment:
+
+    ```bash
+    # Create virtual environment
+    python -m venv venv
+
+    # Activate virtual environment
+    # On Windows:
+    venv\Scripts\activate
+
+    # On macOS/Linux:
+    source venv/bin/activate
+    ```
+
+    Install the required packages:
 
     ```bash
     pip install -r requirements.txt
@@ -72,14 +96,27 @@ To set up and run this app locally, follow these steps:
    cp .env.example .env
    ```
 
-   Edit the `.env` file to configure your LLM API settings:
+   Edit the `.env` file to configure your LLM API keys based on which provider you want to use:
 
    ```
-   LLM_BASE_URL=http://localhost:1234/v1
-   LLM_API_KEY=lm-studio
-   LLM_MODEL=lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF
-   LLM_TEMPERATURE=0.7
+   # For OpenAI
+   OPENAI_API_KEY=your_openai_key_here
+   
+   # For Anthropic
+   ANTHROPIC_API_KEY=your_anthropic_key_here
+   
+   # For Google Gemini
+   GOOGLE_API_KEY=your_google_key_here
+   
+   # For Grok
+   GROK_API_KEY=your_grok_key_here
    ```
+
+   **IMPORTANT**: The `.env` file contains sensitive API keys and should NEVER be committed to version control. It is already included in the [.gitignore](/ai-ml-code-interviewer/.gitignore) file. DO NOT remove it from [.gitignore](/ai-ml-code-interviewer/.gitignore) as this would expose your API keys to others.
+
+   All other configuration settings (LLM_PROVIDER, LLM_BASE_URL, LLM_MODEL, LLM_TEMPERATURE) are stored in the [.app_settings.json](/ai-ml-code-interviewer/.app_settings.json) file, which is safe to commit as it does not contain any sensitive information.
+
+   **WARNING**: NEVER share your `.env` file or commit it to any public repository. Always keep it secure and private.
 
 4. **Run the Streamlit app**:
 
@@ -132,21 +169,23 @@ The "Settings" tab allows you to:
 
 ## Dependencies
 
-- `streamlit`: Interactive UI framework
-- `openai`: OpenAI-compatible API client
-- `python-dotenv`: Environment variable management
-- `requests`: HTTP requests
-- `pydantic`: Data validation
-- `markdown`: Markdown processing
-- `pygments`: Code syntax highlighting
+- `streamlit>=1.22.0`: Interactive UI framework
+- `requests>=2.28.2`: HTTP requests
+- `openai>=1.0.0`: OpenAI-compatible API client 
+- `python-dotenv>=1.0.0`: Environment variable management
+- `pydantic>=2.0.0`: Data validation 
+- `markdown>=3.4.3`: Markdown processing
+- `pygments>=2.15.0`: Code syntax highlighting
+- `anthropic>=0.5.0`: Anthropic API client (optional)
+- `google-generativeai>=0.3.0`: Google Gemini API client (optional)
+- `streamlit_ace>=0.1.0`: Code editor component for Streamlit
 
 ## Troubleshooting
 
 ### LLM Server Issues
 
-- Ensure your LLM server is running at the configured endpoint
-- Check network connectivity and firewall settings
-- Verify API key if authentication is required
+- Ensure your LM Studio server is running at the configured endpoint, if you're using the local server
+- For the LLM such as OpenAI, Anthropic, and Google Gemini, verify API key is configured in the `.env` file
 
 ### Code Execution Problems
 

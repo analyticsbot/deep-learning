@@ -30,6 +30,9 @@ try:
     GOOGLE_AVAILABLE = True
 except ImportError:
     GOOGLE_AVAILABLE = False
+    
+# Grok uses the OpenAI client with a different base URL
+GROK_AVAILABLE = OPENAI_AVAILABLE
 
 import config
 
@@ -47,7 +50,7 @@ class LLMService:
         self,
         provider: str = config.LLM_PROVIDER,
         base_url: str = config.LLM_BASE_URL,
-        api_key: str = config.LLM_API_KEY,
+        api_key: str = None,
         model: str = config.LLM_MODEL,
         temperature: float = config.LLM_TEMPERATURE,
     ) -> None:
@@ -55,36 +58,50 @@ class LLMService:
         Initialize the LLM service.
 
         Args:
-            provider: LLM provider (e.g., 'lmstudio', 'openai', 'anthropic', 'google')
+            provider: LLM provider (e.g., 'lmstudio', 'openai', 'anthropic', 'google', 'grok')
             base_url: Base URL for the LLM API
-            api_key: API key for authentication
+            api_key: API key for authentication (if None, will use provider-specific key)
             model: Model identifier to use
             temperature: Temperature parameter for generation
         """
         self.provider = provider
         self.base_url = base_url
-        self.api_key = api_key
         self.model = model
         self.temperature = temperature
+        
+        # Get the appropriate API key based on the provider
+        if api_key is None:
+            if provider == "openai":
+                self.api_key = config.OPENAI_API_KEY
+            elif provider == "anthropic":
+                self.api_key = config.ANTHROPIC_API_KEY
+            elif provider == "google":
+                self.api_key = config.GOOGLE_API_KEY
+            elif provider == "grok":
+                self.api_key = config.GROK_API_KEY
+            else:  # lmstudio or other
+                self.api_key = config.LLM_API_KEY
+        else:
+            self.api_key = api_key
 
         # Initialize client based on provider
         self.client = None
 
-        if provider == "lmstudio" or provider == "openai":
+        if provider in ["lmstudio", "openai", "grok"]:
             if OPENAI_AVAILABLE:
                 try:
-                    self.client = OpenAI(base_url=base_url, api_key=api_key)
+                    self.client = OpenAI(base_url=base_url, api_key=self.api_key)
                     logger.info(f"Initialized {provider} client with model {model}")
                 except Exception as e:
-                    logger.warning("Error initializing OpenAI client: %s", e)
+                    logger.warning(f"Error initializing {provider} client: %s", e)
                     logger.info("Falling back to direct API calls via requests")
             else:
-                logger.warning("OpenAI package not installed. Falling back to direct API calls.")
+                logger.warning(f"{provider} requires OpenAI package. Falling back to direct API calls.")
 
         elif provider == "anthropic":
-            if ANTHROPIC_AVAILABLE and api_key:
+            if ANTHROPIC_AVAILABLE and self.api_key:
                 try:
-                    self.client = anthropic.Anthropic(api_key=api_key)
+                    self.client = anthropic.Anthropic(api_key=self.api_key)
                     logger.info("Initialized Anthropic client with model %s", model)
                 except Exception as e:
                     logger.warning("Error initializing Anthropic client: %s", e)
@@ -95,9 +112,9 @@ class LLMService:
                 )
 
         elif provider == "google":
-            if GOOGLE_AVAILABLE and api_key:
+            if GOOGLE_AVAILABLE and self.api_key:
                 try:
-                    genai.configure(api_key=api_key)
+                    genai.configure(api_key=self.api_key)
                     self.client = genai
                     logger.info("Initialized Google Gemini client with model %s", model)
                 except Exception as e:
@@ -142,7 +159,7 @@ class LLMService:
         for attempt in range(max_retries):
             try:
                 # Handle different providers
-                if self.provider == "lmstudio" or self.provider == "openai":
+                if self.provider in ["lmstudio", "openai", "grok"]:
                     if self.client is not None:
                         # Use the OpenAI client
                         response = self.client.chat.completions.create(
