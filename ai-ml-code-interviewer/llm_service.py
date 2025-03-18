@@ -50,7 +50,7 @@ class LLMService:
         api_key: str = config.LLM_API_KEY,
         model: str = config.LLM_MODEL,
         temperature: float = config.LLM_TEMPERATURE,
-    ):
+    ) -> None:
         """
         Initialize the LLM service.
 
@@ -76,7 +76,7 @@ class LLMService:
                     self.client = OpenAI(base_url=base_url, api_key=api_key)
                     logger.info(f"Initialized {provider} client with model {model}")
                 except Exception as e:
-                    logger.warning(f"Error initializing OpenAI client: {e}")
+                    logger.warning("Error initializing OpenAI client: %s", e)
                     logger.info("Falling back to direct API calls via requests")
             else:
                 logger.warning("OpenAI package not installed. Falling back to direct API calls.")
@@ -85,9 +85,9 @@ class LLMService:
             if ANTHROPIC_AVAILABLE and api_key:
                 try:
                     self.client = anthropic.Anthropic(api_key=api_key)
-                    logger.info(f"Initialized Anthropic client with model {model}")
+                    logger.info("Initialized Anthropic client with model %s", model)
                 except Exception as e:
-                    logger.warning(f"Error initializing Anthropic client: {e}")
+                    logger.warning("Error initializing Anthropic client: %s", e)
                     logger.info("Falling back to direct API calls via requests")
             else:
                 logger.warning(
@@ -99,9 +99,9 @@ class LLMService:
                 try:
                     genai.configure(api_key=api_key)
                     self.client = genai
-                    logger.info(f"Initialized Google Gemini client with model {model}")
+                    logger.info("Initialized Google Gemini client with model %s", model)
                 except Exception as e:
-                    logger.warning(f"Error initializing Google Gemini client: {e}")
+                    logger.warning("Error initializing Google Gemini client: %s", e)
                     logger.info("Falling back to direct API calls via requests")
             else:
                 logger.warning(
@@ -128,7 +128,11 @@ class LLMService:
             Generated response text or None if failed
         """
         if not system_prompt:
-            system_prompt = "You are an intelligent assistant specialized in machine learning and deep learning. You provide accurate, educational responses that help users learn and prepare for technical interviews."
+            system_prompt = (
+                "You are an intelligent assistant specialized in machine learning and deep learning. "
+                "You provide accurate, educational responses that help users learn and prepare for "
+                "technical interviews."
+            )
 
         messages = [
             {"role": "system", "content": system_prompt},
@@ -162,7 +166,9 @@ class LLMService:
                             return response.json()["choices"][0]["message"]["content"]
                         else:
                             raise Exception(
-                                f"API returned status code {response.status_code}: {response.text}"
+                                "API returned status code %s: %s",
+                                response.status_code,
+                                response.text,
                             )
 
                 elif self.provider == "anthropic":
@@ -220,21 +226,28 @@ class LLMService:
                             return response.json()["content"][0]["text"]
                         else:
                             raise Exception(
-                                f"API returned status code {response.status_code}: {response.text}"
+                                "API returned status code %s: %s",
+                                response.status_code,
+                                response.text,
                             )
 
                 elif self.provider == "google":
+                    google_messages: List[Dict[str, str]] = []
                     if self.client is not None:
                         # Use the Google Gemini client
                         model = self.client.GenerativeModel(model_name=self.model)
 
                         # Convert messages to Google format
-                        google_messages = []
+
                         for msg in messages:
                             if msg["role"] == "user":
-                                google_messages.append({"role": "user", "parts": [msg["content"]]})
+                                google_messages.append(
+                                    {"role": "user", "parts": [{"text": msg["content"]}]}
+                                )
                             elif msg["role"] == "assistant":
-                                google_messages.append({"role": "model", "parts": [msg["content"]]})
+                                google_messages.append(
+                                    {"role": "model", "parts": [{"text": msg["content"]}]}
+                                )
 
                         response = model.generate_content(google_messages)
                         return response.text
@@ -244,7 +257,7 @@ class LLMService:
                         api_url = f"{self.base_url}/models/{self.model}:generateContent?key={self.api_key}"
 
                         # Convert messages to Google format
-                        google_messages = []
+
                         for msg in messages:
                             if msg["role"] == "user":
                                 google_messages.append(
@@ -269,18 +282,25 @@ class LLMService:
                             return response.json()["candidates"][0]["content"]["parts"][0]["text"]
                         else:
                             raise Exception(
-                                f"API returned status code {response.status_code}: {response.text}"
+                                "API returned status code %s: %s",
+                                response.status_code,
+                                response.text,
                             )
 
                 else:
                     raise ValueError(f"Unsupported provider: {self.provider}")
             except Exception as e:
-                logger.error(f"Error calling LLM API (attempt {attempt+1}/{max_retries}): {str(e)}")
+                logger.error(
+                    "Error calling LLM API (attempt %s/%s): %s", attempt + 1, max_retries, str(e)
+                )
                 if attempt < max_retries - 1:
                     time.sleep(retry_delay)
                 else:
                     logger.error("Failed to get response after maximum retries")
                     return None
+
+        # This should never be reached, but adding for type checking
+        return None
 
     def generate_code(
         self, topic: str, intensity: int, use_standard_package: bool
