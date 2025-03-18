@@ -101,13 +101,13 @@ To set up and run this app locally, follow these steps:
    ```
    # For OpenAI
    OPENAI_API_KEY=your_openai_key_here
-   
+
    # For Anthropic
    ANTHROPIC_API_KEY=your_anthropic_key_here
-   
+
    # For Google Gemini
    GOOGLE_API_KEY=your_google_key_here
-   
+
    # For Grok
    GROK_API_KEY=your_grok_key_here
    ```
@@ -171,9 +171,9 @@ The "Settings" tab allows you to:
 
 - `streamlit>=1.22.0`: Interactive UI framework
 - `requests>=2.28.2`: HTTP requests
-- `openai>=1.0.0`: OpenAI-compatible API client 
+- `openai>=1.0.0`: OpenAI-compatible API client
 - `python-dotenv>=1.0.0`: Environment variable management
-- `pydantic>=2.0.0`: Data validation 
+- `pydantic>=2.0.0`: Data validation
 - `markdown>=3.4.3`: Markdown processing
 - `pygments>=2.15.0`: Code syntax highlighting
 - `anthropic>=0.5.0`: Anthropic API client (optional)

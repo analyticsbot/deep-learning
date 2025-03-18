@@ -2,6 +2,7 @@
 Configuration settings for the AI-ML Code Interviewer application.
 """
 import os
+
 from dotenv import load_dotenv
 
 # Load environment variables from .env file if it exists
@@ -29,48 +30,33 @@ LLM_PROVIDERS = {
         "models": [
             "lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF",
             "lmstudio-community/Mistral-7B-Instruct-v0.2-GGUF",
-            "lmstudio-community/Mixtral-8x7B-Instruct-v0.1-GGUF"
-        ]
+            "lmstudio-community/Mixtral-8x7B-Instruct-v0.1-GGUF",
+        ],
     },
     "openai": {
         "name": "OpenAI",
         "base_url": "https://api.openai.com/v1",
         "api_key": "",  # User must provide
-        "models": [
-            "gpt-3.5-turbo",
-            "gpt-4",
-            "gpt-4-turbo",
-            "gpt-4o"
-        ]
+        "models": ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo", "gpt-4o"],
     },
     "anthropic": {
         "name": "Anthropic",
         "base_url": "https://api.anthropic.com/v1",
         "api_key": "",  # User must provide
-        "models": [
-            "claude-3-opus-20240229",
-            "claude-3-sonnet-20240229",
-            "claude-3-haiku-20240307"
-        ]
+        "models": ["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307"],
     },
     "google": {
         "name": "Google AI (Gemini)",
         "base_url": "https://generativelanguage.googleapis.com/v1",
         "api_key": "",  # User must provide
-        "models": [
-            "gemini-pro",
-            "gemini-ultra"
-        ]
+        "models": ["gemini-pro", "gemini-ultra"],
     },
     "grok": {
         "name": "Grok",
         "base_url": "https://api.grok.ai/v1",
         "api_key": "",  # User must provide
-        "models": [
-            "grok-1",
-            "grok-2"
-        ]
-    }
+        "models": ["grok-1", "grok-2"],
+    },
 }
 
 # Topic list
