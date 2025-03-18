@@ -1,6 +1,27 @@
 """
 AI-ML Code Interviewer - Main Application
+
+This Streamlit application helps users prepare for machine learning and deep learning interviews by:
+- Providing coding practice with adjustable difficulty levels
+- Offering multiple-choice questions across various topics
+- Generating explanations and feedback using Large Language Models
+- Allowing configuration of LLM providers and settings
+
+The application is designed to be modular and extensible, with separate components for:
+- Coding practice
+- Quiz generation
+- Settings management
+- Help documentation
+
+Features:
+- Code generation and evaluation
+- Multiple-choice question generation
+- Detailed explanations and feedback
+- Configurable LLM providers (LM Studio, OpenAI, Anthropic, Google Gemini)
+- Code execution control
+- Session history tracking
 """
+import os
 import logging
 
 import streamlit as st
@@ -10,11 +31,16 @@ from help_module import HelpModule
 from quiz_module import QuizModule
 from settings_module import SettingsModule
 
-# Set up logging
+# Ensure logs directory exists
+os.makedirs("logs", exist_ok=True)
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("app.log"), logging.StreamHandler()],
+    handlers=[
+        logging.FileHandler("logs/app.log"),
+        logging.StreamHandler()
+    ],
 )
 logger = logging.getLogger(__name__)
 
@@ -32,33 +58,10 @@ def setup_page():
     )
 
     # Add custom CSS
-    st.markdown(
-        """
-    <style>
-    .stApp {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 24px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        white-space: pre-wrap;
-        background-color: #f0f2f6;
-        border-radius: 4px 4px 0px 0px;
-        gap: 1px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-    .stTabs [aria-selected="true"] {
-        background-color: #e6f0ff;
-        border-bottom: 2px solid #4e89e8;
-    }
-    </style>
-    """,
-        unsafe_allow_html=True,
-    )
+    # Add custom CSS from external file
+    with open("styles/app.css", "r") as f:
+        css = f.read()
+    st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 
 def main():

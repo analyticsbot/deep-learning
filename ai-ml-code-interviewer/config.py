@@ -9,6 +9,12 @@ load_dotenv()
 
 # LLM API settings
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:1234/v1")
+# Provider-specific API keys
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+GROK_API_KEY = os.getenv("GROK_API_KEY", "")
+# For backward compatibility
 LLM_API_KEY = os.getenv("LLM_API_KEY", "lm-studio")
 LLM_MODEL = os.getenv("LLM_MODEL", "lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF")
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.7"))
@@ -54,6 +60,15 @@ LLM_PROVIDERS = {
         "models": [
             "gemini-pro",
             "gemini-ultra"
+        ]
+    },
+    "grok": {
+        "name": "Grok",
+        "base_url": "https://api.grok.ai/v1",
+        "api_key": "",  # User must provide
+        "models": [
+            "grok-1",
+            "grok-2"
         ]
     }
 }
