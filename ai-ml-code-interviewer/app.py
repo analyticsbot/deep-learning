@@ -21,8 +21,8 @@ Features:
 - Code execution control
 - Session history tracking
 """
-import os
 import logging
+import os
 
 import streamlit as st
 from coding_module import CodingModule
@@ -37,10 +37,7 @@ os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.FileHandler("logs/app.log"),
-        logging.StreamHandler()
-    ],
+    handlers=[logging.FileHandler("logs/app.log"), logging.StreamHandler()],
 )
 logger = logging.getLogger(__name__)
 

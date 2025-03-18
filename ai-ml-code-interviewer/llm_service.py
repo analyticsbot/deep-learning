@@ -30,7 +30,7 @@ try:
     GOOGLE_AVAILABLE = True
 except ImportError:
     GOOGLE_AVAILABLE = False
-    
+
 # Grok uses the OpenAI client with a different base URL
 GROK_AVAILABLE = OPENAI_AVAILABLE
 
@@ -68,7 +68,7 @@ class LLMService:
         self.base_url = base_url
         self.model = model
         self.temperature = temperature
-        
+
         # Get the appropriate API key based on the provider
         if api_key is None:
             if provider == "openai":
@@ -96,7 +96,9 @@ class LLMService:
                     logger.warning(f"Error initializing {provider} client: %s", e)
                     logger.info("Falling back to direct API calls via requests")
             else:
-                logger.warning(f"{provider} requires OpenAI package. Falling back to direct API calls.")
+                logger.warning(
+                    f"{provider} requires OpenAI package. Falling back to direct API calls."
+                )
 
         elif provider == "anthropic":
             if ANTHROPIC_AVAILABLE and self.api_key:
