@@ -2,7 +2,6 @@
 Quiz module for the AI-ML Code Interviewer application.
 """
 import logging
-# No unused imports
 
 import config
 import streamlit as st
@@ -10,8 +9,10 @@ import utils
 from history_manager import HistoryManager
 from llm_service import LLMService
 
+# No unused imports
+
+
 # Set up logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -160,8 +161,8 @@ class QuizModule:
                         score=correct_count,
                     )
                     st.success(f"Quiz results saved to history! Session ID: {session_id}")
-                except Exception as e:
-                    logger.error(f"Failed to save quiz results: {str(e)}")
+                except (IOError, ValueError, KeyError) as e:
+                    logger.error("Failed to save quiz results: %s", str(e))
 
                 # Generate explanations for all questions automatically
                 with st.spinner("Generating explanations for all questions..."):
@@ -199,7 +200,8 @@ class QuizModule:
                                 f"Question: {q['question']}\n\n"
                                 f"Options: {', '.join(q['options'])}\n\n"
                                 f"Correct Answer(s): {', '.join(q['answer'])}\n\n"
-                                f"Provide a concise but informative explanation that helps the learner understand the concept."
+                                "Provide a concise but informative explanation that helps "
+                                "the learner understand the concept."
                             )
                             explanation = self.llm_service.generate_response(prompt)
 

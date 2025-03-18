@@ -25,8 +25,11 @@ ENV/
 # Streamlit
 .streamlit/
 
-# Logs
+# Log files
+app.log
 *.log
+error.log
+access.log
 
 # OS specific files
 .DS_Store
