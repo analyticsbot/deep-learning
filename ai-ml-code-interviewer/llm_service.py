@@ -335,53 +335,98 @@ class LLMService:
         Returns:
             Generated code or None if failed
         """
-        package_choice = (
-            "using standard packages" if use_standard_package else "implementing from scratch"
-        )
+        # Consistent system prompt for all cases
+        system_prompt = """You are an expert ML/DL coding assistant. Your task is to generate educational Python code with random blanking based on intensity.
+
+Rules:
+1. Generate complete, functional code with proper structure
+2. Randomly blank out exactly the specified percentage of code sections
+3. Use '...' as a placeholder for blanked sections
+4. Keep important imports and data loading intact
+5. Ensure the remaining code is complete and functional
+6. Add helpful comments explaining blanked sections
+7. Maintain proper code formatting and indentation
+
+Important: Follow the intensity percentage exactly as specified. Do not deviate from the requested percentage.
+"""
+
+        # Construct the prompt based on intensity and package choice
+        if use_standard_package:
+            package_choice = "using standard packages"
+            package_guidance = """Use standard ML/DL libraries (like scikit-learn, tensorflow, etc.) for implementation. Focus on using high-level APIs and built-in functionality. Ensure all necessary imports are included at the top of the file."""
+        else:
+            package_choice = "implementing from scratch"
+            package_guidance = """Implement the algorithm from scratch using only basic Python and numpy. Do not use any high-level ML/DL libraries. Focus on the fundamental mathematical operations and implementation details. Ensure all necessary imports are included at the top of the file."""
 
         if intensity == 0:
-            prompt = f"Provide complete, working Python code for {topic} {package_choice}. Include imports, data generation/loading, implementation, and visualization. The code should be educational and well-commented."
-        elif intensity == 100:
-            prompt = f"Provide a skeleton structure for implementing {topic} {package_choice}. Include function/class definitions with docstrings but leave the implementation details as TODO comments for the user to complete."
-        else:
-            prompt = f"""Provide Python code for {topic} {package_choice} with random blanking based on intensity.
+            prompt = f"""Provide complete, working Python code for {topic} {package_choice}.
+
+Implementation approach:
+{package_guidance}
 
 Instructions:
 1. Generate complete code with imports, data generation/loading, implementation, and visualization
-2. Randomly blank out approximately {intensity}% of the code
+2. The code should be educational and well-commented
+3. Maintain proper code formatting and indentation
+4. Ensure all necessary imports are included at the top of the file
+5. Use only the allowed builtins: abs, all, any, bool, dict, dir, enumerate, filter, float, format, frozenset, hash, int, isinstance, issubclass, len, list, map, max, min, next, object, pow, print, range, repr, reversed, round, set, slice, sorted, str, sum, tuple, type, zip
+"""
+        elif intensity == 100:
+            prompt = f"""Provide a skeleton structure for implementing {topic} {package_choice}.
+
+Implementation approach:
+{package_guidance}
+
+Instructions:
+1. Include function/class definitions with docstrings
+2. Leave implementation details as TODO comments
+3. Maintain proper code structure and formatting
+4. Ensure all necessary imports are included at the top of the file
+"""
+        else:
+            prompt = f"""You are an expert ML/DL coding assistant. Your task is to generate educational Python code with random blanking.
+
+Implementation approach:
+{package_guidance}
+
+Instructions:
+1. Generate complete code with imports, data generation/loading, implementation, and visualization
+2. Randomly blank out exactly {intensity}% of the code sections
 3. For blanked sections, use the placeholder '...' to indicate missing code
 4. Ensure the remaining code is complete and functional
 5. Include helpful comments explaining the purpose of blanked sections
 6. Maintain proper indentation and code structure
+7. Ensure all necessary imports are included at the top of the file
+8. Use only the allowed builtins: abs, all, any, bool, dict, dir, enumerate, filter, float, format, frozenset, hash, int, isinstance, issubclass, len, list, map, max, min, next, object, pow, print, range, repr, reversed, round, set, slice, sorted, str, sum, tuple, type, zip
 
-Example output:
+Example output for 50% intensity:
 ```python
+import numpy as np
+
 def calculate_metrics(y_true, y_pred):
-    Calculate evaluation metrics for classification.
-    accuracy = ...  # Calculate accuracy
-    precision = ...  # Calculate precision
-    recall = ...  # Calculate recall
-    f1 = ...  # Calculate F1 score
+    "Calculate evaluation metrics for classification."
+    # Calculate accuracy
+    accuracy = ...  # Implement accuracy calculation
+    
+    # Calculate precision
+    precision = precision_score(y_true, y_pred)  # Complete implementation
+    
+    # Calculate recall
+    recall = ...  # Implement recall calculation
+    
+    # Calculate F1 score
+    f1 = f1_score(y_true, y_pred)  # Complete implementation
     return accuracy, precision, recall, f1
-
 ```
+
+Note: The example above shows exactly 50% of the code sections blanked out. Ensure you follow this pattern strictly.
 """
-
-        system_prompt = """You are an expert ML/DL coding assistant. Your task is to generate educational Python code with random blanking based on intensity.
-
-            Rules:
-            1. Generate complete, functional code with proper structure
-            2. Randomly blank out sections based on the specified intensity
-            3. Use '...' as a placeholder for blanked sections
-            4. Keep important imports and data loading intact
-            5. Ensure the remaining code is complete and functional
-            6. Add helpful comments explaining blanked sections
-            7. Maintain proper code formatting and indentation"""
 
         logger.info(f"Generating code for topic: {topic}")
         logger.info(f"Using model: {self.model}")
         logger.info(f"Provider: {self.provider}")
         logger.info(f"Intensity: {intensity}%")
+        logger.info(f"Implementation approach: {package_choice}")
 
         try:
             response = self.generate_response(prompt, system_prompt)
