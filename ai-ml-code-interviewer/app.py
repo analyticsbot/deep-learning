@@ -24,10 +24,12 @@ Features:
 import logging
 import os
 
+import config
 import streamlit as st
 from coding_module import CodingModule
 from dotenv import load_dotenv
 from help_module import HelpModule
+from llm_service import LLMService
 from quiz_module import QuizModule
 from settings_module import SettingsModule
 
@@ -61,10 +63,59 @@ def setup_page():
     st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
 
 
+def check_lm_studio_models():
+    """
+    Check if LM Studio has loaded models and display appropriate message.
+    """
+    llm_service = LLMService()
+    loaded_models = llm_service.check_loaded_models()
+
+    if not loaded_models:
+        st.error(
+            """
+        No models are loaded in LM Studio. Please:
+        1. Start LM Studio
+        2. Load a model
+        3. Restart this application
+        """
+        )
+        st.stop()
+
+    # Update the model selection in settings if needed
+    available_models = [model.get("id", "") for model in loaded_models["data"]]
+    if config.LLM_MODEL not in available_models:
+        if available_models:
+            config.LLM_MODEL = available_models[0]  # Use the first available model
+            st.info(f"Switched to model: {config.LLM_MODEL}")
+            # Update environment variable
+            os.environ["LLM_MODEL"] = config.LLM_MODEL
+        else:
+            st.error("No models available in LM Studio. Please load a model.")
+            st.stop()
+
+    # Verify the model is properly set in the LLM service
+    try:
+        llm_service = LLMService(
+            provider=config.LLM_PROVIDER,
+            model=config.LLM_MODEL,
+            base_url=config.LLM_BASE_URL,
+            api_key=config.LLM_API_KEY,
+        )
+        logger.info(f"Initialized LLM service with model: {config.LLM_MODEL}")
+    except Exception as e:
+        logger.error(f"Error initializing LLM service: {str(e)}")
+        st.error("Failed to initialize LLM service. Please check your settings and try again.")
+        st.stop()
+
+
 def main():
     """Main application entry point."""
     # Set up the page
     setup_page()
+
+    # Check LM Studio models at startup
+    if config.LLM_PROVIDER == "lmstudio":
+        check_lm_studio_models()
 
     # App title and description
     st.title("Machine Learning & Deep Learning Interview Preparation")

@@ -325,11 +325,11 @@ class LLMService:
         self, topic: str, intensity: int, use_standard_package: bool
     ) -> Optional[str]:
         """
-        Generate code for a specific ML/DL topic.
+        Generate code for a specific ML/DL topic with random blanking based on intensity.
 
         Args:
             topic: ML/DL topic to generate code for
-            intensity: Coding intensity (0-100)
+            intensity: Coding intensity (0-100) - percentage of code to be left blank
             use_standard_package: Whether to use standard packages or implement from scratch
 
         Returns:
@@ -344,11 +344,56 @@ class LLMService:
         elif intensity == 100:
             prompt = f"Provide a skeleton structure for implementing {topic} {package_choice}. Include function/class definitions with docstrings but leave the implementation details as TODO comments for the user to complete."
         else:
-            prompt = f"Provide partially implemented Python code for {topic} {package_choice}, with about {intensity}% of the implementation left for the user to complete. Mark incomplete sections with TODO comments. Include imports, data generation/loading, partial implementation, and visualization."
+            prompt = f"""Provide Python code for {topic} {package_choice} with random blanking based on intensity.
 
-        system_prompt = "You are an expert ML/DL coding assistant. Provide clean, educational Python code that follows best practices. Include helpful comments and explanations."
+Instructions:
+1. Generate complete code with imports, data generation/loading, implementation, and visualization
+2. Randomly blank out approximately {intensity}% of the code
+3. For blanked sections, use the placeholder '...' to indicate missing code
+4. Ensure the remaining code is complete and functional
+5. Include helpful comments explaining the purpose of blanked sections
+6. Maintain proper indentation and code structure
 
-        return self.generate_response(prompt, system_prompt)
+Example output:
+```python
+def calculate_metrics(y_true, y_pred):
+    Calculate evaluation metrics for classification.
+    accuracy = ...  # Calculate accuracy
+    precision = ...  # Calculate precision
+    recall = ...  # Calculate recall
+    f1 = ...  # Calculate F1 score
+    return accuracy, precision, recall, f1
+
+```
+"""
+
+        system_prompt = """You are an expert ML/DL coding assistant. Your task is to generate educational Python code with random blanking based on intensity.
+
+            Rules:
+            1. Generate complete, functional code with proper structure
+            2. Randomly blank out sections based on the specified intensity
+            3. Use '...' as a placeholder for blanked sections
+            4. Keep important imports and data loading intact
+            5. Ensure the remaining code is complete and functional
+            6. Add helpful comments explaining blanked sections
+            7. Maintain proper code formatting and indentation"""
+
+        logger.info(f"Generating code for topic: {topic}")
+        logger.info(f"Using model: {self.model}")
+        logger.info(f"Provider: {self.provider}")
+        logger.info(f"Intensity: {intensity}%")
+
+        try:
+            response = self.generate_response(prompt, system_prompt)
+            if not response:
+                logger.error("No response received from LLM")
+                return None
+
+            logger.info("Successfully generated code")
+            return response
+        except Exception as e:
+            logger.error(f"Error generating code: {str(e)}")
+            return None
 
     def generate_quiz(
         self, topic: str, num_questions: int, difficulty: str
@@ -458,3 +503,23 @@ Format your response as a JSON array of objects with the following structure:
             logger.error(f"Failed to parse LLM response: {str(e)}")
             logger.debug(f"Response content: {response}")
             return None
+
+    def check_loaded_models(self) -> List[Dict[str, Any]]:
+        """
+        Check the loaded models in LM Studio.
+
+        Returns:
+            List[Dict[str, Any]]: List of loaded models with their details
+        """
+        if self.provider != "lmstudio":
+            return []
+
+        try:
+            response = requests.get(
+                f"{self.base_url}/models", headers={"Authorization": f"Bearer {self.api_key}"}
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error checking loaded models: {e}")
+            return []
