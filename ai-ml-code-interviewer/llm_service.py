@@ -353,10 +353,10 @@ Important: Follow the intensity percentage exactly as specified. Do not deviate 
         # Construct the prompt based on intensity and package choice
         if use_standard_package:
             package_choice = "using standard packages"
-            package_guidance = """Use standard ML/DL libraries (like scikit-learn, tensorflow, etc.) for implementation. Focus on using high-level APIs and built-in functionality."""
+            package_guidance = """Use standard ML/DL libraries (like scikit-learn, tensorflow, etc.) for implementation. Focus on using high-level APIs and built-in functionality. Ensure all necessary imports are included at the top of the file."""
         else:
             package_choice = "implementing from scratch"
-            package_guidance = """Implement the algorithm from scratch using only basic Python and numpy. Do not use any high-level ML/DL libraries. Focus on the fundamental mathematical operations and implementation details."""
+            package_guidance = """Implement the algorithm from scratch using only basic Python and numpy. Do not use any high-level ML/DL libraries. Focus on the fundamental mathematical operations and implementation details. Ensure all necessary imports are included at the top of the file."""
 
         if intensity == 0:
             prompt = f"""Provide complete, working Python code for {topic} {package_choice}.
@@ -368,6 +368,8 @@ Instructions:
 1. Generate complete code with imports, data generation/loading, implementation, and visualization
 2. The code should be educational and well-commented
 3. Maintain proper code formatting and indentation
+4. Ensure all necessary imports are included at the top of the file
+5. Use only the allowed builtins: abs, all, any, bool, dict, dir, enumerate, filter, float, format, frozenset, hash, int, isinstance, issubclass, len, list, map, max, min, next, object, pow, print, range, repr, reversed, round, set, slice, sorted, str, sum, tuple, type, zip
 """
         elif intensity == 100:
             prompt = f"""Provide a skeleton structure for implementing {topic} {package_choice}.
@@ -379,6 +381,7 @@ Instructions:
 1. Include function/class definitions with docstrings
 2. Leave implementation details as TODO comments
 3. Maintain proper code structure and formatting
+4. Ensure all necessary imports are included at the top of the file
 """
         else:
             prompt = f"""You are an expert ML/DL coding assistant. Your task is to generate educational Python code with random blanking.
@@ -393,9 +396,13 @@ Instructions:
 4. Ensure the remaining code is complete and functional
 5. Include helpful comments explaining the purpose of blanked sections
 6. Maintain proper indentation and code structure
+7. Ensure all necessary imports are included at the top of the file
+8. Use only the allowed builtins: abs, all, any, bool, dict, dir, enumerate, filter, float, format, frozenset, hash, int, isinstance, issubclass, len, list, map, max, min, next, object, pow, print, range, repr, reversed, round, set, slice, sorted, str, sum, tuple, type, zip
 
 Example output for 50% intensity:
 ```python
+import numpy as np
+
 def calculate_metrics(y_true, y_pred):
     "Calculate evaluation metrics for classification."
     # Calculate accuracy
