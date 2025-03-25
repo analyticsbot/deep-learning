@@ -28,9 +28,9 @@ LLM_PROVIDERS = {
         "base_url": "http://localhost:1234/v1",
         "api_key": "lm-studio",
         "models": [
-            "lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF",
-            "lmstudio-community/Mistral-7B-Instruct-v0.2-GGUF",
-            "lmstudio-community/Mixtral-8x7B-Instruct-v0.1-GGUF",
+            #     "lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF",
+            #     "lmstudio-community/Mistral-7B-Instruct-v0.2-GGUF",
+            #     "lmstudio-community/Mixtral-8x7B-Instruct-v0.1-GGUF",
         ],
     },
     "openai": {
