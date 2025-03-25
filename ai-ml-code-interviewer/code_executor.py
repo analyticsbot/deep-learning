@@ -37,7 +37,7 @@ class CodeExecutor:
         error_msg = ""
         
         try:
-            # Create a restricted globals dictionary
+            # Create a restricted globals dictionary with basic builtins
             restricted_globals = {
                 "__builtins__": {
                     name: getattr(__builtins__, name)
@@ -80,9 +80,25 @@ class CodeExecutor:
             
             # Execute the code with captured output
             with contextlib.redirect_stdout(stdout_capture), contextlib.redirect_stderr(stderr_capture):
-                # Use exec with restricted globals
-                exec(code, restricted_globals)
-            
+                # First, try to execute the code directly
+                try:
+                    exec(code, restricted_globals)
+                except NameError as e:
+                    # If we get a NameError, it might be because of missing imports
+                    # Let's try to extract imports from the code and execute them first
+                    import_lines = []
+                    code_lines = code.split('\n')
+                    for line in code_lines:
+                        if line.strip().startswith(('import ', 'from ')):
+                            import_lines.append(line)
+                    
+                    # Execute imports first
+                    for import_line in import_lines:
+                        exec(import_line, restricted_globals)
+                    
+                    # Then execute the rest of the code
+                    exec(code, restricted_globals)
+                
             output = stdout_capture.getvalue()
             success = True
         except Exception as e:

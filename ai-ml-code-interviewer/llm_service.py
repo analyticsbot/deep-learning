@@ -335,10 +335,6 @@ class LLMService:
         Returns:
             Generated code or None if failed
         """
-        package_choice = (
-            "using standard packages" if use_standard_package else "implementing from scratch"
-        )
-
         # Consistent system prompt for all cases
         system_prompt = """You are an expert ML/DL coding assistant. Your task is to generate educational Python code with random blanking based on intensity.
 
@@ -354,9 +350,19 @@ Rules:
 Important: Follow the intensity percentage exactly as specified. Do not deviate from the requested percentage.
 """
 
-        # Construct the prompt based on intensity
+        # Construct the prompt based on intensity and package choice
+        if use_standard_package:
+            package_choice = "using standard packages"
+            package_guidance = """Use standard ML/DL libraries (like scikit-learn, tensorflow, etc.) for implementation. Focus on using high-level APIs and built-in functionality."""
+        else:
+            package_choice = "implementing from scratch"
+            package_guidance = """Implement the algorithm from scratch using only basic Python and numpy. Do not use any high-level ML/DL libraries. Focus on the fundamental mathematical operations and implementation details."""
+
         if intensity == 0:
             prompt = f"""Provide complete, working Python code for {topic} {package_choice}.
+
+Implementation approach:
+{package_guidance}
 
 Instructions:
 1. Generate complete code with imports, data generation/loading, implementation, and visualization
@@ -366,6 +372,9 @@ Instructions:
         elif intensity == 100:
             prompt = f"""Provide a skeleton structure for implementing {topic} {package_choice}.
 
+Implementation approach:
+{package_guidance}
+
 Instructions:
 1. Include function/class definitions with docstrings
 2. Leave implementation details as TODO comments
@@ -373,6 +382,9 @@ Instructions:
 """
         else:
             prompt = f"""You are an expert ML/DL coding assistant. Your task is to generate educational Python code with random blanking.
+
+Implementation approach:
+{package_guidance}
 
 Instructions:
 1. Generate complete code with imports, data generation/loading, implementation, and visualization
@@ -407,6 +419,7 @@ Note: The example above shows exactly 50% of the code sections blanked out. Ensu
         logger.info(f"Using model: {self.model}")
         logger.info(f"Provider: {self.provider}")
         logger.info(f"Intensity: {intensity}%")
+        logger.info(f"Implementation approach: {package_choice}")
 
         try:
             response = self.generate_response(prompt, system_prompt)
