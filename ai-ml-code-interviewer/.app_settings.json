@@ -1,8 +1,0 @@
-{
-  "llm_provider": "lmstudio",
-  "llm_base_url": "http://localhost:1234/v1",
-  "llm_api_key": "lm-studio",
-  "llm_model": "lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF",
-  "llm_temperature": 0.7,
-  "enable_code_execution": true
-}
